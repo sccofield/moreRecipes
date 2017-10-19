@@ -1,0 +1,136 @@
+body {
+  
+}
+
+header {
+ background: url(../img/lope.jpg); 
+ background-size: contain;
+}
+
+.nav-item a{
+  color: #ffffff !important;
+}
+.brand a{
+  font-size: 4em;
+  font-family: 'Lobster', cursive;
+  color: #1FBBEF !important;
+}
+
+.jumbotron {
+  padding: 7rem 5rem;
+  background-color: transparent;
+  color:#ffffff;
+}
+.jumbotron h2 {
+  
+  font-size:3em; 
+}
+
+.recipeButton {
+  background-color: #1FBBEF;
+  border-color: #1FBBEF; 
+}
+
+.recipes {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+
+@media (max-width: 991px) { 
+  .jumbotron {
+    padding: 0;
+    padding-top: 5rem 2rem;
+    
+  }
+  .jumbotron h2 {
+    font-size: 2em;
+  }
+
+}
+
+.card .btn-action {
+  margin: -23px 20px -23px auto;
+  background-color: #1FBBEF;
+  height: 47px;
+  width: 47px;
+  line-height: 0;
+}
+
+.btn-floating {
+  z-index: 1;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 50%;
+  
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.card .btn-action .fa.fa-chevron-right {
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+.btn-floating i {
+  width: inherit;
+  font-size: 1.25rem;
+  line-height: 47px;
+  text-align: center;
+}
+
+.btn-floating i {
+  display: inline-block;
+  color: #fff;
+}
+
+.card .card-data {
+  background-color: #1FBBEF;
+  color: #fff;
+  text-align: center;
+  height: auto;
+  padding: 10px;
+}
+
+.card .card-data ul {
+  margin-bottom: 0;
+  font-size: .9rem;
+}
+
+.card .card-data ul li {
+  display: inline;
+  color: white;
+  padding: 1rem;
+}
+
+hr {
+  border-top: 2px solid #1FBBEF;
+}
+
+.cta {
+  background-color: #F8F9FD;
+  
+  padding: 3rem;
+}
+
+footer{
+  background-color: black;
+  color: white;
+  padding: 2rem;
+}
+
+footer .brand a {
+  font-size: 3em !important; 
+  text-decoration: none;
+  margin: auto;
+}
+
+footer ul {
+  padding: 0px;
+}
+
+footer ul li {
+  list-style: none;
+}
+
+
