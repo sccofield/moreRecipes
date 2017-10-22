@@ -199,6 +199,12 @@ main {
     font-size: 2em;
   }
 
+  footer .brand a {
+    font-size: 2em !important;
+    text-decoration: none;
+    margin: auto;
+  }
+
   .section-description {
     margin-left: 5%;
     margin-right: 5%;
