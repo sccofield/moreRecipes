@@ -118,6 +118,10 @@ hr {
   padding: 3rem;
 }
 
+.card-body a {
+  text-decoration: none;
+}
+
 footer{
   background-color: black;
   color: white;
