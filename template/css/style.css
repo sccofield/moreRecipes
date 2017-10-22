@@ -160,7 +160,14 @@ footer ul li {
   margin: 2rem auto 2rem auto;
 }
 
+.author {
+  height: 15%;
+  border-radius: 50%;
+}
 
+main {
+  margin: 2rem;
+}
 
 
 
