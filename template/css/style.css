@@ -1,6 +1,3 @@
-body {
-}
-
 header {
   background: url(../img/front.jpg);
   background-size: contain;
@@ -185,7 +182,6 @@ main {
   text-align: center;
 }
 
-
 @media (max-width: 991px) {
   .jumbotron {
     padding: 0;
@@ -213,16 +209,14 @@ main {
   .section-description {
     margin-left: 5%;
     margin-right: 5%;
-}
+  }
 
-.section .section-heading {
-  margin-bottom: 2rem;
-}
+  .section .section-heading {
+    margin-bottom: 2rem;
+  }
 
-.jumbotron p {
-  font-size: 1em;
-  font-weight: normal;
+  .jumbotron p {
+    font-size: 1em;
+    font-weight: normal;
+  }
 }
-}
-
-
