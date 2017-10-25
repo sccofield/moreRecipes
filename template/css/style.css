@@ -1,14 +1,31 @@
 header {
   background: url(../img/front.jpg);
   background-size: contain;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
-.nav-item a {
-  color: #ffffff !important;
+/* .nav-item a {
+  color: #ffffff;
+  border: 2px solid white;
+  margin: 0.2rem;
+  border-radius: 5px;
+} */
+
+.navbar .nav .nav-item a {
+  color: #ffffff;
+  border: 2px solid white;
+  margin: 0.2rem;
+  border-radius: 5px;
 }
+
+.navbar .nav .nav-item a:hover {
+  color: #1fbbef;
+  border: 2px solid #1fbbef;;
+}
+
+
 .brand a {
-  font-size: 4em;
+  font-size: 3.5em;
   font-family: "Lobster", cursive;
   color: #1fbbef !important;
 }
