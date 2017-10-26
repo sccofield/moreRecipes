@@ -108,6 +108,27 @@ class RecipeController {
       }
     });
   }
+
+  /**
+   * delete recipe
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  getAllRecipes(req, res) {
+    if (req.query.sort === 'upvotes' && req.query.order === 'des') {
+      return res.status(200).json({
+        status: 'success',
+        recipes: recipes.sort((a, b) => b.votes - a.votes)
+      });
+    }
+    return res.status(200).json({
+      status: 'success',
+      recipes
+
+    });
+  }
 }
 
 export default RecipeController;
