@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/sccofield/moreRecipes.svg?branch=develop)](https://travis-ci.org/sccofield/moreRecipes)
+[![Coverage Status](https://coveralls.io/repos/github/sccofield/moreRecipes/badge.svg?branch=master)](https://coveralls.io/github/sccofield/moreRecipes?branch=master)
 
 # More-Recipes
 ## Product description
