@@ -11,6 +11,9 @@ const routes = (app) => {
 
   // delete recipe
   app.delete('/api/v1/recipes/:id', recipe.deleteRecipe);
+
+  // Get all recipes
+  app.get('/api/v1/recipes', recipe.getAllRecipes);
 };
 
 export default routes;
