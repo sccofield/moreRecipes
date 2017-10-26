@@ -8,6 +8,9 @@ const routes = (app) => {
 
   // edit recipe
   app.put('/api/v1/recipes/:id', recipe.editRecipe);
+
+  // delete recipe
+  app.delete('/api/v1/recipes/:id', recipe.deleteRecipe);
 };
 
 export default routes;

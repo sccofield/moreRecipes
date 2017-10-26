@@ -86,6 +86,28 @@ class RecipeController {
     }
     return res.status(404).send(`recipe with id ${id} not found`);
   }
+
+  /**
+   * delete recipe
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  deleteRecipe(req, res) {
+    const { id } = req.params;
+
+    recipes.forEach((recipe) => {
+      if (recipe.id === parseInt(id, 10)) {
+        const newRecipes = recipes.filter(data => data.id !== parseInt(id, 10));
+        return res.status(200).json({
+          status: 'success',
+          message: 'Recipe deleted',
+          recipe: newRecipes
+        });
+      }
+    });
+  }
 }
 
 export default RecipeController;
