@@ -129,6 +129,43 @@ class RecipeController {
 
     });
   }
+
+  /**
+   * add review
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  addReview(req, res) {
+    const { id } = req.params;
+    const { user } = req.body;
+    const { review } = req.body;
+    const created = new Date();
+    let editRecipes;
+
+    const newReview = {
+      user,
+      review,
+      created
+    };
+
+    recipes.forEach((recipe) => {
+      if (recipe.id === parseInt(id, 10)) {
+        recipe.reviews.push(newReview);
+
+        editRecipes = recipe;
+      }
+    });
+    if (editRecipes) {
+      return res.status(200).json({
+        status: 'success',
+        message: 'Review added',
+        recipe: editRecipes
+      });
+    }
+    return res.status(404).send(`recipe with id ${id} not found`);
+  }
 }
 
 export default RecipeController;

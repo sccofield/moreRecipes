@@ -14,6 +14,9 @@ const routes = (app) => {
 
   // Get all recipes
   app.get('/api/v1/recipes', recipe.getAllRecipes);
+
+  // Add review
+  app.post('/api/v1/recipes/:id/reviews', recipe.addReview)
 };
 
 export default routes;
