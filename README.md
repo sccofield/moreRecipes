@@ -40,6 +40,10 @@ cd projects
 ```
 git clone https://github.com/sccofield/moreRecipes.git 
 ```
+run npm install and npm run start:dev
+```
+npm install && npm run start:dev
+```
 
 ## Built With
 The following tools, libraries and frameworks has been used on this project

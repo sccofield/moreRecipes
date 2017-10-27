@@ -16,6 +16,14 @@ describe('Testing API endpoints', () => {
           done();
         });
     });
+    it('shoud return 200 with /api/v1/recipes?sort=upvotes&order=des', (done) => {
+      chai.request(app)
+        .get('/api/v1/recipes?sort=upvotes&order=des')
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
     it('should return an object with property status equal to success', (done) => {
       chai.request(app)
         .get('/api/v1/recipes')
@@ -71,6 +79,34 @@ describe('Testing API endpoints', () => {
           done();
         });
     });
+    it('should return 400 when the description is not given', (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({
+          title: 'Eba stew',
+          ingredients: 'eba',
+          author: 'Mike'
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it('should return 400 when the ingredient is not given', (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({
+          title: 'Eba stew',
+          description: 'eba',
+          author: 'Mike'
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
     it('should return 400 when the title is not given', (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
@@ -87,12 +123,38 @@ describe('Testing API endpoints', () => {
     });
   });
   describe('API endpoint to modify a recipe', () => {
-    it('shoud return 201 when the id is correct', (done) => {
+    it('shoud return 201 when the id is correct and title and ingredient is given', (done) => {
       chai.request(app)
         .put('/api/v1/recipes/1')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({
           title: 'mike',
+          ingredients: 'mhfmf'
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+    it('shoud return 201 when the id is correct and title and description is given', (done) => {
+      chai.request(app)
+        .put('/api/v1/recipes/1')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({
+          title: 'mike',
+          description: 'mhfmf'
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+    it('shoud return 201 when the id is correct and description and ingredient is given', (done) => {
+      chai.request(app)
+        .put('/api/v1/recipes/1')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({
+          description: 'mike',
           ingredients: 'mhfmf'
         })
         .end((err, res) => {
