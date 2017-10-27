@@ -17,7 +17,7 @@ class RecipeController {
     const { title } = req.body;
     const created = new Date();
     const { description } = req.body;
-    const ingredients = req.body.ingredients.split(',');
+    const { ingredients } = req.body;
 
     // validation to ensure all fields are available
     if (!author) {
@@ -41,7 +41,7 @@ class RecipeController {
       author,
       title,
       created,
-      ingredients: [ingredients],
+      ingredients,
       description,
       votes: 0,
       reviews: []
@@ -70,8 +70,7 @@ class RecipeController {
     recipes.forEach((recipe) => {
       if (recipe.id === parseInt(id, 10)) {
         recipe.title = req.body.title || recipe.title;
-        recipe.ingredients =
-          req.body.ingredients.split(',') || recipe.ingredients;
+        recipe.ingredients = req.body.ingredients || recipe.ingredients;
         recipe.description = req.body.description || recipe.description;
 
         editRecipe = recipe;
