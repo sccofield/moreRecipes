@@ -9,7 +9,8 @@
     "build": "./node_modules/.bin/babel server -d build",
     "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
     "test": "nyc --reporter=text mocha server/test/*.js --exit --require babel-register --reporter spec",
-    "coverage": "nyc reports --reporter=text-lcov | coveralls"
+    "coverage": "nyc reports --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,8 @@
     "mocha": "^4.0.1",
     "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.12.1",
-    "nyc": "^11.2.1"
+    "nyc": "^11.2.1",
+    "node-sass": "^4.5.3",
+    "istanbul": "^0.4.5"
   }
 }
