@@ -8,7 +8,8 @@
     "babel-node": "babel-node --",
     "build": "./node_modules/.bin/babel server -d build",
     "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
-    "test": "nyc --reporter=text mocha server/test/*.js --exit --require babel-register --reporter spec"
+    "test": "nyc --reporter=text mocha server/test/*.js --exit --require babel-register --reporter spec",
+    "coverage": "nyc reports --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
