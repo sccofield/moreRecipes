@@ -12,6 +12,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 
   <body>
@@ -36,6 +37,9 @@
                       <li class="nav-item">
                         <a class="nav-link" href="postRecipe.html">Post Recipe</a>
                       </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="profile.html">profile</a>
+                        </li>
         
                       <li class="nav-item">
                         <a class="nav-link" href="login.html">Login</a>
@@ -55,7 +59,7 @@
 
     <main>
       <div class="container">
-        <div class="row">
+        <div class="row justify-content-md-center">
           <div class="col-md-9">
             <div class="recipeTitle">
               <h2>Thai pork meatballs with vegetable noodles</h2>
@@ -64,10 +68,13 @@
                 <p>by
                   <span>Joe Mourino</span>
                 </p>
-                <a class="btn btn-primary recipeButton" href="#" role="button">
-                  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Up vote</a>
-                <a class="btn btn-primary recipeButton" href="#" role="button">
-                  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> down votes</a>
+                <a class="btn btn-outline-info">
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> upvote</a>
+                  <a class="btn btn-outline-info">
+                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> downvote</a>
+                  <a class="btn btn-outline-info">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                  </a>
               </div>
 
               <div class="ingredients">
@@ -107,12 +114,7 @@
             </div>
           </div>
 
-          <div class="col-md-3 similarRecipes">
-            <h2>Similar Recipes</h2>
-
-
           </div>
-        </div>
 
 
       </div>
