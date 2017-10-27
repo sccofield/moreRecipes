@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/sccofield/moreRecipes.svg?branch=develop)](https://travis-ci.org/sccofield/moreRecipes)
+[![Coverage Status](https://coveralls.io/repos/github/sccofield/moreRecipes/badge.svg)](https://coveralls.io/github/sccofield/moreRecipes)
+
 # More-Recipes
 ## Product description
 More Recipes provides a platform for users to share awesome and exciting recipe ideas they have invented or learnt.
