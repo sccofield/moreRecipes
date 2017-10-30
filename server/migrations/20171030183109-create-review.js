@@ -1,20 +1,21 @@
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userName: {
+      review: {
         type: Sequelize.STRING
       },
-      email: {
-        type: Sequelize.STRING
+      recipe_id: {
+        type: Sequelize.NUMBER
       },
-      password: {
-        type: Sequelize.STRING
+      user_id: {
+        type: Sequelize.NUMBER
       },
       createdAt: {
         allowNull: false,
@@ -27,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Reviews');
   }
 };
