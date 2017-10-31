@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Favorite = sequelize.define('Favorite', {
     userId: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
     },
     recipeId: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     }
   }, {
     classMethods: {

@@ -9,10 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       recipeId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Recipes',
+          key: 'id',
+          as: 'recipe'
+        }
       },
       userId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'user'
+        }
       },
       vote: {
         type: Sequelize.BOOLEAN

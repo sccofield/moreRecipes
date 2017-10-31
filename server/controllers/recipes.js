@@ -1,4 +1,6 @@
-import recipes from '../models/Recipes';
+// ssimport models from '../models';
+
+import recipes from '../../Recipesdata';
 
 /**
  * @class RecipeController
@@ -12,6 +14,12 @@ class RecipeController {
    * @memberof RecipeController
    */
   postRecipe(req, res) {
+    const decoded = jwt.decode(req.query.token || req.body.token || req.headers.token);
+    if (!decoded) {
+      return res.status(401).json({
+        message: 'you have to be logged in to create recipe',
+      });
+    }
     const id = recipes.length + 1;
     const { author } = req.body;
     const { title } = req.body;

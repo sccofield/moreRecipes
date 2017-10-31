@@ -1,11 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
-    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,13 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     ingredients: {
-      type: DataTypes.ARRAY,
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     votes: {
-      type: DataTypes.ARRAY
+      type: DataTypes.ARRAY(DataTypes.STRING)
     },
     views: {
-      type: DataTypes.INTERGER
+      type: DataTypes.INTEGER
     }
   }, {
     classMethods: {
