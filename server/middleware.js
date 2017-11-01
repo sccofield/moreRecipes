@@ -1,5 +1,8 @@
 import jwt from 'jsonwebtoken';
 
+const secret = 'I love andela';
+
+
 /**
  * @class middleware
  */
@@ -12,47 +15,24 @@ class Middleware {
    * @returns {json} json
    * @memberof UserController
    */
-  checkToken(req, res, next) {
-    const decoded = jwt.decode(req.query.token || req.body.token || req.headers.token);
-    if (!decoded) {
-      return res.status(401).json({
-        message: 'you have to be logged in to create recipe',
+  verifyToken(req, res, next) {
+    const token = req.body.token || req.query.token || req.headers.token;
+    if (token) {
+      jwt.verify(token, secret, (err, decoded) => {
+        if (err) {
+          return res.json({ success: false, message: 'Failed to authenticate token.' });
+        }
+        req.decoded = decoded;
+        // console.log(req.decoded);
+        // console.log(req.decoded.id);
+        next();
+      });
+    } else {
+      return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
       });
     }
-    next();
-  }
-  /**
-   * authenticate user
-   * @param {object} req expres req object
-   * @param {object} res exp res object
-   * @returns {json} json
-   * @memberof userController
-   */
-  signin(req, res) {
-    db.User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    })
-      .then((user) => {
-        if (!user) {
-          return res.status(400).send({
-            message: 'invalid login details',
-          });
-        }
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
-          return res.status(400).send({
-            message: 'Incorrect password',
-          });
-        }
-        const token = jwt.sign({ user }, 'secret', { expiresIn: 7200 });
-        res.status(200).send({
-          message: 'Successfully signin',
-          token,
-          userId: user.id,
-        });
-      })
-      .catch(error => res.status(500).send(error));
   }
 }
 

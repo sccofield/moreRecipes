@@ -11,20 +11,20 @@ module.exports = {
       review: {
         type: Sequelize.STRING
       },
-      recipe_id: {
+      recipeId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Recipes',
           key: 'id',
-          as: 'recipe'
+          as: 'recipeId'
         }
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
           key: 'id',
-          as: 'user'
+          as: 'userId'
         }
       },
       createdAt: {

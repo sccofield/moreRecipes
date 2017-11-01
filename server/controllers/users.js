@@ -3,7 +3,10 @@ import bcrypt from 'bcrypt';
 
 import db from '../models';
 
+
 const saltRounds = 10;
+const secret = 'I love andela';
+
 
 /**
  * @class UserController
@@ -60,7 +63,7 @@ class UserController {
             message: 'Incorrect password',
           });
         }
-        const token = jwt.sign({ user }, 'secret', { expiresIn: 7200 });
+        const token = jwt.sign({ id: user.id }, secret, { expiresIn: 7200 });
         res.status(200).send({
           message: 'Successfully signin',
           token,

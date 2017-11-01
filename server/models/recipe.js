@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     ingredients: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
     },
     votes: {
-      type: DataTypes.ARRAY(DataTypes.STRING)
+      type: DataTypes.INTEGER
     },
     views: {
       type: DataTypes.INTEGER

@@ -3,6 +3,7 @@ module.exports = {
     return queryInterface.createTable('Recipes', {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
@@ -14,7 +15,7 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-          as: 'user'
+          as: 'userId'
         }
       },
       description: {
@@ -24,10 +25,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       ingredients: {
-        type: Sequelize.ARRAY(Sequelize.STRING)
+        type: Sequelize.STRING
       },
       votes: {
-        type: Sequelize.ARRAY(Sequelize.STRING)
+        type: Sequelize.INTEGER
       },
       views: {
         type: Sequelize.INTEGER
