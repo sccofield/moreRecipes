@@ -15,7 +15,7 @@ class Middleware {
    * @returns {json} json
    * @memberof UserController
    */
-  verifyToken(req, res, next) {
+  static verifyToken(req, res, next) {
     const token = req.body.token || req.query.token || req.headers.token;
     if (token) {
       jwt.verify(token, secret, (err, decoded) => {

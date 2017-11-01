@@ -19,8 +19,13 @@ class UserController {
    * @returns {json} json
    * @memberof UserController
    */
-  signup(req, res) {
-    if (!req.body.password === req.body.confirmPassword) {
+  static signup(req, res) {
+    if (!(req.body.username && req.body.email && req.body.password && req.body.cPassword)) {
+      return res.status(500).json({
+        message: 'Please fill in all the details'
+      });
+    }
+    if (req.body.password !== req.body.cPassword) {
       return res.status(500).json({
         message: 'password do not match'
       });
@@ -46,7 +51,7 @@ class UserController {
    * @returns {json} json
    * @memberof userController
    */
-  signin(req, res) {
+  static signin(req, res) {
     db.User.findOne({
       where: {
         email: req.body.email,

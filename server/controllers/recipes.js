@@ -11,7 +11,7 @@ class RecipeController {
    * @returns {json} json
    * @memberof RecipeController
    */
-  postRecipe(req, res) {
+  static postRecipe(req, res) {
     db.Recipe.create({
       title: req.body.title,
       description: req.body.description,
@@ -32,7 +32,7 @@ class RecipeController {
    * @returns {json} json
    * @memberof RecipeController
    */
-  editRecipe(req, res) {
+  static editRecipe(req, res) {
     const { id } = req.params;
     db.Recipe.findOne({ where: { id, userId: req.decoded.id } })
       .then((recipe) => {
@@ -63,7 +63,7 @@ class RecipeController {
    * @returns {json} json
    * @memberof RecipeController
    */
-  deleteRecipe(req, res) {
+  static deleteRecipe(req, res) {
     const { id } = req.params;
 
     db.Recipe.findOne({ where: { id, userId: req.decoded.id } })
@@ -92,26 +92,36 @@ class RecipeController {
    * @returns {json} json
    * @memberof RecipeController
    */
-  getAllRecipes(req, res) {
-    if (req.query.sort === 'upvotes' && req.query.order === 'des') {
-      return res.status(200).json({
-        status: 'success',
-        recipes: recipes.sort((a, b) => b.votes - a.votes)
-      });
+  static getAllRecipes(req, res) {
+    if (req.query.sort) {
+      db.Recipe.findAll({ order: [['votes', 'DESC']] })
+        .then((recipes) => {
+          res.status(200).json({
+            status: 'success',
+            recipes,
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            status: 'fail',
+            message: error
+          });
+        });
+    } else {
+      db.Recipe.findAll()
+        .then((recipes) => {
+          res.status(200).json({
+            status: 'success',
+            recipes,
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            status: 'fail',
+            message: error
+          });
+        });
     }
-    db.Recipe.findAll()
-      .then((recipes) => {
-        res.status(200).json({
-          status: 'success',
-          recipes,
-        });
-      })
-      .catch((error) => {
-        res.status(500).json({
-          status: 'fail',
-          message: error
-        });
-      });
   }
 
   /**
@@ -121,7 +131,7 @@ class RecipeController {
    * @returns {json} json
    * @memberof RecipeController
    */
-  addReview(req, res) {
+  static addReview(req, res) {
     const { id } = req.params;
 
     db.Recipe.findOne({ where: { id } })
@@ -142,6 +152,20 @@ class RecipeController {
       })
       .catch(error => res.status(400).json({ status: 'fail', message: error }));
   }
+  /**
+   * add review
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  static addFavorite(req, res) {
+    const { id } = req.params;
+
+    
+  }
+
+
 }
 
 export default RecipeController;
