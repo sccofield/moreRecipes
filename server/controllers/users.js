@@ -42,6 +42,49 @@ class UserController {
         message: error.errors[0].message
       }));
   }
+  /**
+   * authenticate user
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof userController
+   */
+  static signin(req, res) {
+    if (!req.body.email) {
+      return res.status(400).send({
+        message: 'Please input your email'
+      });
+    }
+    if (!req.body.password) {
+      return res.status(400).send({
+        message: 'Please input your password'
+      });
+    }
+    db.User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    })
+      .then((user) => {
+        if (!user) {
+          return res.status(400).send({
+            message: 'invalid login details',
+          });
+        }
+        if (!bcrypt.compareSync(req.body.password, user.password)) {
+          return res.status(400).send({
+            message: 'Incorrect password',
+          });
+        }
+        const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 7200 });
+        res.status(200).send({
+          message: 'Successfully signin',
+          token,
+          userId: user.id,
+        });
+      })
+      .catch(error => res.status(500).send(error));
+  }
 }
 
 export default UserController;
