@@ -6,6 +6,7 @@ const dialect = 'postgres';
 const url = environmentVariables.DATABASE_URL;
 console.log(url);
 
+
 const devMode = environment === ('development' || 'test');
 
 const config = {
