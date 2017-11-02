@@ -55,6 +55,37 @@ class RecipeController {
       .catch(() => res.status(400).send('You don\'t have access to edit that recipe or it dosen\'t exits'));
   }
 
+  /**
+   * delete recipe
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  static deleteRecipe(req, res) {
+    const { id } = req.params;
+
+    db.Recipe.findOne({ where: { id, userId: req.decoded.id } })
+      .then((recipe) => {
+      // if (!recipe) res.status(404).send({ message: 'recipe Not Found' });
+        recipe.destroy()
+          .then(() => res.status(200).json({
+            status: 'success',
+            message: 'Recipe deleted'
+          }))
+          .catch(error => res.status(500).json({
+            status: 'fail',
+            message: error
+          }));
+      })
+      .catch(() => res.status(400).json({
+        status: 'fail',
+        message: 'Recipe dosen\'t exist or you don\'t have privilledge for that action'
+
+      }));
+  }
+
+
 // })
 }
 
