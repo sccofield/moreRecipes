@@ -1,10 +1,19 @@
 body{
-  font-family: 'Open Sans', sans-serif;  
+  font-family: 'Open Sans', sans-serif; 
+  height: 100%; 
+}
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
 }
 header {
   background: url(../img/front.jpg);
   background-size: contain;
-  opacity: 0.9;
+  opacity: 0.75;
 }
 
 /* .nav-item a {
@@ -24,6 +33,16 @@ header {
 .navbar .nav .nav-item a:hover {
   color: #1fbbef;
   /* border: 2px solid #1fbbef;; */
+}
+
+.navbar .nav .nav-item a #active {
+  color: #1fbbef;
+    /* border: 2px solid #1fbbef;; */
+}
+
+#active{
+  color: #1fbbef;
+
 }
 
 
@@ -150,9 +169,9 @@ hr {
 footer {
   background-color: black;
   color: white;
-  padding: 0.5rem;
-  bottom: 0;
-  width: 100%;
+  /* padding: 0.5rem; */
+  /* bottom: 0; */
+  /* width: 100%; */
   height: 60px;
   /* line-height: 60px; */
   /* background-color: #f5f5f5; */
@@ -228,6 +247,10 @@ main {
 }
 .profileRecipe{
   margin: 5rem;
+}
+
+.tab-content {
+  margin: 2rem;
 }
 
 
