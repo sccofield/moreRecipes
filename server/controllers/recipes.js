@@ -11,6 +11,19 @@ class RecipeController {
    * @returns {json} json
    * @memberof RecipeController
    */
+  static welcome(req, res) {
+    return res.status(200).json({
+      status: 'success',
+      message: 'Welcome to more recipes'
+    });
+  }
+  /**
+   * creates new recipe
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
   static addRecipe(req, res) {
     if (!(req.body.title && req.body.ingredients && req.body.description)) {
       return res.status(500).json({

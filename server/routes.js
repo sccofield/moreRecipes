@@ -9,6 +9,7 @@ import Middleware from './middleware';
 // const middleware = new Middleware();
 
 const routes = (app) => {
+  app.get('/', Recipe.welcome);
   // post recipe route
   app.post('/api/v1/recipes', Middleware.verify, Recipe.addRecipe);
 
