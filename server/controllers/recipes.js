@@ -93,6 +93,21 @@ class RecipeController {
    * @memberof RecipeController
    */
   static getAllRecipes(req, res) {
+    if (req.query.sort) {
+      db.Recipe.findAll({ order: [['votes', 'DESC']] })
+        .then((recipes) => {
+          res.status(200).json({
+            status: 'success',
+            recipes,
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            status: 'fail',
+            message: error
+          });
+        });
+    } else {
       db.Recipe.findAll()
         .then((recipes) => {
           res.status(200).json({
