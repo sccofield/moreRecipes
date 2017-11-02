@@ -4,6 +4,7 @@
   "description": "More Recipes provides a platform for users to share awesome and exciting recipe ideas they have invented or learnt.",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node ./bin/www",
     "dev": "nodemon server/bin/www --exec babel-node",
     "babel-node": "babel-node --",
     "build": "./node_modules/.bin/babel server -d build",
