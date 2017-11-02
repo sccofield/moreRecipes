@@ -107,11 +107,45 @@ class RecipeController {
           });
         });
     }
+
+  /**
+   * add review
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  static addReview(req, res) {
+    if (!(req.body.review)) {
+      return res.status(500).json({
+        status: 'fail',
+        message: 'Please enter a review.'
+      });
+    }
+
+    const { id } = req.params;
+
+    db.Recipe.findOne({ where: { id } })
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(400).json({ status: 'fail', message: 'Recipe dose not exist' });
+        }
+        db.Review.create({
+          recipeId: id,
+          userId: req.decoded.id,
+          review: req.body.review,
+        })
+          .then(review => res.status(201).send({
+            message: 'review created',
+            review
+          }))
+          .catch(error => res.status(500).json({ status: 'fail', message: error }));
+      })
+      .catch(error => res.status(400).json({ status: 'fail', message: error }));
   }
 
 
 // })
 }
-
 
 export default RecipeController;
