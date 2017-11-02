@@ -1,8 +1,15 @@
+import jwt from 'jsonwebtoken';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
 
+process.env.DATABASE_URL = `${process.env.DATABASE_URL}_test`;
+
 const { expect } = chai;
+
+const generateToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.SECRET, { expiresIn: 7200 });
+};
 
 chai.use(chaiHttp);
 
@@ -53,71 +60,53 @@ describe('Testing API endpoints', () => {
     it('shoud return 201 all the parameters are given', (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           title: 'Eba stew',
           ingredients: 'eba',
           description: 'lorem ispum',
-          author: 'mike'
         })
         .end((err, res) => {
           expect(res).to.have.status(201);
           done();
         });
     });
-    it('should return 400 when the author is not given', (done) => {
+    it('should return 500 when the description is not given', (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           title: 'Eba stew',
           ingredients: 'eba',
-          description: 'lorem ispum',
         })
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(500);
           done();
         });
     });
-    it('should return 400 when the description is not given', (done) => {
+    it('should return 500 when the ingredient is not given', (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({
-          title: 'Eba stew',
-          ingredients: 'eba',
-          author: 'Mike'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-        });
-    });
-    it('should return 400 when the ingredient is not given', (done) => {
-      chai.request(app)
-        .post('/api/v1/recipes')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           title: 'Eba stew',
           description: 'eba',
-          author: 'Mike'
         })
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(500);
           done();
         });
     });
-    it('should return 400 when the title is not given', (done) => {
+    it('should return 500 when the title is not given', (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           ingredients: 'eba',
           description: 'lorem ispum',
-          author: 'Mike'
         })
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(500);
           done();
         });
     });
@@ -126,7 +115,7 @@ describe('Testing API endpoints', () => {
     it('shoud return 201 when the id is correct and title and ingredient is given', (done) => {
       chai.request(app)
         .put('/api/v1/recipes/1')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           title: 'mike',
           ingredients: 'mhfmf'
@@ -139,7 +128,7 @@ describe('Testing API endpoints', () => {
     it('shoud return 201 when the id is correct and title and description is given', (done) => {
       chai.request(app)
         .put('/api/v1/recipes/1')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           title: 'mike',
           description: 'mhfmf'
@@ -152,7 +141,7 @@ describe('Testing API endpoints', () => {
     it('shoud return 201 when the id is correct and description and ingredient is given', (done) => {
       chai.request(app)
         .put('/api/v1/recipes/1')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           description: 'mike',
           ingredients: 'mhfmf'
@@ -162,23 +151,10 @@ describe('Testing API endpoints', () => {
           done();
         });
     });
-    it('shoud return 404 when the id is not available', (done) => {
-      chai.request(app)
-        .put('/api/v1/recipes/500')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({
-          title: 'mike',
-          ingredients: 'mhfmf'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          done();
-        });
-    });
     it('shoud have a property of status equals to success', (done) => {
       chai.request(app)
         .put('/api/v1/recipes/1')
-        .set('content-type', 'application/x-www-form-urlencoded')
+        .set('token', generateToken(1))
         .send({
           title: 'mike',
           ingredients: 'mhfmf'
@@ -189,42 +165,5 @@ describe('Testing API endpoints', () => {
         });
     });
   });
-  describe('API endpoint to delete recipe', () => {
-    it('shoud return 200 when the id is correct', (done) => {
-      chai.request(app)
-        .delete('/api/v1/recipes/1')
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
-  });
-  describe('API endpoint to add review', () => {
-    it('shoud return 200 when the id is correct', (done) => {
-      chai.request(app)
-        .post('/api/v1/recipes/1/reviews')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({
-          user: 'mike',
-          review: 'nice meals',
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
-    it('shoud return 404 when the id is not correct', (done) => {
-      chai.request(app)
-        .post('/api/v1/recipes/500/reviews')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({
-          user: 'mike',
-          review: 'nice meals',
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          done();
-        });
-    });
-  });
 });
+

@@ -21,6 +21,8 @@ const routes = (app) => {
   // Get all recipes
   app.get('/api/v1/recipes', Recipe.getAllRecipes);
 
+  app.get('/api/v1/recipes/:id', Recipe.getRecipe);
+
   // Add review
   app.post('/api/v1/recipes/:id/reviews', Middleware.verify, Recipe.addReview);
 

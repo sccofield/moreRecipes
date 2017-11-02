@@ -50,9 +50,15 @@ class RecipeController {
             status: 'success',
             recipe: updatedRecipe
           }))
-          .catch(error => res.status(500).send(error.toString()));
+          .catch(error => res.status(500).json({
+            status: 'Error',
+            message: error
+          }));
       })
-      .catch(() => res.status(400).send('You don\'t have access to edit that recipe or it dosen\'t exits'));
+      .catch(() => res.status(500).json({
+        status: 'Error',
+        message: 'You don\'t have access to edit that recipe or it dosen\'t exits'
+      }));
   }
 
   /**
@@ -78,10 +84,9 @@ class RecipeController {
             message: error
           }));
       })
-      .catch(() => res.status(400).json({
+      .catch(() => res.status(500).json({
         status: 'fail',
         message: 'Recipe dosen\'t exist or you don\'t have privilledge for that action'
-
       }));
   }
 
@@ -123,6 +128,33 @@ class RecipeController {
         });
     }
   }
+  /**
+   * add review
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  static getRecipe(req, res) {
+    db.Recipe.findOne({ where: { id: req.params.id } })
+      .then((recipe) => {
+        if (recipe) {
+          res.status(200).json({
+            status: 'success',
+            data: recipe
+          });
+        } else {
+          return res.status(500).json({
+            status: 'Error',
+            message: `Recipe with id ${req.params.id} dose not exist`
+          });
+        }
+      })
+      .catch(error => res.status(500).json({
+        status: 'fail',
+        message: error.errors[0].message
+      }));
+  }
 
   /**
    * add review
@@ -144,7 +176,7 @@ class RecipeController {
     db.Recipe.findOne({ where: { id } })
       .then((recipe) => {
         if (!recipe) {
-          return res.status(400).json({ status: 'fail', message: 'Recipe dose not exist' });
+          return res.status(500).json({ status: 'fail', message: 'Recipe dose not exist' });
         }
         db.Review.create({
           recipeId: id,
@@ -157,7 +189,7 @@ class RecipeController {
           }))
           .catch(error => res.status(500).json({ status: 'fail', message: error }));
       })
-      .catch(error => res.status(400).json({ status: 'fail', message: error }));
+      .catch(error => res.status(500).json({ status: 'fail', message: error }));
   }
 
 
