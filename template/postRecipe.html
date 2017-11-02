@@ -13,9 +13,11 @@
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
 
 
   <body>
+    <div id="wrap">
     <header style="background-color: black; background-image: none;">
       <div class="container">
 
@@ -35,7 +37,7 @@
                         <a class="nav-link" href="recipes.html">Explore Recipe</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="postRecipe.html">Post Recipe</a>
+                        <a class="nav-link" id="active" href="postRecipe.html">Post Recipe</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="profile.html">profile</a>
@@ -66,35 +68,28 @@
         
               <form action="/addpost" method="post">
           <div class="form-group">
-            <label for="recipeTitle">Recipe Title</label>
+            <label for="recipeTitle">Recipe title</label>
             <input type="text" class="form-control" name="title" id="recipeTitle" placeholder="Enter recipe title">
           </div>
           <div class="form-group">
-            <label for="post">Enter Ingredients</label>
+            <label for="post">Recipe ingredients</label>
             <textarea class="form-control" name="content" id="ingredients" placeholder="Enter recipe ingredients" rows="5"></textarea>
           </div>
 
           <div class="form-group">
-              <label for="post">Enter description</label>
+              <label for="post">Recipe description</label>
               <textarea class="form-control" name="content" id="description" rows="5" placeholder="Enter recipe description"></textarea>
             </div>
           
           <div class="form-group">
-              <label for="post">Enter Methods</label>
-              <textarea class="form-control" name="content" id="methods" rows="5" placeholder="Enter recipe method"></textarea>
-            </div>
-          <div class="form-group">
-            <label for="tags">tags</label>
-            <input type="text" class="form-control" name="tags" id="tags" placeholder="Enter tags">
-          </div>
-          <div class="form-group">
-            <label for="imgurl">img url</label>
-            <input type="text" name="imglink" class="form-control" id="imgurl" placeholder="Enter img url">
+            <label for="imgurl">Recipe image</label>
+            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
           </div>
         
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </main>
+      </div>
 
 
 

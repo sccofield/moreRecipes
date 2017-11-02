@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/sccofield/moreRecipes.svg?branch=develop)](https://travis-ci.org/sccofield/moreRecipes)
-[![Coverage Status](https://coveralls.io/repos/github/sccofield/moreRecipes/badge.svg)](https://coveralls.io/github/sccofield/moreRecipes)
+[![Coverage Status](https://coveralls.io/repos/github/sccofield/moreRecipes/badge.svg?branch=develop)](https://coveralls.io/github/sccofield/moreRecipes?branch=develop)
 
 # More-Recipes
 ## Product description
@@ -39,6 +39,10 @@ cd projects
 + clone the repository into that directory.
 ```
 git clone https://github.com/sccofield/moreRecipes.git 
+```
+run npm install and npm run start:dev
+```
+npm install && npm run start:dev
 ```
 
 ## Built With
