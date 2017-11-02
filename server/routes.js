@@ -25,7 +25,7 @@ const routes = (app) => {
   app.post('/api/v1/recipes/:id/reviews', Middleware.verifyToken, Recipe.addReview);
 
   // get favorites
-  app.get('/api/v1/users/:id/recipes', Middleware.verifyToken, Recipe.getFavorite);
+  // app.get('/api/v1/users/:id/recipes', Middleware.verifyToken, Recipe.getFavorite);
 
   app.post('/api/v1/users/signup', User.signup);
 
