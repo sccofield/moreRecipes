@@ -85,6 +85,30 @@ class RecipeController {
       }));
   }
 
+  /**
+   * get all recipe
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  static getAllRecipes(req, res) {
+      db.Recipe.findAll()
+        .then((recipes) => {
+          res.status(200).json({
+            status: 'success',
+            recipes,
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            status: 'fail',
+            message: error
+          });
+        });
+    }
+  }
+
 
 // })
 }
