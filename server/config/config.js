@@ -1,8 +1,10 @@
 require('dotenv').config();
+const { parsed: environmentVariables } = require('dotenv').config();
 
 const environment = process.NODE_ENV || 'development';
 const dialect = 'postgres';
-const url = `${process.env.DATABASE_URL}_${environment}`;
+// const url = `${process.env.DATABASE_URL}_${environment}`;
+const url = environmentVariables.DATABASE_URL;
 
 process.env.DATABASE_URL = url;
 
