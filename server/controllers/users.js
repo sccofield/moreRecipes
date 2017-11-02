@@ -146,7 +146,6 @@ class UserController {
           message: error
         }));
     } else {
-
       return res.status(500).json({
         status: 'Error',
         message: 'You don\'t have priviledge for this action'
