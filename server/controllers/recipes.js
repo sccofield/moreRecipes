@@ -30,6 +30,31 @@ class RecipeController {
       .catch(error => res.status(500).send(error.toString()));
   }
 
+  /**
+   * edit new recipe
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof RecipeController
+   */
+  static modifyRecipe(req, res) {
+    const { id } = req.params;
+    db.Recipe.findOne({ where: { id, userId: req.decoded.id } })
+      .then((recipe) => {
+        recipe.update({
+          title: req.body.title || recipe.title,
+          description: req.body.description || recipe.description,
+          ingredients: req.body.ingredients || recipe.ingredients,
+        })
+          .then(updatedRecipe => res.status(200).json({
+            status: 'success',
+            recipe: updatedRecipe
+          }))
+          .catch(error => res.status(500).send(error.toString()));
+      })
+      .catch(() => res.status(400).send('You don\'t have access to edit that recipe or it dosen\'t exits'));
+  }
+
 // })
 }
 
