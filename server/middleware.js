@@ -11,14 +11,17 @@ class Middleware {
    * @param {object} res exp res object
    * @param {object} next exp next object
    * @returns {json} json
-   * @memberof UserController
+   * @memberof Middleware
    */
-  static verifyToken(req, res, next) {
+  static verify(req, res, next) {
     const token = req.body.token || req.query.token || req.headers.token;
     if (token) {
       jwt.verify(token, process.env.SECRET, (err, decoded) => {
         if (err) {
-          return res.json({ success: false, message: 'Failed to authenticate token.' });
+          return res.json({
+            status: 'fail',
+            message: 'Failed to authenticate token.'
+          });
         }
         req.decoded = decoded;
         // console.log(req.decoded);
@@ -26,11 +29,28 @@ class Middleware {
         next();
       });
     } else {
-      return res.status(403).send({
-        success: false,
+      return res.status(403).json({
+        status: 'fail',
         message: 'No token provided.'
       });
     }
+  }
+  /**
+   * check if user is admin
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @param {object} next exp next object
+   * @returns {json} json
+   * @memberof Middleware
+   */
+  static isAdmin(req, res, next) {
+    if (req.params.id === 1) {
+      return next();
+    }
+    return res.status(500).json({
+      status: 'Error',
+      message: 'You are not and admin and don\'t have the priviledge'
+    });
   }
 }
 

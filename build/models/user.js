@@ -1,5 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+'use strict';
+
+module.exports = function (sequelize, DataTypes) {
+  var User = sequelize.define('User', {
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -12,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [4, 20],
           msg: 'Username must be btw 4 - 20 characters'
-        },
-      },
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
@@ -31,18 +33,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   }, {
     classMethods: {
-      associate: (models) => {
+      associate: function associate(models) {
         // associations can be defined here
         User.hasMany(models.Recipe, {
-          foreignKey: 'userId',
+          foreignKey: 'userId'
         });
 
         User.hasMany(models.Favorite, {
-          foreignKey: 'userId',
+          foreignKey: 'userId'
         });
       }
     }

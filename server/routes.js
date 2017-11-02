@@ -10,27 +10,32 @@ import Middleware from './middleware';
 
 const routes = (app) => {
   // post recipe route
-  app.post('/api/v1/recipes', Middleware.verifyToken, Recipe.addRecipe);
+  app.post('/api/v1/recipes', Middleware.verify, Recipe.addRecipe);
 
   // edit recipe
-  app.put('/api/v1/recipes/:id', Middleware.verifyToken, Recipe.modifyRecipe);
+  app.put('/api/v1/recipes/:id', Middleware.verify, Recipe.modifyRecipe);
 
   // delete recipe
-  app.delete('/api/v1/recipes/:id', Middleware.verifyToken, Recipe.deleteRecipe);
+  app.delete('/api/v1/recipes/:id', Middleware.verify, Recipe.deleteRecipe);
 
   // Get all recipes
   app.get('/api/v1/recipes', Recipe.getAllRecipes);
 
-  // Add review
-  app.post('/api/v1/recipes/:id/reviews', Middleware.verifyToken, Recipe.addReview);
+  app.get('/api/v1/recipes/:id', Recipe.getRecipe);
 
-  // get favorites
-  // app.get('/api/v1/users/:id/recipes', Middleware.verifyToken, Recipe.getFavorite);
+  // Add review
+  app.post('/api/v1/recipes/:id/reviews', Middleware.verify, Recipe.addReview);
 
   app.post('/api/v1/users/signup', User.signup);
 
   // signin route
   app.post('/api/v1/users/signin', User.signin);
+
+  // view all user
+  app.get('/api/v1/users', Middleware.verify, User.getAllUser);
+
+  // view user profile
+  app.get('/api/v1/users/:id', Middleware.verify, User.getUser);
 };
 
 export default routes;
