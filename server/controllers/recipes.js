@@ -107,6 +107,7 @@ class RecipeController {
           });
         });
     }
+  }
 
   /**
    * add review
