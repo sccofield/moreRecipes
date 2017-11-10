@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Vote = sequelize.define('Vote', {
+  const Downvote = sequelize.define('Downvote', {
     recipeId: {
       type: DataTypes.INTEGER,
     },
@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN
     }
   });
-  Vote.associate = (models) => {
-    Vote.belongsTo(models.Recipe, {
+  Downvote.associate = (models) => {
+    Downvote.belongsTo(models.Recipe, {
       foreignKey: 'recipeId'
     });
   };
-  return Vote;
+  return Downvote;
 };

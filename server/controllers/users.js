@@ -230,7 +230,6 @@ class UserController {
       ]
     })
       .then((favorite) => {
-        console.log(favorite);
         if (favorite && Object.keys(favorite).length !== 0) {
           return res.status(200)
             .json({
@@ -250,6 +249,148 @@ class UserController {
           status: 'Error',
           message: error
         }));
+  }
+  /**
+   * add upvote
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof userController
+   */
+  static upvote(req, res) {
+    db.Recipe.findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(400)
+            .json({
+              status: 'Error',
+              message: 'Recipe dose not exist'
+            });
+        }
+        db.Upvote.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }
+        })
+          .then((vote) => {
+            if (vote) {
+              return res.status(400)
+                .json({
+                  status: 'Error',
+                  message: 'Recipe has already been upvoted by you.'
+                });
+            }
+            db.Upvote.create({
+              userId: req.decoded.id,
+              recipeId: req.params.recipeId,
+              vote: true
+            })
+              .then(() => {
+                db.Recipe.findById(req.params.recipeId)
+                  .then((found) => {
+                    found.increment('votes');
+                    return res.status(200)
+                      .json({
+                        staus: 'success',
+                        message: 'Recipe upvoted'
+                      });
+                  })
+                  .catch((error) => {
+                    res.status(500)
+                      .json({
+                        status: 'Error',
+                        message: error
+                      });
+                  });
+              });
+          })
+          .catch((error) => {
+            res.status(500)
+              .json({
+                status: 'Error',
+                message: error
+              });
+          });
+      })
+      .catch((error) => {
+        res.status(500)
+          .json({
+            status: 'Error',
+            message: error
+          });
+      });
+  }
+  /**
+   * add downvote
+   * @param {object} req express req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof userController
+   */
+  static downvote(req, res) {
+    db.Recipe.findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(400)
+            .json({
+              status: 'Error',
+              message: 'Recipe dose not exist'
+            });
+        }
+        db.Downvote.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }
+        })
+          .then((vote) => {
+            if (vote) {
+              return res.status(400)
+                .json({
+                  status: 'Error',
+                  message: 'Recipe has already been downvoted by you.'
+                });
+            }
+            db.Downvote.create({
+              userId: req.decoded.id,
+              recipeId: req.params.recipeId,
+              vote: true
+            })
+              .then(() => {
+                db.Recipe.findById(req.params.recipeId)
+                  .then((found) => {
+                    found.decrement('votes');
+                    return res.status(200)
+                      .json({
+                        staus: 'success',
+                        message: 'Recipe downvoted'
+                      });
+                  })
+                  .catch((error) => {
+                    res.status(500)
+                      .json({
+                        status: 'Error',
+                        message: error
+                      });
+                  });
+              });
+          })
+          .catch((error) => {
+            res.status(500)
+              .json({
+                status: 'Error',
+                message: error
+              });
+          });
+      })
+      .catch((error) => {
+        res.status(500)
+          .json({
+            status: 'Error',
+            message: error
+          });
+      });
   }
 }
 
