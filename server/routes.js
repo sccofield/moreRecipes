@@ -36,10 +36,14 @@ const routes = (app) => {
   app.get('/api/v1/users', Middleware.verify, User.getAllUser);
 
   // view user profile
-  // app.get('/api/v1/users/:id', Middleware.verify, User.getUser);
-
+  app.get('/api/v1/users/:id', Middleware.verify, User.getUser);
+  
   // add favorite
   app.post('/api/v1/users/:recipeId/favorites', Middleware.verify, User.addFavorite);
+
+  app.post('/api/v1/users/:recipeId/upvote', Middleware.verify, User.upvote);
+
+  app.post('/api/v1/users/:recipeId/downvote', Middleware.verify, User.downvote);
 
   // get favorite
   app.get('/api/v1/users/favorites', Middleware.verify, User.getFavorite);

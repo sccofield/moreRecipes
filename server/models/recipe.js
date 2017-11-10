@@ -17,10 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     votes: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     views: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   });
   Recipe.associate = (models) => {
@@ -33,6 +35,14 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Recipe.hasMany(models.Favorite, {
+      foreignKey: 'recipeId',
+    });
+
+    Recipe.hasMany(models.Upvote, {
+      foreignKey: 'recipeId',
+    });
+
+    Recipe.hasMany(models.Downvote, {
       foreignKey: 'recipeId',
     });
   };
