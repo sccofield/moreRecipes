@@ -33,19 +33,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // associations can be defined here
-        User.hasMany(models.Recipe, {
-          foreignKey: 'userId',
-        });
-
-        User.hasMany(models.Favorite, {
-          foreignKey: 'userId',
-        });
-      }
-    }
   });
+  User.associate = (models) => {
+    User.hasMany(models.Recipe, {
+      foreignKey: 'userId',
+    });
+
+    User.hasMany(models.Favorite, {
+      foreignKey: 'userId',
+    });
+
+    User.hasMany(models.Review, {
+      foreignKey: 'userId',
+    });
+  };
   return User;
 };

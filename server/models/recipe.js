@@ -22,23 +22,19 @@ module.exports = (sequelize, DataTypes) => {
     views: {
       type: DataTypes.INTEGER
     }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // associations can be defined here
-        Recipe.hasMany(models.Review, {
-          foreignKey: 'recipeId'
-        });
-
-        Recipe.belongsTo(models.User, {
-          foreignKey: 'userId',
-        });
-
-        Recipe.hasMany(models.Favorite, {
-          foreignKey: 'recipeId',
-        });
-      }
-    }
   });
+  Recipe.associate = (models) => {
+    Recipe.hasMany(models.Review, {
+      foreignKey: 'recipeId'
+    });
+
+    Recipe.belongsTo(models.User, {
+      foreignKey: 'userId',
+    });
+
+    Recipe.hasMany(models.Favorite, {
+      foreignKey: 'recipeId',
+    });
+  };
   return Recipe;
 };

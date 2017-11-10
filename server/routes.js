@@ -36,7 +36,13 @@ const routes = (app) => {
   app.get('/api/v1/users', Middleware.verify, User.getAllUser);
 
   // view user profile
-  app.get('/api/v1/users/:id', Middleware.verify, User.getUser);
+  // app.get('/api/v1/users/:id', Middleware.verify, User.getUser);
+
+  // add favorite
+  app.post('/api/v1/users/:recipeId/favorites', Middleware.verify, User.addFavorite);
+
+  // get favorite
+  app.get('/api/v1/users/favorites', Middleware.verify, User.getFavorite);
 };
 
 export default routes;
