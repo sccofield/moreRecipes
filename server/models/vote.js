@@ -9,15 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     vote: {
       type: DataTypes.BOOLEAN
     }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // associations can be defined here
-        Vote.belongsTo(models.Recipe, {
-          foreignKey: 'recipeId'
-        });
-      }
-    }
   });
+  Vote.associate = (models) => {
+    Vote.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId'
+    });
+  };
   return Vote;
 };

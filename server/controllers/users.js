@@ -152,6 +152,105 @@ class UserController {
       });
     }
   }
+  /**
+   * add favorite
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof userController
+   */
+  static addFavorite(req, res) {
+    db.Recipe.findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(400)
+            .json({
+              status: 'Error',
+              message: `A recipe with Id ${req.params.recipeId} dose not exist`
+            });
+        }
+
+        db.Favorite.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }
+        })
+          .then((favorite) => {
+            if (favorite) {
+              return res.status(400)
+                .json({
+                  status: 'Error',
+                  message: 'You have added this recipe to your favorite already'
+                });
+            }
+            db.Favorite.create({
+              userId: req.decoded.id,
+              recipeId: req.params.recipeId
+            })
+              .then(() => res.status(200)
+                .json({
+                  status: 'success',
+                  message: 'Recipe added to favorite'
+                }))
+              .catch(() => res.status(500)
+                .json({
+                  status: 'Error',
+                  message: 'favorite not added. server error'
+                }));
+          })
+          .catch(() => res.status(500)
+            .json({
+              status: 'Error',
+              message: 'favorite not added. server error'
+            }));
+      })
+      .catch(() => res.status(500)
+        .json({
+          status: 'Error',
+          message: 'favorite not added. server error'
+        }));
+  }
+  /**
+   * add favorite
+   * @param {object} req expres req object
+   * @param {object} res exp res object
+   * @returns {json} json
+   * @memberof userController
+   */
+  static getFavorite(req, res) {
+    db.Favorite.findAll({
+      where: {
+        userId: req.decoded.id
+      },
+      include: [
+        {
+          model: db.Recipe, attributes: ['title', 'ingredients', 'description']
+        }
+      ]
+    })
+      .then((favorite) => {
+        console.log(favorite);
+        if (favorite && Object.keys(favorite).length !== 0) {
+          return res.status(200)
+            .json({
+              status: 'success',
+              message: 'favorites',
+              data: favorite
+            });
+        }
+        return res.status(500)
+          .json({
+            status: 'Error',
+            message: 'You don\'t have any favorites'
+          });
+      })
+      .catch(error => res.status(500)
+        .json({
+          status: 'Error',
+          message: error
+        }));
+  }
 }
 
 export default UserController;
