@@ -9,7 +9,7 @@
     "babel-node": "babel-node --",
     "build": "./node_modules/.bin/babel server -d build",
     "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
-    "test": "NODE_ENV=test nyc --reporter=text mocha server/test/*.js --exit --require babel-register --reporter spec",
+    "test": "NODE_ENV=test mocha server/__test__/*.js --exit --require babel-register --reporter spec",
     "coverage": "nyc reports --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls"
   },
@@ -43,6 +43,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "express": "^4.16.2",
+    "express-validator": "^4.3.0",
     "istanbul": "^0.4.5",
     "jsonwebtoken": "^8.1.0",
     "mocha": "^4.0.1",

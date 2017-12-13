@@ -18,26 +18,59 @@ class UserController {
    * @memberof UserController
    */
   static signup(req, res) {
-    if (req.body.password !== req.body.cPassword) {
-      return res.status(500).json({
+    const {
+      userName, email, password, cPassword
+    } = req.body;
+
+    if (!userName) {
+      return res.status(400).json({
         status: 'Error',
-        message: 'password do not match'
+        message: 'Username is required'
+      });
+    }
+
+    if (!email) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Email is required'
+      });
+    }
+
+    if (!password) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Password is required'
+      });
+    }
+
+    if (password !== cPassword) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Password do not match'
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Password must be more than 6 characters'
       });
     }
 
     db.User.create({
-      userName: req.body.username,
-      email: req.body.email,
+      userName,
+      email,
       password: bcrypt.hashSync(req.body.password, saltRounds)
     })
       .then(user => res.status(201).json({
         status: 'success',
         message: `user with id ${user.id} has been created`,
       }))
-      .catch(error => res.status(500).json({
-        status: 'Error',
-        message: error.errors[0].message
-      }));
+      .catch(error =>
+        res.status(400).json({
+          status: 'Error',
+          message: error.errors[0].message
+        }));
   }
   /**
    * authenticate user
@@ -212,7 +245,7 @@ class UserController {
         }));
   }
   /**
-   * add favorite
+   * get favorite
    * @param {object} req expres req object
    * @param {object} res exp res object
    * @returns {json} json
