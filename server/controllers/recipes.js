@@ -120,7 +120,7 @@ class RecipeController {
           });
         })
         .catch((error) => {
-          res.status(500).json({
+          res.status(400).json({
             status: 'fail',
             message: error
           });
@@ -134,7 +134,7 @@ class RecipeController {
           });
         })
         .catch((error) => {
-          res.status(500).json({
+          res.status(400).json({
             status: 'fail',
             message: error
           });

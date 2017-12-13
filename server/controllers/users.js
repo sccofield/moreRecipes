@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import db from '../models';
 
 
-const saltRounds = 10;
+const saltRounds = Number(process.env.SALTROUNDS);
 
 /**
  * @class UserController
@@ -80,13 +80,14 @@ class UserController {
    * @memberof userController
    */
   static signin(req, res) {
-    if (!req.body.email) {
+    const { email, password } = req.body;
+    if (!email) {
       return res.status(400).send({
         status: 'Error',
         message: 'Please input your email'
       });
     }
-    if (!req.body.password) {
+    if (!password) {
       return res.status(400).send({
         status: 'Error',
         message: 'Please input your password'
@@ -94,7 +95,7 @@ class UserController {
     }
     db.User.findOne({
       where: {
-        email: req.body.email,
+        email,
       },
     })
       .then((user) => {
@@ -104,7 +105,7 @@ class UserController {
             message: 'invalid login details',
           });
         }
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
+        if (!bcrypt.compareSync(password, user.password)) {
           return res.status(400).send({
             status: 'Error',
             message: 'Incorrect password',
@@ -117,7 +118,7 @@ class UserController {
           data: token,
         });
       })
-      .catch(error => res.status(500).json({
+      .catch(error => res.status(400).json({
         status: 'fail',
         message: error.errors[0].message
       }));
