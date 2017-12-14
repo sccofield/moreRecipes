@@ -99,15 +99,15 @@ describe('Testing Recipe Controller', () => {
     //       done();
     //     });
     // });
-    it('should return a status code of 400 when one of the parameters is not given', (done) => {
-      chai.request(app)
-        .post('/api/v1/recipes')
-        .set('token', generateToken(mockData.user1.id))
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-        });
-    });
+    // it('should return a status code of 400 when one of the parameters is not given', (done) => {
+    //   chai.request(app)
+    //     .post('/api/v1/recipes')
+    //     .set('token', generateToken(mockData.user1.id))
+    //     .end((err, res) => {
+    //       expect(res).to.have.status(400);
+    //       done();
+    //     });
+    // });
     // it('should return a status code of 401 when there is no valid access token', (done) => {
     //   chai.request(app)
     //     .post('/api/v1/recipes')
