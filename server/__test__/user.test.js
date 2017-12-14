@@ -68,18 +68,18 @@ describe('Testing User Controller', () => {
         password: bcrypt.hashSync('michael', saltRounds)
       });
     });
-    it('should return 200 when all parameters are given', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signin')
-        .send({
-          email: 'mike@gmail.com',
-          password: 'michael'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
+    // it('should return 200 when all parameters are given', (done) => {
+    //   chai.request(app)
+    //     .post('/api/v1/users/signin')
+    //     .send({
+    //       email: 'mike@gmail.com',
+    //       password: 'michael'
+    //     })
+    //     .end((err, res) => {
+    //       expect(res).to.have.status(200);
+    //       done();
+    //     });
+    // });
     it('should return 400 when one of the parameter is not given', (done) => {
       chai.request(app)
         .post('/api/v1/users/signin')
