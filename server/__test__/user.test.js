@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 import app from '../app';
 import db from '../models';
 
-const saltRounds = Number(process.env.SALTROUNDS);
+const saltRounds = 10;
 
 chai.use(chaiHttp);
 
