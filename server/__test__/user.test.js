@@ -61,11 +61,13 @@ describe('Testing User Controller', () => {
   });
 
   describe('Testing sigin controller', () => {
-    before(() => db.User.create({
-      userName: 'mike@gmail.com',
-      email: 'mike@gmail.com',
-      password: bcrypt.hashSync('michael', saltRounds)
-    }));
+    before(async () => {
+      await db.User.create({
+        userName: 'mike@gmail.com',
+        email: 'mike@gmail.com',
+        password: bcrypt.hashSync('michael', saltRounds)
+      });
+    });
     it('should return 200 when all parameters are given', (done) => {
       chai.request(app)
         .post('/api/v1/users/signin')
