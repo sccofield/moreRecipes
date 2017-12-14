@@ -12,8 +12,11 @@ chai.use(chaiHttp);
 
 
 describe('Testing User Controller', () => {
-  before(() => db.sequelize.sync());
-  before(() => db.User.destroy({ where: {} }));
+  before(async () => {
+    await db.sequelize.sync();
+    await db.Recipe.destroy({ where: {} });
+    await db.User.destroy({ where: {} });
+  });
   describe('Testing signup controller', () => {
     it('should register a new user when all the parameters are given', (done) => {
       chai.request(app)

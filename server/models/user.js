@@ -37,14 +37,17 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (models) => {
     User.hasMany(models.Recipe, {
       foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
 
     User.hasMany(models.Favorite, {
       foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
 
     User.hasMany(models.Review, {
       foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
   };
   return User;
