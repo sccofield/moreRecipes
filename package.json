@@ -54,7 +54,8 @@
     "nyc": "^11.2.1",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.20.1"
+    "sequelize": "^4.20.1",
+    "sequelize-cli": "^3.2.0"
   },
   "devDependencies": {},
   "engines": {
