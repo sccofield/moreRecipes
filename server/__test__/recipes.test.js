@@ -10,10 +10,10 @@ import db from '../models';
 
 chai.use(chaiHttp);
 
-const mockData = {}
+const mockData = {};
 const SECRET = 'i love andela';
 
-const saltRounds = Number(process.env.SALTROUNDS);
+const saltRounds = 10;
 
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, SECRET, { expiresIn: 7200 });
