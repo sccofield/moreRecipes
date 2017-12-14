@@ -11,11 +11,12 @@ import db from '../models';
 chai.use(chaiHttp);
 
 const mockData = {}
+const SECRET = 'i love andela';
 
 const saltRounds = Number(process.env.SALTROUNDS);
 
 const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.SECRET, { expiresIn: 7200 });
+  return jwt.sign({ id: userId }, SECRET, { expiresIn: 7200 });
 };
 
 describe('Testing Recipe Controller', () => {
