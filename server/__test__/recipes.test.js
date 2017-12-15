@@ -11,12 +11,11 @@ import db from '../models';
 chai.use(chaiHttp);
 
 const mockData = {};
-const SECRET = 'i love andela';
 
 const saltRounds = 10;
 
 const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, SECRET, { expiresIn: 7200 });
+  return jwt.sign({ id: userId }, process.env.SECRET, { expiresIn: 7200 });
 };
 
 describe('Testing Recipe Controller', () => {
@@ -76,9 +75,10 @@ describe('Testing Recipe Controller', () => {
           userId: mockData.user1.id
         })
         .end((err, res) => {
-          const data = res.body;
+          const data = res.body.recipe;
           console.log('This is the error');
           console.log(data, '  .....≥≥≥≥≥≥≥≥≥≥≥≥≥≥');
+          console.log(mockData.user1.id);
           console.log(err);
           expect(data.title).to.equal('New recipe');
           expect(data.description).to.equal('New recipe desciption');
