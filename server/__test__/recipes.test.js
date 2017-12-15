@@ -50,7 +50,6 @@ describe('Testing Recipe Controller', () => {
         .get('/api/v1/recipes')
         .end((err, res) => {
           const data = res.body.recipes;
-          console.log(data)
           expect(data[0].title).to.equal(mockData.recipe1.title);
           expect(data[0].description).to.equal(mockData.recipe1.description);
           done();
@@ -78,6 +77,7 @@ describe('Testing Recipe Controller', () => {
         })
         .end((err, res) => {
           const data = res.body.recipe;
+          console.log(data);
           expect(data.title).to.equal('New recipe');
           expect(data.description).to.equal('New recipe desciption');
           expect(data.ingredients).to.equal('new recipe');
