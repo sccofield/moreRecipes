@@ -61,8 +61,8 @@ describe('Testing User Controller', () => {
   });
 
   describe('Testing sigin controller', () => {
-    before(async () => {
-      await db.User.create({
+    before(() => {
+      db.User.create({
         userName: 'mike@gmail.com',
         email: 'mike@gmail.com',
         password: bcrypt.hashSync('michael', saltRounds)
