@@ -77,7 +77,7 @@ describe('Testing Recipe Controller', () => {
         })
         .end((err, res) => {
           const data = res.body.recipe;
-          console.log(data);
+          console.log(err);
           expect(data.title).to.equal('New recipe');
           expect(data.description).to.equal('New recipe desciption');
           expect(data.ingredients).to.equal('new recipe');
