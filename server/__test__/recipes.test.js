@@ -76,7 +76,7 @@ describe('Testing Recipe Controller', () => {
           userId: mockData.user1.id
         })
         .end((err, res) => {
-          const data = res.body.recipe;
+          const data = res.body;
           console.log('This is the error');
           console.log(data, '  .....≥≥≥≥≥≥≥≥≥≥≥≥≥≥');
           console.log(err);
