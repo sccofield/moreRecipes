@@ -66,77 +66,77 @@ describe('Testing Recipe Controller', () => {
     });
   });
   describe('API endpoint to POST recipe /api/v1/recipes', () => {
-    // it('should return the new recipe', (done) => {
+    it('should return the new recipe', (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes')
+        .set('token', generateToken(mockData.user1.id))
+        .send({
+          title: 'New recipe',
+          description: 'New recipe desciption',
+          ingredients: 'new recipe',
+          userId: mockData.user1.id
+        })
+        .end((err, res) => {
+          const data = res.body.recipe;
+          expect(data.title).to.equal('New recipe');
+          expect(data.description).to.equal('New recipe desciption');
+          expect(data.ingredients).to.equal('new recipe');
+          done();
+        });
+    });
+    it('should return a status code of 201', (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes')
+        .set('token', generateToken(mockData.user1.id))
+        .send({
+          title: 'New recipe',
+          description: 'New recipe desciption',
+          ingredients: 'new recipe',
+          userId: mockData.user1.id
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(201);
+          done();
+        });
+    });
+    it('should return a status code of 400 when one of the parameters is not given', (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes')
+        .set('token', generateToken(mockData.user1.id))
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it('should return a status code of 401 when there is no valid access token', (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes')
+        .send({
+          title: 'New recipe',
+          description: 'New recipe desciption',
+          ingredients: 'new recipe',
+          userId: mockData.user1.id
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          done();
+        });
+    });
+  });
+  describe('API endpoint to update recipes PUT /api/v1/recipes/:id', () => {
+    // it('should update the recipe and return the updated receipe', (done) => {
     //   chai.request(app)
-    //     .post('/api/v1/recipes')
+    //     .put(`/api/v1/recipes/${mockData.recipe1.id}`)
     //     .set('token', generateToken(mockData.user1.id))
     //     .send({
-    //       title: 'New recipe',
-    //       description: 'New recipe desciption',
-    //       ingredients: 'new recipe',
-    //       userId: mockData.user1.id
+    //       title: 'updated title'
     //     })
     //     .end((err, res) => {
-    //       const data = res.body.recipe;
-    //       expect(data.title).to.equal('New recipe');
-    //       expect(data.description).to.equal('New recipe desciption');
-    //       expect(data.ingredients).to.equal('new recipe');
-    //       done();
-    //     });
-    // });
-    // it('should return a status code of 201', (done) => {
-    //   chai.request(app)
-    //     .post('/api/v1/recipes')
-    //     .set('token', generateToken(mockData.user1.id))
-    //     .send({
-    //       title: 'New recipe',
-    //       description: 'New recipe desciption',
-    //       ingredients: 'new recipe',
-    //       userId: mockData.user1.id
-    //     })
-    //     .end((err, res) => {
-    //       expect(res).to.have.status(201);
-    //       done();
-    //     });
-    // });
-    // it('should return a status code of 400 when one of the parameters is not given', (done) => {
-    //   chai.request(app)
-    //     .post('/api/v1/recipes')
-    //     .set('token', generateToken(mockData.user1.id))
-    //     .end((err, res) => {
-    //       expect(res).to.have.status(400);
-    //       done();
-    //     });
-    // });
-    // it('should return a status code of 401 when there is no valid access token', (done) => {
-    //   chai.request(app)
-    //     .post('/api/v1/recipes')
-    //     .send({
-    //       title: 'New recipe',
-    //       description: 'New recipe desciption',
-    //       ingredients: 'new recipe',
-    //       userId: mockData.user1.id
-    //     })
-    //     .end((err, res) => {
-    //       expect(res).to.have.status(401);
+    //       console.log(err)
+    //       const data = res.body.recipes;
+    //       expect(data.title).to.equal('updated title');
     //       done();
     //     });
     // });
   });
-  // describe('API endpoint to update recipes PUT /api/v1/recipes/:id', () => {
-  //   it('should update the recipe and return the updated receipe', (done) => {
-  //     chai.request(app)
-  //       .put(`/api/v1/recipes/${mockData.recipe1.id}`)
-  //       .set('token', generateToken(mockData.user1.id))
-  //       .send({
-  //         title: 'updated title'
-  //       })
-  //       .end((err, res) => {
-  //         console.log(err)
-  //         const data = res.body.recipes;
-  //         expect(data.title).to.equal('updated title');
-  //         done();
-  //       });
-  //   });
-  // });
 });
