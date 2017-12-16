@@ -26,24 +26,29 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   Recipe.associate = (models) => {
-    Recipe.hasMany(models.Review, {
-      foreignKey: 'recipeId'
-    });
-
     Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+
+    Recipe.hasMany(models.Review, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
     });
 
     Recipe.hasMany(models.Favorite, {
       foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
     });
 
     Recipe.hasMany(models.Upvote, {
       foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
     });
 
     Recipe.hasMany(models.Downvote, {
       foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
     });
   };
   return Recipe;

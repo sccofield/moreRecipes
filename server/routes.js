@@ -37,7 +37,7 @@ const routes = (app) => {
 
   // view user profile
   app.get('/api/v1/users/:id', Middleware.verify, User.getUser);
-  
+
   // add favorite
   app.post('/api/v1/users/:recipeId/favorites', Middleware.verify, User.addFavorite);
 

@@ -15,6 +15,7 @@ class Middleware {
    */
   static verify(req, res, next) {
     const token = req.body.token || req.query.token || req.headers.token;
+    console.log(req.headers);
     if (token) {
       jwt.verify(token, process.env.SECRET, (err, decoded) => {
         if (err) {
@@ -29,7 +30,7 @@ class Middleware {
         next();
       });
     } else {
-      return res.status(403).json({
+      return res.status(401).json({
         status: 'fail',
         message: 'No token provided.'
       });

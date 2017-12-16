@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import db from '../models';
 
 
-const saltRounds = 10;
+const saltRounds = Number(process.env.SALTROUNDS);
 
 /**
  * @class UserController
@@ -18,26 +18,59 @@ class UserController {
    * @memberof UserController
    */
   static signup(req, res) {
-    if (req.body.password !== req.body.cPassword) {
-      return res.status(500).json({
+    const {
+      userName, email, password, cPassword
+    } = req.body;
+
+    if (!userName) {
+      return res.status(400).json({
         status: 'Error',
-        message: 'password do not match'
+        message: 'Username is required'
+      });
+    }
+
+    if (!email) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Email is required'
+      });
+    }
+
+    if (!password) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Password is required'
+      });
+    }
+
+    if (password !== cPassword) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Password do not match'
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        status: 'Error',
+        message: 'Password must be more than 6 characters'
       });
     }
 
     db.User.create({
-      userName: req.body.username,
-      email: req.body.email,
+      userName,
+      email,
       password: bcrypt.hashSync(req.body.password, saltRounds)
     })
       .then(user => res.status(201).json({
         status: 'success',
         message: `user with id ${user.id} has been created`,
       }))
-      .catch(error => res.status(500).json({
-        status: 'Error',
-        message: error.errors[0].message
-      }));
+      .catch(error =>
+        res.status(400).json({
+          status: 'Error',
+          message: error.errors[0].message
+        }));
   }
   /**
    * authenticate user
@@ -47,13 +80,14 @@ class UserController {
    * @memberof userController
    */
   static signin(req, res) {
-    if (!req.body.email) {
+    const { email, password } = req.body;
+    if (!email) {
       return res.status(400).send({
         status: 'Error',
         message: 'Please input your email'
       });
     }
-    if (!req.body.password) {
+    if (!password) {
       return res.status(400).send({
         status: 'Error',
         message: 'Please input your password'
@@ -61,7 +95,7 @@ class UserController {
     }
     db.User.findOne({
       where: {
-        email: req.body.email,
+        email,
       },
     })
       .then((user) => {
@@ -71,7 +105,7 @@ class UserController {
             message: 'invalid login details',
           });
         }
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
+        if (!bcrypt.compareSync(password, user.password)) {
           return res.status(400).send({
             status: 'Error',
             message: 'Incorrect password',
@@ -84,7 +118,7 @@ class UserController {
           data: token,
         });
       })
-      .catch(error => res.status(500).json({
+      .catch(error => res.status(400).json({
         status: 'fail',
         message: error.errors[0].message
       }));
@@ -212,7 +246,7 @@ class UserController {
         }));
   }
   /**
-   * add favorite
+   * get favorite
    * @param {object} req expres req object
    * @param {object} res exp res object
    * @returns {json} json

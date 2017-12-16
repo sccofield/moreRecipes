@@ -25,11 +25,27 @@ class RecipeController {
    * @memberof RecipeController
    */
   static addRecipe(req, res) {
-    if (!(req.body.title && req.body.ingredients && req.body.description)) {
-      return res.status(500).json({
-        message: 'Please fill in all the details.'
+    if (!req.body.title) {
+      return res.status(400).send({
+        status: 'Error',
+        message: 'Please input recipe title'
       });
     }
+
+    if (!req.body.ingredients) {
+      return res.status(400).send({
+        status: 'Error',
+        message: 'Please input recipe ingredients'
+      });
+    }
+
+    if (!req.body.description) {
+      return res.status(400).send({
+        status: 'Error',
+        message: 'Please input recipe description'
+      });
+    }
+
     db.Recipe.create({
       title: req.body.title,
       description: req.body.description,
@@ -59,7 +75,7 @@ class RecipeController {
           description: req.body.description || recipe.description,
           ingredients: req.body.ingredients || recipe.ingredients,
         })
-          .then(updatedRecipe => res.status(200).json({
+          .then(updatedRecipe => res.status(201).json({
             status: 'success',
             recipe: updatedRecipe
           }))
@@ -68,7 +84,7 @@ class RecipeController {
             message: error
           }));
       })
-      .catch(() => res.status(500).json({
+      .catch(() => res.status(401).json({
         status: 'Error',
         message: 'You don\'t have access to edit that recipe or it dosen\'t exits'
       }));
@@ -120,7 +136,7 @@ class RecipeController {
           });
         })
         .catch((error) => {
-          res.status(500).json({
+          res.status(400).json({
             status: 'fail',
             message: error
           });
@@ -134,7 +150,7 @@ class RecipeController {
           });
         })
         .catch((error) => {
-          res.status(500).json({
+          res.status(400).json({
             status: 'fail',
             message: error
           });
