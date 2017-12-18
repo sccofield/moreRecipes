@@ -19,6 +19,7 @@ describe('Testing User Controller', () => {
     await db.sequelize.sync();
     await db.Upvote.destroy({ where: {} });
     await db.Downvote.destroy({ where: {} });
+    await db.Review.destroy({ where: {} });
     await db.Recipe.destroy({ where: {} });
     await db.User.destroy({ where: {} });
     await db.Favorite.destroy({ where: {} });
