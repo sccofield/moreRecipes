@@ -33,7 +33,10 @@ module.exports = {
       }
     });
   },
-  down: function down(queryInterface, Sequelize) {
+  down: function down(queryInterface) {
     return queryInterface.dropTable('Users');
   }
+  // down: (queryInterface, Sequelize) => {
+  //   return queryInterface.dropTable('Users');
+  // }
 };

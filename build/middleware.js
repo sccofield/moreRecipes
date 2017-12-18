@@ -35,6 +35,7 @@ var Middleware = function () {
      */
     value: function verify(req, res, next) {
       var token = req.body.token || req.query.token || req.headers.token;
+      console.log(req.headers);
       if (token) {
         _jsonwebtoken2.default.verify(token, process.env.SECRET, function (err, decoded) {
           if (err) {
@@ -49,32 +50,30 @@ var Middleware = function () {
           next();
         });
       } else {
-        return res.status(403).json({
+        return res.status(401).json({
           status: 'fail',
           message: 'No token provided.'
         });
       }
     }
-    /**
-     * check if user is admin
-     * @param {object} req expres req object
-     * @param {object} res exp res object
-     * @param {object} next exp next object
-     * @returns {json} json
-     * @memberof Middleware
-     */
+    // /**
+    //  * check if user is admin
+    //  * @param {object} req expres req object
+    //  * @param {object} res exp res object
+    //  * @param {object} next exp next object
+    //  * @returns {json} json
+    //  * @memberof Middleware
+    //  */
+    // static isAdmin(req, res, next) {
+    //   if (req.params.id === 1) {
+    //     return next();
+    //   }
+    //   return res.status(500).json({
+    //     status: 'Error',
+    //     message: 'You are not and admin and don\'t have the priviledge'
+    //   });
+    // }
 
-  }, {
-    key: 'isAdmin',
-    value: function isAdmin(req, res, next) {
-      if (req.params.id === 1) {
-        return next();
-      }
-      return res.status(500).json({
-        status: 'Error',
-        message: 'You are not and admin and don\'t have the priviledge'
-      });
-    }
   }]);
 
   return Middleware;

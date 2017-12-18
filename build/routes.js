@@ -25,6 +25,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // const middleware = new Middleware();
 
 var routes = function routes(app) {
+  app.get('/', _recipes2.default.welcome);
   // post recipe route
   app.post('/api/v1/recipes', _middleware2.default.verify, _recipes2.default.addRecipe);
 
@@ -37,6 +38,8 @@ var routes = function routes(app) {
   // Get all recipes
   app.get('/api/v1/recipes', _recipes2.default.getAllRecipes);
 
+  app.get('/api/v1/recipes/:id', _recipes2.default.getRecipe);
+
   // Add review
   app.post('/api/v1/recipes/:id/reviews', _middleware2.default.verify, _recipes2.default.addReview);
 
@@ -45,11 +48,17 @@ var routes = function routes(app) {
   // signin route
   app.post('/api/v1/users/signin', _users2.default.signin);
 
-  // view all user
-  app.get('/api/v1/users', _middleware2.default.verify, _users2.default.getAllUser);
+  // add favorite
+  app.post('/api/v1/users/:recipeId/favorites', _middleware2.default.verify, _users2.default.addFavorite);
 
-  // view user profile
-  app.get('/api/v1/users/:id', _middleware2.default.verify, _users2.default.getUser);
+  // add upvote
+  app.post('/api/v1/users/:recipeId/upvote', _middleware2.default.verify, _users2.default.upvote);
+
+  // add downvote
+  app.post('/api/v1/users/:recipeId/downvote', _middleware2.default.verify, _users2.default.downvote);
+
+  // get favorite
+  app.get('/api/v1/users/favorites', _middleware2.default.verify, _users2.default.getFavorite);
 };
 
 exports.default = routes;
