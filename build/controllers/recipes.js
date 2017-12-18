@@ -24,7 +24,7 @@ var RecipeController = function () {
   }
 
   _createClass(RecipeController, null, [{
-    key: 'addRecipe',
+    key: 'welcome',
 
     /**
      * creates new recipe
@@ -33,12 +33,44 @@ var RecipeController = function () {
      * @returns {json} json
      * @memberof RecipeController
      */
+    value: function welcome(req, res) {
+      return res.status(200).json({
+        status: 'success',
+        message: 'Welcome to more recipes'
+      });
+    }
+    /**
+     * creates new recipe
+     * @param {object} req expres req object
+     * @param {object} res exp res object
+     * @returns {json} json
+     * @memberof RecipeController
+     */
+
+  }, {
+    key: 'addRecipe',
     value: function addRecipe(req, res) {
-      if (!(req.body.title && req.body.ingredients && req.body.description)) {
-        return res.status(500).json({
-          message: 'Please fill in all the details.'
+      if (!req.body.title) {
+        return res.status(400).send({
+          status: 'Error',
+          message: 'Please input recipe title'
         });
       }
+
+      if (!req.body.ingredients) {
+        return res.status(400).send({
+          status: 'Error',
+          message: 'Please input recipe ingredients'
+        });
+      }
+
+      if (!req.body.description) {
+        return res.status(400).send({
+          status: 'Error',
+          message: 'Please input recipe description'
+        });
+      }
+
       _models2.default.Recipe.create({
         title: req.body.title,
         description: req.body.description,
@@ -73,15 +105,21 @@ var RecipeController = function () {
           description: req.body.description || recipe.description,
           ingredients: req.body.ingredients || recipe.ingredients
         }).then(function (updatedRecipe) {
-          return res.status(200).json({
+          return res.status(201).json({
             status: 'success',
             recipe: updatedRecipe
           });
         }).catch(function (error) {
-          return res.status(500).send(error.toString());
+          return res.status(500).json({
+            status: 'Error',
+            message: error
+          });
         });
       }).catch(function () {
-        return res.status(400).send('You don\'t have access to edit that recipe or it dosen\'t exits');
+        return res.status(401).json({
+          status: 'Error',
+          message: 'You don\'t have access to edit that recipe or it dosen\'t exits'
+        });
       });
     }
 
@@ -106,17 +144,16 @@ var RecipeController = function () {
             status: 'success',
             message: 'Recipe deleted'
           });
-        }).catch(function (error) {
-          return res.status(500).json({
+        }).catch(function () {
+          return res.status(400).json({
             status: 'fail',
-            message: error
+            message: 'Recipe dose not exist'
           });
         });
       }).catch(function () {
         return res.status(400).json({
           status: 'fail',
           message: 'Recipe dosen\'t exist or you don\'t have privilledge for that action'
-
         });
       });
     }
@@ -139,7 +176,7 @@ var RecipeController = function () {
             recipes: recipes
           });
         }).catch(function (error) {
-          res.status(500).json({
+          res.status(400).json({
             status: 'fail',
             message: error
           });
@@ -151,12 +188,42 @@ var RecipeController = function () {
             recipes: recipes
           });
         }).catch(function (error) {
-          res.status(500).json({
+          res.status(400).json({
             status: 'fail',
             message: error
           });
         });
       }
+    }
+    /**
+     * get single recipe
+     * @param {object} req expres req object
+     * @param {object} res exp res object
+     * @returns {json} json
+     * @memberof RecipeController
+     */
+
+  }, {
+    key: 'getRecipe',
+    value: function getRecipe(req, res) {
+      _models2.default.Recipe.findOne({ where: { id: req.params.id } }).then(function (recipe) {
+        if (recipe) {
+          res.status(200).json({
+            status: 'success',
+            recipe: recipe
+          });
+        } else {
+          return res.status(400).json({
+            status: 'Error',
+            message: 'Recipe with id ' + req.params.id + ' dose not exist'
+          });
+        }
+      }).catch(function (error) {
+        return res.status(500).json({
+          status: 'fail',
+          message: error.errors[0].message
+        });
+      });
     }
 
     /**
@@ -171,7 +238,7 @@ var RecipeController = function () {
     key: 'addReview',
     value: function addReview(req, res) {
       if (!req.body.review) {
-        return res.status(500).json({
+        return res.status(400).json({
           status: 'fail',
           message: 'Please enter a review.'
         });
@@ -196,8 +263,8 @@ var RecipeController = function () {
         }).catch(function (error) {
           return res.status(500).json({ status: 'fail', message: error });
         });
-      }).catch(function (error) {
-        return res.status(400).json({ status: 'fail', message: error });
+      }).catch(function () {
+        return res.status(500).json({ status: 'fail', message: 'Recipe dose not exist' });
       });
     }
 

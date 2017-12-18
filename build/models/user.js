@@ -35,19 +35,22 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     }
-  }, {
-    classMethods: {
-      associate: function associate(models) {
-        // associations can be defined here
-        User.hasMany(models.Recipe, {
-          foreignKey: 'userId'
-        });
-
-        User.hasMany(models.Favorite, {
-          foreignKey: 'userId'
-        });
-      }
-    }
   });
+  User.associate = function (models) {
+    User.hasMany(models.Recipe, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+
+    User.hasMany(models.Favorite, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+
+    User.hasMany(models.Review, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+  };
   return User;
 };

@@ -11,15 +11,16 @@ module.exports = function (sequelize, DataTypes) {
     review: {
       type: DataTypes.STRING
     }
-  }, {
-    classMethods: {
-      associate: function associate(models) {
-        // associations can be defined here
-        Review.belongsTo(models.Recipe, {
-          foreignKey: 'recipeId'
-        });
-      }
-    }
   });
+  Review.associate = function (models) {
+    Review.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
+    });
+    Review.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+  };
   return Review;
 };

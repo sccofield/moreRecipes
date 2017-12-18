@@ -19,28 +19,39 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING
     },
     votes: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     views: {
-      type: DataTypes.INTEGER
-    }
-  }, {
-    classMethods: {
-      associate: function associate(models) {
-        // associations can be defined here
-        Recipe.hasMany(models.Review, {
-          foreignKey: 'recipeId'
-        });
-
-        Recipe.belongsTo(models.User, {
-          foreignKey: 'userId'
-        });
-
-        Recipe.hasMany(models.Favorite, {
-          foreignKey: 'recipeId'
-        });
-      }
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   });
+  Recipe.associate = function (models) {
+    Recipe.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+
+    Recipe.hasMany(models.Review, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
+    });
+
+    Recipe.hasMany(models.Favorite, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
+    });
+
+    Recipe.hasMany(models.Upvote, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
+    });
+
+    Recipe.hasMany(models.Downvote, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
+    });
+  };
   return Recipe;
 };

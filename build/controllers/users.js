@@ -22,7 +22,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var saltRounds = 10;
+var saltRounds = Number(process.env.SALTROUNDS);
 
 /**
  * @class UserController
@@ -44,16 +44,51 @@ var UserController = function () {
      * @memberof UserController
      */
     value: function signup(req, res) {
-      if (req.body.password !== req.body.cPassword) {
-        return res.status(500).json({
+      var _req$body = req.body,
+          userName = _req$body.userName,
+          email = _req$body.email,
+          password = _req$body.password,
+          cPassword = _req$body.cPassword;
+
+
+      if (!userName) {
+        return res.status(400).json({
           status: 'Error',
-          message: 'password do not match'
+          message: 'Username is required'
+        });
+      }
+
+      if (!email) {
+        return res.status(400).json({
+          status: 'Error',
+          message: 'Email is required'
+        });
+      }
+
+      if (!password) {
+        return res.status(400).json({
+          status: 'Error',
+          message: 'Password is required'
+        });
+      }
+
+      if (password !== cPassword) {
+        return res.status(400).json({
+          status: 'Error',
+          message: 'Password do not match'
+        });
+      }
+
+      if (password.length < 6) {
+        return res.status(400).json({
+          status: 'Error',
+          message: 'Password must be more than 6 characters'
         });
       }
 
       _models2.default.User.create({
-        userName: req.body.username,
-        email: req.body.email,
+        userName: userName,
+        email: email,
         password: _bcrypt2.default.hashSync(req.body.password, saltRounds)
       }).then(function (user) {
         return res.status(201).json({
@@ -61,7 +96,7 @@ var UserController = function () {
           message: 'user with id ' + user.id + ' has been created'
         });
       }).catch(function (error) {
-        return res.status(500).json({
+        return res.status(400).json({
           status: 'Error',
           message: error.errors[0].message
         });
@@ -78,13 +113,17 @@ var UserController = function () {
   }, {
     key: 'signin',
     value: function signin(req, res) {
-      if (!req.body.email) {
+      var _req$body2 = req.body,
+          email = _req$body2.email,
+          password = _req$body2.password;
+
+      if (!email) {
         return res.status(400).send({
           status: 'Error',
           message: 'Please input your email'
         });
       }
-      if (!req.body.password) {
+      if (!password) {
         return res.status(400).send({
           status: 'Error',
           message: 'Please input your password'
@@ -92,7 +131,7 @@ var UserController = function () {
       }
       _models2.default.User.findOne({
         where: {
-          email: req.body.email
+          email: email
         }
       }).then(function (user) {
         if (!user) {
@@ -101,7 +140,7 @@ var UserController = function () {
             message: 'invalid login details'
           });
         }
-        if (!_bcrypt2.default.compareSync(req.body.password, user.password)) {
+        if (!_bcrypt2.default.compareSync(password, user.password)) {
           return res.status(400).send({
             status: 'Error',
             message: 'Incorrect password'
@@ -114,14 +153,14 @@ var UserController = function () {
           data: token
         });
       }).catch(function (error) {
-        return res.status(500).json({
+        return res.status(400).json({
           status: 'fail',
           message: error.errors[0].message
         });
       });
     }
     /**
-     * get user
+     * add favorite
      * @param {object} req expres req object
      * @param {object} res exp res object
      * @returns {json} json
@@ -129,40 +168,57 @@ var UserController = function () {
      */
 
   }, {
-    key: 'getUser',
-    value: function getUser(req, res) {
-      var id = parseInt(req.params.id, 10);
-      if (id === req.decoded.id || req.decoded.id === 1) {
-        _models2.default.User.findOne({
+    key: 'addFavorite',
+    value: function addFavorite(req, res) {
+      _models2.default.Recipe.findById(req.params.recipeId).then(function (recipe) {
+        if (!recipe) {
+          return res.status(404).json({
+            status: 'Error',
+            message: 'A recipe with Id ' + req.params.recipeId + ' dose not exist'
+          });
+        }
+
+        _models2.default.Favorite.findOne({
           where: {
-            id: req.params.id
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
           }
-        }).then(function (user) {
-          if (user) {
-            return res.status(200).json({
-              status: 'success',
-              data: user
+        }).then(function (favorite) {
+          if (favorite) {
+            return res.status(400).json({
+              status: 'Error',
+              message: 'You have added this recipe to your favorite already'
             });
           }
+          _models2.default.Favorite.create({
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }).then(function () {
+            return res.status(201).json({
+              status: 'success',
+              message: 'Recipe added to favorite'
+            });
+          }).catch(function () {
+            return res.status(500).json({
+              status: 'Error',
+              message: 'favorite not added. server error'
+            });
+          });
+        }).catch(function () {
           return res.status(500).json({
             status: 'Error',
-            message: 'user does not exist'
-          });
-        }).catch(function (error) {
-          return res.status(500).json({
-            status: 'fail',
-            message: error.errors[0].message
+            message: 'favorite not added. server error'
           });
         });
-      } else {
+      }).catch(function () {
         return res.status(500).json({
-          status: 'Fail',
-          message: 'You don\'t have privilledge to view this user'
+          status: 'Error',
+          message: 'favorite not added. server error'
         });
-      }
+      });
     }
     /**
-     * get user
+     * get favorite
      * @param {object} req expres req object
      * @param {object} res exp res object
      * @returns {json} json
@@ -170,26 +226,155 @@ var UserController = function () {
      */
 
   }, {
-    key: 'getAllUser',
-    value: function getAllUser(req, res) {
-      if (req.decoded.id === 1) {
-        _models2.default.User.findAll().then(function (users) {
+    key: 'getFavorite',
+    value: function getFavorite(req, res) {
+      _models2.default.Favorite.findAll({
+        where: {
+          userId: req.decoded.id
+        },
+        include: [{
+          model: _models2.default.Recipe, attributes: ['title', 'ingredients', 'description']
+        }]
+      }).then(function (favorite) {
+        if (favorite && Object.keys(favorite).length !== 0) {
           return res.status(200).json({
             status: 'success',
-            data: users
+            message: 'favorites',
+            data: favorite
+          });
+        }
+        return res.status(404).json({
+          status: 'Error',
+          message: 'You don\'t have any favorites'
+        });
+      }).catch(function (error) {
+        return res.status(500).json({
+          status: 'Error',
+          message: error
+        });
+      });
+    }
+    /**
+     * add upvote
+     * @param {object} req expres req object
+     * @param {object} res exp res object
+     * @returns {json} json
+     * @memberof userController
+     */
+
+  }, {
+    key: 'upvote',
+    value: function upvote(req, res) {
+      _models2.default.Recipe.findById(req.params.recipeId).then(function (recipe) {
+        if (!recipe) {
+          return res.status(404).json({
+            status: 'Error',
+            message: 'Recipe dose not exist'
+          });
+        }
+        _models2.default.Upvote.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }
+        }).then(function (vote) {
+          if (vote) {
+            return res.status(400).json({
+              status: 'Error',
+              message: 'Recipe has already been upvoted by you.'
+            });
+          }
+          _models2.default.Upvote.create({
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId,
+            vote: true
+          }).then(function () {
+            _models2.default.Recipe.findById(req.params.recipeId).then(function (found) {
+              found.increment('votes');
+              return res.status(201).json({
+                staus: 'success',
+                message: 'Recipe upvoted'
+              });
+            }).catch(function (error) {
+              res.status(500).json({
+                status: 'Error',
+                message: error
+              });
+            });
           });
         }).catch(function (error) {
-          return res.status(500).json({
-            status: 'fail',
+          res.status(500).json({
+            status: 'Error',
             message: error
           });
         });
-      } else {
-        return res.status(500).json({
+      }).catch(function (error) {
+        res.status(500).json({
           status: 'Error',
-          message: 'You don\'t have priviledge for this action'
+          message: error
         });
-      }
+      });
+    }
+    /**
+     * add downvote
+     * @param {object} req express req object
+     * @param {object} res exp res object
+     * @returns {json} json
+     * @memberof userController
+     */
+
+  }, {
+    key: 'downvote',
+    value: function downvote(req, res) {
+      _models2.default.Recipe.findById(req.params.recipeId).then(function (recipe) {
+        if (!recipe) {
+          return res.status(400).json({
+            status: 'Error',
+            message: 'Recipe dose not exist'
+          });
+        }
+        _models2.default.Downvote.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }
+        }).then(function (vote) {
+          if (vote) {
+            return res.status(400).json({
+              status: 'Error',
+              message: 'Recipe has already been downvoted by you.'
+            });
+          }
+          _models2.default.Downvote.create({
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId,
+            vote: true
+          }).then(function () {
+            _models2.default.Recipe.findById(req.params.recipeId).then(function (found) {
+              found.decrement('votes');
+              return res.status(201).json({
+                staus: 'success',
+                message: 'Recipe downvoted'
+              });
+            }).catch(function (error) {
+              res.status(500).json({
+                status: 'Error',
+                message: error
+              });
+            });
+          });
+        }).catch(function (error) {
+          res.status(500).json({
+            status: 'Error',
+            message: error
+          });
+        });
+      }).catch(function (error) {
+        res.status(500).json({
+          status: 'Error',
+          message: error
+        });
+      });
     }
   }]);
 
