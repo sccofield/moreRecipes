@@ -32,17 +32,13 @@ const routes = (app) => {
   // signin route
   app.post('/api/v1/users/signin', User.signin);
 
-  // view all user
-  app.get('/api/v1/users', Middleware.verify, User.getAllUser);
-
-  // view user profile
-  app.get('/api/v1/users/:id', Middleware.verify, User.getUser);
-
   // add favorite
   app.post('/api/v1/users/:recipeId/favorites', Middleware.verify, User.addFavorite);
 
+  // add upvote
   app.post('/api/v1/users/:recipeId/upvote', Middleware.verify, User.upvote);
 
+  // add downvote
   app.post('/api/v1/users/:recipeId/downvote', Middleware.verify, User.downvote);
 
   // get favorite

@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Downvote.associate = (models) => {
     Downvote.belongsTo(models.Recipe, {
-      foreignKey: 'recipeId'
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
     });
   };
   return Downvote;

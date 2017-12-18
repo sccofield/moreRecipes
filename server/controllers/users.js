@@ -124,69 +124,6 @@ class UserController {
       }));
   }
   /**
-   * get user
-   * @param {object} req expres req object
-   * @param {object} res exp res object
-   * @returns {json} json
-   * @memberof userController
-   */
-  static getUser(req, res) {
-    const id = parseInt(req.params.id, 10);
-    if (id === req.decoded.id || req.decoded.id === 1) {
-      db.User.findOne({
-        where: {
-          id: req.params.id
-        },
-      })
-        .then((user) => {
-          if (user) {
-            return res.status(200).json({
-              status: 'success',
-              data: user,
-            });
-          }
-          return res.status(500).json({
-            status: 'Error',
-            message: 'user does not exist'
-          });
-        })
-        .catch(error => res.status(500).json({
-          status: 'fail',
-          message: error.errors[0].message
-        }));
-    } else {
-      return res.status(500).json({
-        status: 'Fail',
-        message: 'You don\'t have privilledge to view this user'
-      });
-    }
-  }
-  /**
-   * get user
-   * @param {object} req expres req object
-   * @param {object} res exp res object
-   * @returns {json} json
-   * @memberof userController
-   */
-  static getAllUser(req, res) {
-    if (req.decoded.id === 1) {
-      db.User.findAll()
-        .then(users => res.status(200).json({
-          status: 'success',
-          data: users
-        }))
-        .catch(error => res.status(500).json({
-          status: 'fail',
-          message: error
-        }));
-    } else {
-      return res.status(500).json({
-        status: 'Error',
-        message: 'You don\'t have priviledge for this action'
-      });
-    }
-  }
-  /**
    * add favorite
    * @param {object} req expres req object
    * @param {object} res exp res object
@@ -197,7 +134,7 @@ class UserController {
     db.Recipe.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(400)
+          return res.status(404)
             .json({
               status: 'Error',
               message: `A recipe with Id ${req.params.recipeId} dose not exist`
@@ -222,7 +159,7 @@ class UserController {
               userId: req.decoded.id,
               recipeId: req.params.recipeId
             })
-              .then(() => res.status(200)
+              .then(() => res.status(201)
                 .json({
                   status: 'success',
                   message: 'Recipe added to favorite'
@@ -272,7 +209,7 @@ class UserController {
               data: favorite
             });
         }
-        return res.status(500)
+        return res.status(404)
           .json({
             status: 'Error',
             message: 'You don\'t have any favorites'
@@ -295,7 +232,7 @@ class UserController {
     db.Recipe.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(400)
+          return res.status(404)
             .json({
               status: 'Error',
               message: 'Recipe dose not exist'
@@ -324,7 +261,7 @@ class UserController {
                 db.Recipe.findById(req.params.recipeId)
                   .then((found) => {
                     found.increment('votes');
-                    return res.status(200)
+                    return res.status(201)
                       .json({
                         staus: 'success',
                         message: 'Recipe upvoted'
@@ -395,7 +332,7 @@ class UserController {
                 db.Recipe.findById(req.params.recipeId)
                   .then((found) => {
                     found.decrement('votes');
-                    return res.status(200)
+                    return res.status(201)
                       .json({
                         staus: 'success',
                         message: 'Recipe downvoted'

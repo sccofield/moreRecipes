@@ -36,23 +36,23 @@ class Middleware {
       });
     }
   }
-  /**
-   * check if user is admin
-   * @param {object} req expres req object
-   * @param {object} res exp res object
-   * @param {object} next exp next object
-   * @returns {json} json
-   * @memberof Middleware
-   */
-  static isAdmin(req, res, next) {
-    if (req.params.id === 1) {
-      return next();
-    }
-    return res.status(500).json({
-      status: 'Error',
-      message: 'You are not and admin and don\'t have the priviledge'
-    });
-  }
+  // /**
+  //  * check if user is admin
+  //  * @param {object} req expres req object
+  //  * @param {object} res exp res object
+  //  * @param {object} next exp next object
+  //  * @returns {json} json
+  //  * @memberof Middleware
+  //  */
+  // static isAdmin(req, res, next) {
+  //   if (req.params.id === 1) {
+  //     return next();
+  //   }
+  //   return res.status(500).json({
+  //     status: 'Error',
+  //     message: 'You are not and admin and don\'t have the priviledge'
+  //   });
+  // }
 }
 
 export default Middleware;
