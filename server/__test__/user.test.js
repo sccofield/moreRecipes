@@ -20,9 +20,9 @@ describe('Testing User Controller', () => {
     await db.Upvote.destroy({ where: {} });
     await db.Downvote.destroy({ where: {} });
     await db.Review.destroy({ where: {} });
+    await db.Favorite.destroy({ where: {} });
     await db.Recipe.destroy({ where: {} });
     await db.User.destroy({ where: {} });
-    await db.Favorite.destroy({ where: {} });
   });
   describe('Testing signup controller', () => {
     it('should register a new user when all the parameters are given', (done) => {
