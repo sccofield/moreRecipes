@@ -4,11 +4,10 @@
   "description": "More Recipes provides a platform for users to share awesome and exciting recipe ideas they have invented or learnt.",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/bin/www.js",
+    "start": "npm run build && node ./build/bin/www.js",
     "dev": "nodemon server/bin/www --exec babel-node",
     "babel-node": "babel-node --",
     "build": "babel ./server -d ./build",
-    "heroku-postbuild": "npm run build",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "unmigrate": "node_modules/.bin/sequelize db:migrate:undo:all",
     "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
