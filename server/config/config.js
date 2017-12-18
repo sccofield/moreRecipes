@@ -7,7 +7,7 @@ const config = {
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
     dialect: 'postgres',
-    logging: true
+    logging: true,
   },
   test: {
     username: process.env.DB_USERNAME,
@@ -15,10 +15,11 @@ const config = {
     database: process.env.DB_DATABASE_TEST,
     host: process.env.DB_HOST,
     dialect: 'postgres',
-    logging: true
+    logging: true,
   },
   production: {
     connection_uri: process.env.DATABASE_URL,
+    dialect: 'postgres',
   }
 };
 
