@@ -9,9 +9,7 @@ import db from '../models';
 
 const saltRounds = Number(process.env.SALTROUNDS);
 const mockData = {};
-const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.SECRET, { expiresIn: 7200 });
-};
+const generateToken = userId => jwt.sign({ id: userId }, process.env.SECRET, { expiresIn: 7200 });
 
 chai.use(chaiHttp);
 
