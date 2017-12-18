@@ -26,6 +26,7 @@ describe('Testing Recipe Controller', () => {
     await db.sequelize.sync();
     await db.Upvote.destroy({ where: {} });
     await db.Downvote.destroy({ where: {} });
+    await db.Favorite.destroy({ where: {} });
     await db.Recipe.destroy({ where: {} });
     await db.User.destroy({ where: {} });
     mockData.user1 = await db.User.create({
