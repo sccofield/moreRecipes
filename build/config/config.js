@@ -20,7 +20,7 @@ var config = {
     logging: true
   },
   production: {
-    connection_uri: process.env.DATABASE_URL,
+    use_env_variable: process.env.DATABASE_URL,
     dialect: 'postgres'
   }
 };
