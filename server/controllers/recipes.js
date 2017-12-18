@@ -108,12 +108,12 @@ class RecipeController {
             status: 'success',
             message: 'Recipe deleted'
           }))
-          .catch(error => res.status(500).json({
+          .catch(() => res.status(400).json({
             status: 'fail',
-            message: error
+            message: 'Recipe dose not exist'
           }));
       })
-      .catch(() => res.status(500).json({
+      .catch(() => res.status(400).json({
         status: 'fail',
         message: 'Recipe dosen\'t exist or you don\'t have privilledge for that action'
       }));
@@ -158,7 +158,7 @@ class RecipeController {
     }
   }
   /**
-   * add review
+   * get single recipe
    * @param {object} req expres req object
    * @param {object} res exp res object
    * @returns {json} json
@@ -170,10 +170,10 @@ class RecipeController {
         if (recipe) {
           res.status(200).json({
             status: 'success',
-            data: recipe
+            recipe
           });
         } else {
-          return res.status(500).json({
+          return res.status(400).json({
             status: 'Error',
             message: `Recipe with id ${req.params.id} dose not exist`
           });
@@ -194,7 +194,7 @@ class RecipeController {
    */
   static addReview(req, res) {
     if (!(req.body.review)) {
-      return res.status(500).json({
+      return res.status(400).json({
         status: 'fail',
         message: 'Please enter a review.'
       });
@@ -205,7 +205,7 @@ class RecipeController {
     db.Recipe.findOne({ where: { id } })
       .then((recipe) => {
         if (!recipe) {
-          return res.status(500).json({ status: 'fail', message: 'Recipe dose not exist' });
+          return res.status(400).json({ status: 'fail', message: 'Recipe dose not exist' });
         }
         db.Review.create({
           recipeId: id,
@@ -218,7 +218,7 @@ class RecipeController {
           }))
           .catch(error => res.status(500).json({ status: 'fail', message: error }));
       })
-      .catch(error => res.status(500).json({ status: 'fail', message: error }));
+      .catch(() => res.status(500).json({ status: 'fail', message: 'Recipe dose not exist' }));
   }
 
 

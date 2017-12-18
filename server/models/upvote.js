@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Upvote.associate = (models) => {
     Upvote.belongsTo(models.Recipe, {
-      foreignKey: 'recipeId'
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
     });
   };
   return Upvote;
