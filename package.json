@@ -14,7 +14,9 @@
     "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
     "test": "NODE_ENV=test mocha server/__test__/*.js --exit --require babel-register --reporter spec",
     "coverage": "nyc reports --reporter=text-lcov | coveralls",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "build-client": "webpack",
+    "dev-server": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -51,9 +54,9 @@
     "dotenv": "^4.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
     "express": "^4.16.2",
     "express-validator": "^4.3.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "istanbul": "^0.4.5",
     "jsonwebtoken": "^8.1.0",
     "mocha": "^4.0.1",
@@ -64,10 +67,22 @@
     "nyc": "^11.2.1",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
     "sequelize": "^4.20.1",
-    "sequelize-cli": "^3.2.0"
+    "sequelize-cli": "^3.2.0",
+    "webpack": "^3.10.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "webpack-dev-server": "^2.11.1"
+  },
   "engines": {
     "node": "8.4.0",
     "npm": "5.4.2"
