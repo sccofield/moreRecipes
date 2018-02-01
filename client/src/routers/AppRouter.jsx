@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, } from 'react-router-dom';
 
 import HomePage from '../components/HomePage';
 import ExploreRecipe from '../components/ExploreRecipe';
-import Register from '../components/Register';
+import Register from '../components/register/Register';
 import Login from '../components/Login';
 import Footer from '../components/Footer';
 import NotFoundPage from '../components/NotFoundPage';

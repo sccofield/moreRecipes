@@ -40,10 +40,12 @@ module.exports = {
   ],
   devServer: {
     contentBase: path.join(__dirname, 'client/public'),
-    historyApiFallback: true
+    historyApiFallback: true,
+    publicPath: '/'
   },
   devtool: 'cheap-module-eval-source-map',
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  watch: true
 };

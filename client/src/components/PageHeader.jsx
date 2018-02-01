@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PageHeader = () => (
+const PageHeader = props => (
   <header style={{ backgroundColor: 'black', backgroundImage: 'none' }}>
     <div className="container">
 
@@ -22,17 +22,30 @@ const PageHeader = () => (
             <li className="nav-item">
               <a className="nav-link" href="/postRecipe">Post Recipe</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/profile">profile</a>
-            </li>
+            {
+              props.user ?
+                <span>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/profile">profile</a>
+                  </li>
 
-            <li className="nav-item">
-              <a className="nav-link" href="/login">Login</a>
-            </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/login">Logout</a>
+                  </li>
+                </span>
 
-            <li className="nav-item">
-              <a className="nav-link" href="/register">Register</a>
-            </li>
+                :
+                <span>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/login">Login</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/register">Register</a>
+                  </li>
+                </span>
+            }
+
+
           </ul>
         </div>
       </nav>

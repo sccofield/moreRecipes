@@ -62,11 +62,19 @@ class UserController {
       email,
       password: bcrypt.hashSync(req.body.password, saltRounds)
     })
-      .then(user => res.status(201).json({
-        status: 'success',
-        message: `user with id ${user.id} has been created`,
-      }))
-      .catch(error =>
+      .then((user) => {
+        const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 7200 });
+        return res.status(201).json({
+          status: 'success',
+          message: `user with id ${user.id} has been created`,
+          token,
+          user: {
+            username: user.userName,
+            email: user.email
+          }
+          // userData
+        });
+      }).catch(error =>
         res.status(400).json({
           status: 'Error',
           message: error.errors[0].message
