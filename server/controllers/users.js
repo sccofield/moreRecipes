@@ -123,7 +123,11 @@ class UserController {
         res.status(200).send({
           status: 'success',
           message: 'Successfully signin',
-          data: token,
+          token,
+          user: {
+            username: user.userName,
+            email: user.email
+          }
         });
       })
       .catch(error => res.status(400).json({

@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import logoutUserActionCreator from '../actions/logout.js';
+import Navbar from './Navbar';
 
 const PageHeader = props => (
   <header style={{ backgroundColor: 'black', backgroundImage: 'none' }}>
     <div className="container">
+      <Navbar />
 
-      <nav className="navbar navbar-dark navbar-expand-lg justify-content-between py-3 sticky">
+      {/* <nav className="navbar navbar-dark navbar-expand-lg justify-content-between py-3 sticky">
         <div className="brand">
 
           <a href="index.html" className="navbar-brand mr-0">More Recipes</a>
@@ -30,7 +34,12 @@ const PageHeader = props => (
                   </li>
 
                   <li className="nav-item">
-                    <a className="nav-link" href="/login">Logout</a>
+                    <a
+                      className="nav-link"
+                      href="/logout"
+                      onClick={() => props.logoutUser()}
+                    >Logout
+                    </a>
                   </li>
                 </span>
 
@@ -49,7 +58,7 @@ const PageHeader = props => (
           </ul>
         </div>
       </nav>
-
+ */}
 
     </div>
 
@@ -57,4 +66,11 @@ const PageHeader = props => (
 
 );
 
-export default PageHeader;
+const mapDispatchToProps = dispatch => ({
+
+  logoutUser: () => {
+    dispatch(logoutUserActionCreator());
+  }
+});
+
+export default connect(mapDispatchToProps)(PageHeader);

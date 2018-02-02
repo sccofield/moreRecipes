@@ -50,7 +50,8 @@ class RecipeController {
       title: req.body.title,
       description: req.body.description,
       ingredients: req.body.ingredients,
-      userId: req.decoded.id
+      userId: req.decoded.id,
+      imageUrl: req.body.imageUrl
     })
       .then(recipes => res.status(201).send({
         recipe: recipes,
@@ -157,6 +158,32 @@ class RecipeController {
         });
     }
   }
+
+  /**
+ *
+ *
+ * @static
+ * @param {any} req
+ * @param {any} res
+ * @memberof RecipeController
+ * @returns {null} null
+ */
+  static homeRecipes(req, res) {
+    db.Recipe.findAll({ order: [['createdAt', 'DESC']], limit: 3 })
+      .then((latestRecipes) => {
+        db.Recipe.findAll({
+          order: [['votes', 'DESC']],
+          limit: 3
+        }).then((popularRecipes) => {
+          res.json({
+            latestRecipes,
+            popularRecipes
+          });
+        });
+      });
+  }
+
+
   /**
    * get single recipe
    * @param {object} req expres req object

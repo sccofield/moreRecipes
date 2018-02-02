@@ -14,8 +14,7 @@ class Middleware {
    * @memberof Middleware
    */
   static verify(req, res, next) {
-    const token = req.body.token || req.query.token || req.headers.token;
-    console.log(req.headers);
+    const { token } = req.headers;
     if (token) {
       jwt.verify(token, process.env.SECRET, (err, decoded) => {
         if (err) {

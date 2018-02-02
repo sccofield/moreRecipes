@@ -10,6 +10,7 @@ import Middleware from './middleware';
 
 const routes = (app) => {
   app.get('/', Recipe.welcome);
+  app.get('/api/v1/homeRecipes', Recipe.homeRecipes);
   // post recipe route
   app.post('/api/v1/recipes', Middleware.verify, Recipe.addRecipe);
 

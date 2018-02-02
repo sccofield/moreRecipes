@@ -13,10 +13,11 @@ const RegisterForm = props => (
             </p>
           </div>
           {props.state.errors && <ul>{props.state.errors.map(error => <li>{error}</li>)}</ul>}
+          {props.errorMessage && <p>{props.errorMessage}</p>}
           <form onSubmit={props.onSubmit}>
             <div className="form-group">
               <input
-                type="name"
+                type="text"
                 className="form-control"
                 name="userName"
                 placeholder="Username"

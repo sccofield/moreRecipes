@@ -1,4 +1,5 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PageHeader from '../PageHeader';
 import Footer from '../Footer';
@@ -31,9 +32,6 @@ class Register extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.isAuthenticated);
-  }
 
   /**
  * @description handles form change events
@@ -52,14 +50,14 @@ class Register extends React.Component {
  * @memberof Register
  */
   onSubmit(event) {
+    console.log('i was called.');
     event.preventDefault();
 
     if (this.validate()) {
-      this.props.registerUserActionCreator(this.state);
+      this.props.registerUserActionCreator(this.state).then(() => {
+        this.props.history.push('/');
+      });
     }
-
-
-    console.log(this.state);
   }
 
   /**
@@ -74,6 +72,7 @@ class Register extends React.Component {
       this.setState({ errors });
       return false;
     }
+    this.setState({ errors: [] });
     return true;
   }
 
@@ -87,7 +86,13 @@ class Register extends React.Component {
     return (
       <div>
         <PageHeader user={this.props.isAuthenticated} />
-        <RegisterForm onChange={this.onChange} state={this.state} onSubmit={this.onSubmit} errors={this.state.errors} />
+        <RegisterForm
+          onChange={this.onChange}
+          state={this.state}
+          onSubmit={this.onSubmit}
+          errors={this.state.errors}
+          errorMessage={this.props.errorMessage}
+        />
         <Footer />
       </div>
     );
@@ -95,9 +100,12 @@ class Register extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated,
+  errorMessage: state.user.errorMessage
 });
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ registerUserActionCreator }, dispatch);
 
-export default connect(mapStateToProps, { registerUserActionCreator })(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
