@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
 import { bindActionCreators } from 'redux';
 import PageHeader from '../PageHeader';
 import Footer from '../Footer';
 import LoginForm from './LoginForm';
 import loginUserActionCreator from '../../actions/login';
-
-import FormValidator from './formValidator';
 
 /**
  *
@@ -24,11 +23,44 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errors: []
+      errors: null
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
+  /**
+ *
+ *@returns {obj} obj
+ * @memberof Login
+ */
+  componentWillMount() {
+    if (this.props.isAuthenticated) {
+      toastr.warning('You are logged in already.');
+      this.props.history.push('/dashboard');
+    }
+  }
+  /**
+ *
+ *
+ * @param {any} nextProps
+ * @returns {obj} obj
+ * @memberof Login
+ */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuthenticated) {
+      toastr.success('You are logged in');
+      this.props.history.goBack();
+      return;
+    }
+
+    if (nextProps.errorMessage) {
+      this.setState({
+        errors: nextProps.errorMessage
+      });
+    }
+  }
+
 
   /**
  * @description handles form change events
@@ -39,6 +71,15 @@ class Login extends React.Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  /**
+ *
+ * @returns {obj} obj
+ * @param {any} event
+ * @memberof Login
+ */
+  onFocus(event) {
+    this.setState({ errors: null });
+  }
 
   /**
  * @description handles form submit events
@@ -48,26 +89,7 @@ class Login extends React.Component {
  */
   onSubmit(event) {
     event.preventDefault();
-
-    if (this.validate()) {
-      this.props.loginUserActionCreator(this.state).then(() => { this.props.history.goBack() ;});
-    }
-  }
-
-  /**
- *
- *
- * @returns {boolean} boolean
- * @memberof Login
- */
-  validate() {
-    const { errors } = FormValidator(this.state);
-    if (errors.length > 0) {
-      this.setState({ errors });
-      return false;
-    }
-    this.setState({ errors: [] });
-    return true;
+    this.props.loginUserActionCreator(this.state);
   }
 
 
@@ -78,15 +100,18 @@ class Login extends React.Component {
    */
   render() {
     return (
-      <div>
+
+      <div className="main">
         <PageHeader user={this.props.isAuthenticated} />
-        <LoginForm
-          onChange={this.onChange}
-          state={this.state}
-          onSubmit={this.onSubmit}
-          errors={this.state.errors}
-          errorMessage={this.props.errorMessage}
-        />
+        <div className="regForm">
+          {this.props.loading && <div className="loader" />}
+          <LoginForm
+            onChange={this.onChange}
+            state={this.state}
+            onSubmit={this.onSubmit}
+            onFocus={this.onFocus}
+          />
+        </div>
         <Footer />
       </div>
     );
@@ -95,7 +120,8 @@ class Login extends React.Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.user.isAuthenticated,
-  errorMessage: state.user.errorMessage
+  errorMessage: state.user.errorMessage,
+  loading: state.user.loading
 });
 
 const mapDispatchToProps = dispatch =>

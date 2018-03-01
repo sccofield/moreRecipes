@@ -1,5 +1,8 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import PropTypes from 'prop-types';
+import { Editor } from '@tinymce/tinymce-react';
+
 
 const PostRecipeForm = props => (
   <main className="container">
@@ -7,7 +10,8 @@ const PostRecipeForm = props => (
     <div className="row justify-content-md-center">
       <div className="col-md-8">
 
-        <h1>Post Recipe</h1>
+        <h1>Add New Recipe</h1>
+        {props.state.errors && <ul className="errorMessage">{props.state.errors.map(error => <li key={Math.floor(Math.random() * 1000)}>{error}</li>)}</ul>}
 
         <form onSubmit={props.onSubmit}>
           <div className="form-group">
@@ -20,19 +24,24 @@ const PostRecipeForm = props => (
               placeholder="Enter recipe title"
               value={props.state.title}
               onChange={props.onChange}
+              required
             />
           </div>
           <div className="form-group">
             <label htmlFor="post">Recipe ingredients</label>
+
             <textarea
               className="form-control"
               name="ingredients"
               id="ingredients"
-              placeholder="Enter recipe ingredients"
+              placeholder="Enter recipe ingredients seperated by commas"
               rows="5"
               value={props.state.ingredients}
               onChange={props.onChange}
+              required
             />
+            <small id="emailHelp" className="form-text text-muted">seperate each ingredients with a comma (,)</small>
+
           </div>
 
           <div className="form-group">
@@ -45,27 +54,53 @@ const PostRecipeForm = props => (
               placeholder="Enter recipe description"
               value={props.state.description}
               onChange={props.onChange}
+              required
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="imgurl">Recipe image</label>
-            <Dropzone onDrop={props.handleDrop} />
+            <Dropzone
+              onDrop={props.handleDrop}
+              multiple={false}
+            >
+              <p className="text-center pt-4">
+                Click to upload image
+              </p>
+              { props.imagePreview &&
+
+              <div className="form-group">
+                <img src={props.imagePreview} alt="" className="img img-responsive img-thumbnail imagePreview" />
+              </div>
+              }
+            </Dropzone>
+
+
           </div>
 
-          { props.imagePreview &&
-
-            <div className="form-group">
-              <img src={props.imagePreview} alt="" className="img img-responsive" />
-            </div>
-          }
 
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
+
       </div>
     </div>
   </main>
 
 );
+
+PostRecipeForm.propType = {
+  errors: PropTypes.arrayOf(PropTypes.string),
+  handleDrop: PropTypes.func.isRequired,
+  imagePreview: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  state: PropTypes.shape({
+    description: PropTypes.string,
+    errors: PropTypes.array,
+    image: PropTypes.string,
+    ingredients: PropTypes.string,
+    title: PropTypes.string
+  }).isRequired,
+};
 
 export default PostRecipeForm;

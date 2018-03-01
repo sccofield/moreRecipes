@@ -15,17 +15,17 @@ class Middleware {
    */
   static verify(req, res, next) {
     const { token } = req.headers;
+    console.log('|||||||||||||||||', token);
     if (token) {
       jwt.verify(token, process.env.SECRET, (err, decoded) => {
         if (err) {
-          return res.json({
+          console.log(err);
+          return res.status(401).json({
             status: 'fail',
             message: 'Failed to authenticate token.'
           });
         }
         req.decoded = decoded;
-        // console.log(req.decoded);
-        // console.log(req.decoded.id);
         next();
       });
     } else {

@@ -10,9 +10,8 @@ export const getHomeRecipe = (latestRecipes, popularRecipes) => ({
 });
 
 const getHomeRecipeActionCreator = () => dispatch => axios
-  .get('api/v1/homeRecipes')
+  .get('/api/v1/homeRecipes')
   .then((res) => {
-    console.log(res);
     const { latestRecipes, popularRecipes } = res.data;
 
     dispatch(getHomeRecipe(latestRecipes, popularRecipes));

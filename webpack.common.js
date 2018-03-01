@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
 
 // webpack configuration setting
@@ -7,7 +8,8 @@ module.exports = {
   entry: path.join(__dirname, 'client', 'src', 'index.jsx'),
   output: {
     path: path.join(__dirname, 'client', 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   // webpack should use babel-loader for js and jsx files
   module: {
@@ -37,15 +39,9 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('styles.css'),
+    new webpack.NamedModulesPlugin(),
   ],
-  devServer: {
-    contentBase: path.join(__dirname, 'client/public'),
-    historyApiFallback: true,
-    publicPath: '/'
-  },
-  devtool: 'cheap-module-eval-source-map',
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  watch: true
 };

@@ -1,12 +1,14 @@
 import actionTypes from '../actions/actionTypes';
 
 const {
-  REGISTER, LOGOUT, LOGIN, AUTH_ERROR
+  REGISTER, LOGOUT, LOGIN, AUTH_ERROR, ADD_FAVOURITE
 } = actionTypes;
 
 const initialState = {
   isAuthenticated: !!localStorage.getItem('token'),
-  user: JSON.parse(localStorage.getItem('user')) || {}
+  user: JSON.parse(localStorage.getItem('user')) || {},
+  errorMessage: null,
+  loading: null
 };
 
 export default (state = initialState, action = {}) => {
@@ -18,7 +20,13 @@ export default (state = initialState, action = {}) => {
       user: action.user,
       errorMessage: ''
     };
-
+  case 'REQUEST_AUTHENTICATION':
+    return {
+      ...state,
+      isAuthenticated: false,
+      errorMessage: null,
+      loading: true
+    };
   case LOGOUT:
     return {
       ...state,
@@ -32,13 +40,19 @@ export default (state = initialState, action = {}) => {
       ...state,
       isAuthenticated: true,
       user: action.user,
-      errorMessage: ''
+      errorMessage: '',
+      loading: false
     };
   case AUTH_ERROR:
     return {
       ...state,
       isAuthenticated: false,
-      errorMessage: action.message
+      errorMessage: action.message,
+      loading: false
+    };
+  case ADD_FAVOURITE:
+    return {
+      ...state
     };
 
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const RegisterForm = props => (
   <div className="main">
@@ -12,17 +13,26 @@ const RegisterForm = props => (
               <span>Sign in</span>
             </p>
           </div>
-          {props.state.errors && <ul>{props.state.errors.map(error => <li>{error}</li>)}</ul>}
-          {props.errorMessage && <p>{props.errorMessage}</p>}
+          {
+            props.state.errors &&
+            <ul className="errorMessage">{
+              props.state.errors.map(error => <li>{error}</li>)
+            }
+            </ul>}
+          {
+            props.errorMessage &&
+            <p className="errorMessage">{props.errorMessage}</p>
+          }
           <form onSubmit={props.onSubmit}>
             <div className="form-group">
               <input
                 type="text"
                 className="form-control"
                 name="userName"
-                placeholder="Username"
+                placeholder="Name"
                 value={props.state.userName}
                 onChange={props.onChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -35,6 +45,7 @@ const RegisterForm = props => (
                 placeholder="Email"
                 value={props.state.email}
                 onChange={props.onChange}
+                required
               />
             </div>
 
@@ -47,6 +58,7 @@ const RegisterForm = props => (
                 placeholder="Password"
                 value={props.state.password}
                 onChange={props.onChange}
+                required
               />
             </div>
 
@@ -58,6 +70,7 @@ const RegisterForm = props => (
                 placeholder="Re-enter Password"
                 value={props.state.cPassword}
                 onChange={props.onChange}
+                required
               />
             </div>
             <button
@@ -70,7 +83,23 @@ const RegisterForm = props => (
       </div>
     </div>
   </div>
-
 );
 
+RegisterForm.propTypes = {
+  errorMessage: PropTypes.string,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  state: PropTypes.shape({
+    cPassword: PropTypes.string,
+    password: PropTypes.string,
+    userName: PropTypes.string,
+    errors: PropTypes.array,
+    email: PropTypes.string
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+};
+RegisterForm.defaultProps = {
+  errorMessage: null,
+  errors: null
+};
 export default RegisterForm;

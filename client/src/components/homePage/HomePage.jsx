@@ -14,13 +14,10 @@ import getHomeRecipeActionCreator from '../../actions/homeRecipe';
  */
 class HomePage extends React.Component {
   /**
-   * Creates an instance of HomePage.
-   * @memberof HomePage
-   */
-  constructor() {
-    super();
-  }
-
+ *
+ * @returns {null} null
+ * @memberof HomePage
+ */
   componentWillMount() {
     this.props.getHomeRecipeActionCreator();
   }
@@ -35,9 +32,9 @@ class HomePage extends React.Component {
       <div>
         <HomePageHeader />
         <div>
-          <PopularRecipe />
+          <PopularRecipe recipes={this.props.popularRecipes} />
 
-          <LatestRecipe />
+          <LatestRecipe recipes={this.props.latestRecipes} />
 
 
           <section className="cta text-center">
@@ -54,7 +51,12 @@ class HomePage extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  latestRecipes: state.recipe.latestRecipes,
+  popularRecipes: state.recipe.popularRecipes
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ getHomeRecipeActionCreator }, dispatch);
 
-export default connect(null, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
