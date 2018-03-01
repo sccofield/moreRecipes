@@ -3,19 +3,24 @@ import actionTypes from './actionTypes';
 
 const { POST_RECIPE } = actionTypes;
 
-const token = localStorage.getItem('token');
-
 export const postRecipeAction = recipe => ({
   type: POST_RECIPE,
   recipe
 });
 
+export const clearNewRecipe = () => ({
+  type: 'CLEAR_NEW_RECIPE',
+});
+
 const postRecipeActionCreator = recipe => dispatch => axios
-  .post('api/v1/recipes', recipe, { headers: { token } })
+  .post(
+    '/api/v1/recipes',
+    recipe, { headers: { token: localStorage.getItem('token') } }
+  )
   .then((res) => {
     const recipeData = res.data.recipe;
     dispatch(postRecipeAction(recipeData));
-    return Promise.resolve();
+  }).catch(() => {
   });
 
 export default postRecipeActionCreator;

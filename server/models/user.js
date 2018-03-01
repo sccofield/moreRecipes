@@ -3,11 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validates that username is not repeated.
-      unique: {
-        args: true,
-        msg: 'Username already used. Please try another username'
-      },
       validate: {
         len: {
           args: [4, 20],

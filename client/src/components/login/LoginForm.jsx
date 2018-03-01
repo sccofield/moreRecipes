@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LoginForm = props => (
-  <div className="main">
+  <div>
     <div className="row justify-content-md-center">
       <div className="col-md-8 col-lg-6 col-12">
         <div className="registeration text-center">
@@ -12,8 +12,7 @@ const LoginForm = props => (
               <span>Sign in</span>
             </p>
           </div>
-          {props.state.errors && <ul>{props.state.errors.map(error => <li>{error}</li>)}</ul>}
-          {props.errorMessage && <p>{props.errorMessage}</p>}
+          {props.state.errors && <p className="errorMessage">{props.state.errors}</p>}
           <form onSubmit={props.onSubmit}>
             <div className="form-group">
               <input
@@ -25,6 +24,8 @@ const LoginForm = props => (
                 placeholder="Email"
                 value={props.state.email}
                 onChange={props.onChange}
+                onFocus={props.onFocus}
+                required
               />
             </div>
 
@@ -37,6 +38,8 @@ const LoginForm = props => (
                 placeholder="Password"
                 value={props.state.password}
                 onChange={props.onChange}
+                onFocus={props.onFocus}
+                required
               />
             </div>
             <button

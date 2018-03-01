@@ -1,6 +1,8 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
+import PropTypes from 'prop-types';
 import PageHeader from '../PageHeader';
 import Footer from '../Footer';
 import RegisterForm from './RegisterForm';
@@ -32,6 +34,32 @@ class Register extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+ *
+ *  @returns {obj} obj
+ * @memberof Register
+ */
+  componentWillMount() {
+    if (this.props.isAuthenticated) {
+      toastr.warning('You are logged in already.');
+      this.props.history.push('/dashboard');
+    }
+  }
+
+  /**
+ *
+ *
+ * @param {any} nextProps
+ * @returns {obj} obj
+ * @memberof Login
+ */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuthenticated) {
+      toastr.success('Registeration sucess. you are logged in');
+      this.props.history.goBack();
+    }
+  }
+
 
   /**
  * @description handles form change events
@@ -50,12 +78,10 @@ class Register extends React.Component {
  * @memberof Register
  */
   onSubmit(event) {
-    console.log('i was called.');
     event.preventDefault();
 
     if (this.validate()) {
       this.props.registerUserActionCreator(this.state).then(() => {
-        this.props.history.push('/');
       });
     }
   }
@@ -106,6 +132,20 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ registerUserActionCreator }, dispatch);
+
+Register.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  registerUserActionCreator: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+    push: PropTypes.func
+  }).isRequired
+};
+
+Register.defaultProps = {
+  errorMessage: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
