@@ -21,13 +21,13 @@ module.exports = {
       type: Sequelize.STRING
     },
     description: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     imageUrl: {
       type: Sequelize.STRING
     },
     ingredients: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     votes: {
       type: Sequelize.INTEGER
