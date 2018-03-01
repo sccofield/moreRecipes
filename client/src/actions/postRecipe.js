@@ -21,7 +21,7 @@ const postRecipeActionCreator = recipe => dispatch => axios
     const recipeData = res.data.recipe;
     dispatch(postRecipeAction(recipeData));
   }).catch((error) => {
-    console.log('>>>>>>>>>>>>>>>>>', error);
+    console.log('>>>>>>>>>>>>>>>>>', error.message);
   });
 
 export default postRecipeActionCreator;
