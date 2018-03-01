@@ -57,12 +57,12 @@ const FavoriteRecipes = props => (
                     <strong>{favouriteRecipe.Recipe.title}</strong>
                   </Link>
                 </h4>
-                <p>{favouriteRecipe.description.slice(0, 80).concat(' ...')}
+                <p>{favouriteRecipe.Recipe.description.slice(0, 80).concat(' ...')}
                 </p>
                 <p>by
                   <a>
                     <strong> {favouriteRecipe.Recipe.userName}</strong>
-                  </a>, {moment(favouriteRecipe.createdAt).format('ll')}
+                  </a>, {moment(favouriteRecipe.Recipe.createdAt).format('ll')}
 
                 </p>
 
