@@ -20,7 +20,8 @@ const postRecipeActionCreator = recipe => dispatch => axios
   .then((res) => {
     const recipeData = res.data.recipe;
     dispatch(postRecipeAction(recipeData));
-  }).catch(() => {
+  }).catch((error) => {
+    console.log('>>>>>>>>>>>>>>>>>', error);
   });
 
 export default postRecipeActionCreator;
