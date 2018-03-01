@@ -29,9 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.all('/*', (req, res) => {
-  res.status(404).json({
-    message: 'Page not found'
-  });
+  res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
 });
 
 export default app;

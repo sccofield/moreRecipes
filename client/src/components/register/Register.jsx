@@ -55,7 +55,7 @@ class Register extends React.Component {
  */
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuthenticated) {
-      toastr.success('Registeration sucess. you are logged in');
+      toastr.success('Registeration sucessfull. you are logged in');
       this.props.history.goBack();
     }
   }

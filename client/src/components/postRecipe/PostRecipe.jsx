@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import PageHeader from '../PageHeader';
@@ -53,6 +54,7 @@ class PostRecipe extends React.Component {
  */
   componentWillReceiveProps(nextProps) {
     if (nextProps.newRecipe) {
+      toastr.success('Your recipe has been added');
       this.props.history.push(`recipes/${nextProps.newRecipe.id}`);
     }
   }
