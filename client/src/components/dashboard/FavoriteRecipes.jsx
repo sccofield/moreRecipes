@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import moment from 'moment';
 
 import { Link } from 'react-router-dom';
 
@@ -56,12 +57,12 @@ const FavoriteRecipes = props => (
                     <strong>{favouriteRecipe.Recipe.title}</strong>
                   </Link>
                 </h4>
-                <p>{favouriteRecipe.Recipe.description}
+                <p>{favouriteRecipe.description.slice(0, 80).concat(' ...')}
                 </p>
                 <p>by
                   <a>
                     <strong> {favouriteRecipe.Recipe.userName}</strong>
-                  </a>, {favouriteRecipe.Recipe.createdAt.slice(0, 10)}
+                  </a>, {moment(favouriteRecipe.createdAt).format('ll')}
 
                 </p>
 

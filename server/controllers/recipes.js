@@ -185,22 +185,6 @@ class RecipeController {
               limit,
               pages,
               recipes,
-              include: [{
-                model: db.Review
-              },
-              {
-                model: db.Favorite,
-                attributes: ['userId', 'recipeId']
-              },
-              {
-                model: db.Upvote,
-                attributes: ['userId', 'recipeId']
-              },
-              {
-                model: db.Downvote,
-                attributes: ['userId', 'recipeId']
-              }
-              ]
             });
           })
           .catch((error) => {

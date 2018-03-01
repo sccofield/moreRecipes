@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import moment from 'moment';
 
 import { Link } from 'react-router-dom';
 
@@ -56,7 +57,7 @@ const MyRecipes = props => (
                   by
                   <a>
                     <strong> {userRecipe.userName}</strong>
-                  </a>, {userRecipe.createdAt.slice(0, 10)}
+                  </a>, { moment(userRecipe.createdAt).format('ll')}
                   <span className="btn btn-outline-info mx-1">
                     <Link className="" to={`/recipe/edit/${userRecipe.id}`}>
                       <i className="fa fa-pencil" aria-hidden="true" />

@@ -88,7 +88,7 @@ class RecipeDetail extends React.Component {
                         </p>
                         <p>Posted on:
                           <span>
-                            {moment(this.props.recipe.createdAt).format('ll')}
+                            { moment(this.props.recipe.createdAt).format('ll')}
                           </span>
                         </p>
                       </div>
