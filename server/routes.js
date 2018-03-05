@@ -9,7 +9,7 @@ import Middleware from './middleware';
 // const middleware = new Middleware();
 
 const routes = (app) => {
-  app.get('/', Recipe.welcome);
+  app.get('/api/v1/homeRecipes', Recipe.homeRecipes);
   // post recipe route
   app.post('/api/v1/recipes', Middleware.verify, Recipe.addRecipe);
 
@@ -24,6 +24,13 @@ const routes = (app) => {
 
   app.get('/api/v1/recipes/:id', Recipe.getRecipe);
 
+  // Get all user recipes
+  app.get(
+    '/api/v1/recipes/user/allrecipes',
+    Middleware.verify,
+    Recipe.getAllUserRecipes
+  );
+
   // Add review
   app.post('/api/v1/recipes/:id/reviews', Middleware.verify, Recipe.addReview);
 
@@ -33,13 +40,19 @@ const routes = (app) => {
   app.post('/api/v1/users/signin', User.signin);
 
   // add favorite
-  app.post('/api/v1/users/:recipeId/favorites', Middleware.verify, User.addFavorite);
+  app.post(
+    '/api/v1/users/:recipeId/favorites',
+    Middleware.verify, User.addFavorite
+  );
 
   // add upvote
   app.post('/api/v1/users/:recipeId/upvote', Middleware.verify, User.upvote);
 
   // add downvote
-  app.post('/api/v1/users/:recipeId/downvote', Middleware.verify, User.downvote);
+  app.post(
+    '/api/v1/users/:recipeId/downvote',
+    Middleware.verify, User.downvote
+  );
 
   // get favorite
   app.get('/api/v1/users/favorites', Middleware.verify, User.getFavorite);

@@ -7,14 +7,17 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
     },
-    description: {
+    userName: {
       type: DataTypes.STRING,
+    },
+    description: {
+      type: DataTypes.TEXT,
     },
     imageUrl: {
       type: DataTypes.STRING,
     },
     ingredients: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     votes: {
       type: DataTypes.INTEGER,

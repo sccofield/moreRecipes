@@ -62,11 +62,22 @@ class UserController {
       email,
       password: bcrypt.hashSync(req.body.password, saltRounds)
     })
-      .then(user => res.status(201).json({
-        status: 'success',
-        message: `user with id ${user.id} has been created`,
-      }))
-      .catch(error =>
+      .then((user) => {
+        const token = jwt.sign({
+          id: user.id, userName: user.userName
+        }, process.env.SECRET);
+        return res.status(201).json({
+          status: 'success',
+          message: `user with id ${user.id} has been created`,
+          token,
+          user: {
+            username: user.userName,
+            email: user.email,
+            id: user.id
+          }
+          // userData
+        });
+      }).catch(error =>
         res.status(400).json({
           status: 'Error',
           message: error.errors[0].message
@@ -111,11 +122,18 @@ class UserController {
             message: 'Incorrect password',
           });
         }
-        const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: 7200 });
+        const token = jwt.sign({
+          id: user.id, userName: user.userName
+        }, process.env.SECRET);
         res.status(200).send({
           status: 'success',
           message: 'Successfully signin',
-          data: token,
+          token,
+          user: {
+            username: user.userName,
+            email: user.email,
+            id: user.id
+          }
         });
       })
       .catch(error => res.status(400).json({
@@ -149,20 +167,22 @@ class UserController {
         })
           .then((favorite) => {
             if (favorite) {
-              return res.status(400)
-                .json({
-                  status: 'Error',
-                  message: 'You have added this recipe to your favorite already'
+              return favorite.destroy()
+                .then(() => {
+                  res.status(200).json({
+                    message: 'You have removed recipe from favorite'
+                  });
                 });
             }
             db.Favorite.create({
               userId: req.decoded.id,
               recipeId: req.params.recipeId
             })
-              .then(() => res.status(201)
+              .then(newFavorite => res.status(201)
                 .json({
                   status: 'success',
-                  message: 'Recipe added to favorite'
+                  message: 'Recipe added to favorite',
+                  favorite: newFavorite// has userId and recipeId
                 }))
               .catch(() => res.status(500)
                 .json({
@@ -190,37 +210,48 @@ class UserController {
    * @memberof userController
    */
   static getFavorite(req, res) {
-    db.Favorite.findAll({
+    db.Favorite.findAndCountAll({
       where: {
         userId: req.decoded.id
-      },
-      include: [
-        {
-          model: db.Recipe, attributes: ['title', 'ingredients', 'description']
-        }
-      ]
-    })
-      .then((favorite) => {
-        if (favorite && Object.keys(favorite).length !== 0) {
-          return res.status(200)
+      }
+    }).then((all) => {
+      const limit = 2;
+      let offset = 0;
+      const page = parseInt((req.query.page || 1), 10);
+      const numberOfItems = all.count;
+      const pages = Math.ceil(numberOfItems / limit);
+      offset = limit * (page - 1);
+      db.Favorite.findAll({
+        where: {
+          userId: req.decoded.id
+        },
+        include: [
+          {
+            model: db.Recipe
+          }
+        ],
+        limit,
+        offset
+      })
+        .then(favorite =>
+          res.status(200)
             .json({
-              status: 'success',
               message: 'favorites',
-              data: favorite
-            });
-        }
-        return res.status(404)
+              data: favorite,
+              limit,
+              pages,
+              numberOfItems,
+              page
+            }))
+        .catch(error => res.status(500)
           .json({
             status: 'Error',
-            message: 'You don\'t have any favorites'
-          });
-      })
-      .catch(error => res.status(500)
-        .json({
-          status: 'Error',
-          message: error
-        }));
+            message: error
+          }));
+    });
   }
+
+
   /**
    * add upvote
    * @param {object} req expres req object
@@ -246,10 +277,11 @@ class UserController {
         })
           .then((vote) => {
             if (vote) {
-              return res.status(400)
-                .json({
-                  status: 'Error',
-                  message: 'Recipe has already been upvoted by you.'
+              return vote.destroy()
+                .then(() => {
+                  res.status(200).json({
+                    message: 'You have removed upvote'
+                  });
                 });
             }
             db.Upvote.create({
@@ -257,14 +289,15 @@ class UserController {
               recipeId: req.params.recipeId,
               vote: true
             })
-              .then(() => {
+              .then((newVote) => {
                 db.Recipe.findById(req.params.recipeId)
                   .then((found) => {
                     found.increment('votes');
                     return res.status(201)
                       .json({
                         staus: 'success',
-                        message: 'Recipe upvoted'
+                        message: 'Recipe upvoted',
+                        vote: newVote
                       });
                   })
                   .catch((error) => {
@@ -317,10 +350,11 @@ class UserController {
         })
           .then((vote) => {
             if (vote) {
-              return res.status(400)
-                .json({
-                  status: 'Error',
-                  message: 'Recipe has already been downvoted by you.'
+              return vote.destroy()
+                .then(() => {
+                  res.status(200).json({
+                    message: 'You have removed down vote'
+                  });
                 });
             }
             db.Downvote.create({
@@ -328,14 +362,15 @@ class UserController {
               recipeId: req.params.recipeId,
               vote: true
             })
-              .then(() => {
+              .then((newVote) => {
                 db.Recipe.findById(req.params.recipeId)
                   .then((found) => {
                     found.decrement('votes');
                     return res.status(201)
                       .json({
                         staus: 'success',
-                        message: 'Recipe downvoted'
+                        message: 'Recipe downvoted',
+                        vote: newVote
                       });
                   })
                   .catch((error) => {
