@@ -80,19 +80,6 @@ class EditRecipe extends React.Component {
   }
 
   /**
- *
- * @returns {obj} object
- * @param {any} files
- * @memberof PostRecipe
- */
-  handleDrop(files) {
-    this.setState({
-      newImage: files[0],
-      imageUrl: files[0].preview
-    });
-  }
-
-  /**
    * @description handles form submit events
    * @returns {null} null
    * @param {any} event
@@ -107,17 +94,38 @@ class EditRecipe extends React.Component {
         imageUpload.append('file', this.state.newImage);
         imageUpload.append('upload_preset', 'ftpwkq8d');
         imageUpload.append('api_key', '897164162315899');
-        axios.post('https://api.cloudinary.com/v1_1/sccofield/image/upload', imageUpload)
+        axios.post(
+          'https://api.cloudinary.com/v1_1/sccofield/image/upload',
+          imageUpload
+        )
           .then((res) => {
             const postData = this.state;
             postData.imageUrl = res.data.secure_url;
-            this.props.editRecipeActionCreator(this.props.match.params.id, postData);
+            this.props.editRecipeActionCreator(
+              this.props.match.params.id,
+              postData
+            );
           });
       } else {
-        this.props.editRecipeActionCreator(this.props.match.params.id, this.state);
+        this.props.editRecipeActionCreator(
+          this.props.match.params.id,
+          this.state
+        );
       }
-      //
     }
+  }
+
+  /**
+ *
+ * @returns {obj} object
+ * @param {any} files
+ * @memberof PostRecipe
+ */
+  handleDrop(files) {
+    this.setState({
+      newImage: files[0],
+      imageUrl: files[0].preview
+    });
   }
 
 
@@ -178,6 +186,37 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getEditRecipeActionCreator, editRecipeActionCreator }, dispatch);
+  bindActionCreators({
+    getEditRecipeActionCreator,
+    editRecipeActionCreator
+  }, dispatch);
+
+
+EditRecipe.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired,
+  recipe: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    ingredients: PropTypes.string,
+    imageUrl: PropTypes.string
+  }).isRequired,
+  editRecipeActionCreator: PropTypes.func.isRequired,
+  getEditRecipeActionCreator: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: ({
+      id: PropTypes.string,
+    })
+  }).isRequired,
+  editedRecipe: PropTypes.shape({
+    id: PropTypes.string.isRequired
+  })
+};
+
+EditRecipe.defaultProps = {
+  editedRecipe: null,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditRecipe);

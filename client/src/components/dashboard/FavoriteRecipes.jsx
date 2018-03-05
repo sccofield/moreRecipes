@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
@@ -43,7 +44,11 @@ const FavoriteRecipes = props => (
               <div className="col-lg-4 mb-4">
 
                 <div className="view overlay hm-white-slight z-depth-1">
-                  <img alt="" src={favouriteRecipe.Recipe.imageUrl} className="profileImage" />
+                  <img
+                    alt=""
+                    src={favouriteRecipe.Recipe.imageUrl}
+                    className="profileImage"
+                  />
                   <a>
                     <div className="mask" />
                   </a>
@@ -57,7 +62,9 @@ const FavoriteRecipes = props => (
                     <strong>{favouriteRecipe.Recipe.title}</strong>
                   </Link>
                 </h4>
-                <p>{favouriteRecipe.Recipe.description.slice(0, 80).concat(' ...')}
+                <p>{
+                  favouriteRecipe.Recipe.description.slice(0, 80).concat(' ...')
+                }
                 </p>
                 <p>by
                   <a>
@@ -74,16 +81,19 @@ const FavoriteRecipes = props => (
 
             <hr />
           </div>
-
-
         ))}
-
-
       </section>
     )}
-
-
   </div>
 );
+
+FavoriteRecipes.propTypes = {
+  favouriteRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pageCount: PropTypes.number,
+  handlePageClick: PropTypes.func.isRequired
+};
+FavoriteRecipes.defaultProps = {
+  pageCount: null
+};
 
 export default FavoriteRecipes;

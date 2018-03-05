@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import toastr from 'toastr';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PageHeader from '../PageHeader';
 import Footer from '../Footer';
@@ -96,7 +96,9 @@ class Dashboard extends React.Component {
         <PageHeader />
         <section className="text-left container">
           <div className="author-box">
-            <h3 className="h3-responsive text-center">Hi {this.props.userDetail.username} !</h3>
+            <h3 className="h3-responsive text-center">
+              Hi {this.props.userDetail.username} !
+            </h3>
             <hr />
             <div className="row">
               <div className="col-12 col-sm-2">
@@ -117,7 +119,12 @@ class Dashboard extends React.Component {
 
 
                 <blockquote className="blockquote">
-                  <p className="mb-0">Cooking is like painting or writing a song. Just as there are only so many notes or colors, there are only so many flavors - it's how you combine them that sets you apart.</p>
+                  <p className="mb-0">
+                    Cooking is like painting or writing a song.
+                    Just as there are only so many notes or colors,
+                    there are only so many flavors - it is how you combine them
+                    that sets you apart.
+                  </p>
                   <footer className="blockquote-footer">Wolfgang Puck
 
                   </footer>
@@ -195,6 +202,29 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getUserRecipesActionCreator, deleteRecipeActionCreator, getFavouriteRecipeCreator }, dispatch);
+  bindActionCreators({
+    getUserRecipesActionCreator,
+    deleteRecipeActionCreator,
+    getFavouriteRecipeCreator
+  }, dispatch);
+
+Dashboard.propTypes = {
+  getUserRecipesActionCreator: PropTypes.func.isRequired,
+  getFavouriteRecipeCreator: PropTypes.func.isRequired,
+  deleteRecipeActionCreator: PropTypes.func.isRequired,
+  userRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  userDetail: PropTypes.shape({
+    id: PropTypes.number,
+    username: PropTypes.string
+  }).isRequired,
+  recipePageCount: PropTypes.number,
+  favouriteRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favPageCount: PropTypes.number
+};
+
+Dashboard.defaultProps = {
+  favPageCount: null,
+  recipePageCount: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

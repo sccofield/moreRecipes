@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import toastr from 'toastr';
 import { bindActionCreators } from 'redux';
 import PageHeader from '../PageHeader';
@@ -74,10 +75,9 @@ class Login extends React.Component {
   /**
  *
  * @returns {obj} obj
- * @param {any} event
  * @memberof Login
  */
-  onFocus(event) {
+  onFocus() {
     this.setState({ errors: null });
   }
 
@@ -104,7 +104,6 @@ class Login extends React.Component {
       <div className="main">
         <PageHeader user={this.props.isAuthenticated} />
         <div className="regForm">
-          {this.props.loading && <div className="loader" />}
           <LoginForm
             onChange={this.onChange}
             state={this.state}
@@ -126,6 +125,20 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ loginUserActionCreator }, dispatch);
+
+Login.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+    push: PropTypes.func
+  }).isRequired,
+  errorMessage: PropTypes.string,
+  loginUserActionCreator: PropTypes.func.isRequired
+};
+
+Login.defaultProps = {
+  errorMessage: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 

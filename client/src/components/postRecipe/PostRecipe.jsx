@@ -166,19 +166,21 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ postRecipeActionCreator, clearNewRecipe }, dispatch);
 
-
-PostRecipe.propType = {
-  errors: PropTypes.arrayOf(PropTypes.string),
+PostRecipe.propTypes = {
   clearNewRecipe: PropTypes.func.isRequired,
-  postRecipeActionCreator: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string.isRequired,
-  imagePreview: PropTypes.string,
   history: PropTypes.shape({
-    goBack: PropTypes.func,
     push: PropTypes.func
   }).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  postRecipeActionCreator: PropTypes.func.isRequired,
+  newRecipe: PropTypes.shape({
+    id: PropTypes.string
+  }),
+  errorMessage: PropTypes.arrayOf(PropTypes.string)
+};
+
+PostRecipe.defaultProps = {
+  newRecipe: null,
+  errorMessage: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostRecipe);

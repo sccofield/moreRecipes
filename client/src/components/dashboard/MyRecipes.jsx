@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
@@ -133,5 +134,15 @@ const MyRecipes = props => (
     )}
   </div>
 );
+
+MyRecipes.propTypes = {
+  userRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  pageCount: PropTypes.number,
+  handlePageClick: PropTypes.func.isRequired
+};
+MyRecipes.defaultProps = {
+  pageCount: null
+};
 
 export default MyRecipes;

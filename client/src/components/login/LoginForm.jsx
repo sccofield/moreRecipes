@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LoginForm = props => (
   <div>
@@ -12,7 +13,9 @@ const LoginForm = props => (
               <span>Sign in</span>
             </p>
           </div>
-          {props.state.errors && <p className="errorMessage">{props.state.errors}</p>}
+          {props.state.errors &&
+          <p className="errorMessage">{props.state.errors}</p>
+          }
           <form onSubmit={props.onSubmit}>
             <div className="form-group">
               <input
@@ -54,5 +57,16 @@ const LoginForm = props => (
   </div>
 
 );
+
+LoginForm.propTypes = {
+  state: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string,
+    errors: PropTypes.string
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onFocus: PropTypes.func.isRequired
+};
 
 export default LoginForm;

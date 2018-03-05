@@ -8,7 +8,8 @@
       "localStorage": true,
       "window": true,
       "document": true,
-      "FormData": true
+      "FormData": true,
+      "$": true
   },
   "env": {
       "node": true,
@@ -53,6 +54,11 @@
         "components": [ "Link" ],
         "specialLink": [ "hrefLeft", "hrefRight" ],
         "aspects": [ "invalidHref", "preferButton" ]
-      }]
+      }],
+      "jsx-a11y/label-has-for": [ 2, {
+        "required": {
+            "every": [ "id" ]
+        }
+    }]
   }
 }

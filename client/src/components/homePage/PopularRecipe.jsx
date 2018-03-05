@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Recipe from '../Recipe';
 
 const PopularRecipe = props => (
@@ -22,6 +23,14 @@ const PopularRecipe = props => (
     </section>
   </div>
 );
+
+PopularRecipe.propTypes = {
+  recipes: PropTypes.arrayOf(PropTypes.object)
+};
+
+PopularRecipe.defaultProps = {
+  recipes: null
+};
 
 export default PopularRecipe;
 

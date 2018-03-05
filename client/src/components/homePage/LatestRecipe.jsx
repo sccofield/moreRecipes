@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Recipe from '../Recipe';
 
 const LatestRecipe = props => (
@@ -22,5 +23,13 @@ const LatestRecipe = props => (
     </section>
   </div>
 );
+
+LatestRecipe.propTypes = {
+  recipes: PropTypes.arrayOf(PropTypes.object)
+};
+
+LatestRecipe.defaultProps = {
+  recipes: null
+};
 
 export default LatestRecipe;

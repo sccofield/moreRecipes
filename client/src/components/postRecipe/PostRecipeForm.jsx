@@ -1,7 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
-import { Editor } from '@tinymce/tinymce-react';
 
 
 const PostRecipeForm = props => (
@@ -11,11 +10,19 @@ const PostRecipeForm = props => (
       <div className="col-md-8">
 
         <h1>Add New Recipe</h1>
-        {props.state.errors && <ul className="errorMessage">{props.state.errors.map(error => <li key={Math.floor(Math.random() * 1000)}>{error}</li>)}</ul>}
+        {props.state.errors &&
+          <ul className="errorMessage">{
+            props.state.errors.map(error => (
+              <li key={Math.floor(Math.random() * 1000)
+              }
+              >{error}
+              </li>))}
+          </ul>
+        }
 
         <form onSubmit={props.onSubmit}>
           <div className="form-group">
-            <label>Recipe title</label>
+            <label htmlFor="recipeTitle">Recipe title</label>
             <input
               type="text"
               className="form-control"
@@ -28,7 +35,7 @@ const PostRecipeForm = props => (
             />
           </div>
           <div className="form-group">
-            <label htmlFor="post">Recipe ingredients</label>
+            <label htmlFor="ingredients">Recipe ingredients</label>
 
             <textarea
               className="form-control"
@@ -40,7 +47,9 @@ const PostRecipeForm = props => (
               onChange={props.onChange}
               required
             />
-            <small id="emailHelp" className="form-text text-muted">seperate each ingredients with a comma (,)</small>
+            <small id="emailHelp" className="form-text text-muted">
+              seperate each ingredients with a comma (,)
+            </small>
 
           </div>
 
@@ -70,7 +79,11 @@ const PostRecipeForm = props => (
               { props.imagePreview &&
 
               <div className="form-group">
-                <img src={props.imagePreview} alt="" className="img img-responsive img-thumbnail imagePreview" />
+                <img
+                  src={props.imagePreview}
+                  alt=""
+                  className="img img-responsive img-thumbnail imagePreview"
+                />
               </div>
               }
             </Dropzone>
@@ -88,8 +101,8 @@ const PostRecipeForm = props => (
 
 );
 
-PostRecipeForm.propType = {
-  errors: PropTypes.arrayOf(PropTypes.string),
+PostRecipeForm.propTypes = {
+  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleDrop: PropTypes.func.isRequired,
   imagePreview: PropTypes.string,
   onChange: PropTypes.func.isRequired,
@@ -101,6 +114,10 @@ PostRecipeForm.propType = {
     ingredients: PropTypes.string,
     title: PropTypes.string
   }).isRequired,
+};
+
+PostRecipeForm.defaultProps = {
+  imagePreview: null
 };
 
 export default PostRecipeForm;
