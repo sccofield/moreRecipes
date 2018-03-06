@@ -152,7 +152,7 @@ class Dashboard extends React.Component {
                       href="#favorites"
                       role="tab"
                     >
-                      Favorite Recipes
+                      Favorites
                     </a>
                   </li>
                 </ul>
@@ -175,6 +175,7 @@ class Dashboard extends React.Component {
                       favouriteRecipes={this.props.favouriteRecipes}
                       pageCount={this.props.favPageCount}
                       handlePageClick={this.handleFavClick}
+                      userId={this.props.userDetail.id}
                     />
                   </div>
 

@@ -230,6 +230,7 @@ footer p{
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 2px 6px -2px rgba(22, 22, 22, 0.45);
+  width:100%;
 }
 
 .registeration {
@@ -412,6 +413,10 @@ footer p{
   }
   .profileTab {
     margin: 0rem;
+}
+.tab-recipe {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
   .section .section-heading {

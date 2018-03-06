@@ -5,7 +5,7 @@ import Recipe from '../Recipe';
 const PopularRecipe = props => (
   <div>
     <section className="container title">
-      <h3>Popular Recipes</h3>
+      <h3>{props.title || 'Popular Recipes'}</h3>
       <hr />
     </section>
 
@@ -25,11 +25,13 @@ const PopularRecipe = props => (
 );
 
 PopularRecipe.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.object)
+  recipes: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string
 };
 
 PopularRecipe.defaultProps = {
-  recipes: null
+  recipes: null,
+  title: null
 };
 
 export default PopularRecipe;
