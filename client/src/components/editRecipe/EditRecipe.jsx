@@ -197,12 +197,12 @@ EditRecipe.propTypes = {
     push: PropTypes.func
   }).isRequired,
   recipe: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
     ingredients: PropTypes.string,
     imageUrl: PropTypes.string
-  }).isRequired,
+  }),
   editRecipeActionCreator: PropTypes.func.isRequired,
   getEditRecipeActionCreator: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -217,6 +217,7 @@ EditRecipe.propTypes = {
 
 EditRecipe.defaultProps = {
   editedRecipe: null,
+  recipe: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditRecipe);

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { checkId } from './helpers';
 
 import db from '../models';
 
@@ -46,7 +47,7 @@ class UserController {
     if (password !== cPassword) {
       return res.status(400).json({
         status: 'Error',
-        message: 'Password do not match'
+        message: 'Passwords do not match'
       });
     }
 
@@ -113,13 +114,13 @@ class UserController {
         if (!user) {
           return res.status(400).send({
             status: 'Error',
-            message: 'invalid login details',
+            message: 'Invalid login details. Email or password wrong',
           });
         }
         if (!bcrypt.compareSync(password, user.password)) {
           return res.status(400).send({
             status: 'Error',
-            message: 'Incorrect password',
+            message: 'Invalid login details. Email or password wrong',
           });
         }
         const token = jwt.sign({
@@ -149,6 +150,8 @@ class UserController {
    * @memberof userController
    */
   static addFavorite(req, res) {
+    const { recipeId } = req.params;
+    checkId(req, res, recipeId);
     db.Recipe.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
@@ -260,6 +263,8 @@ class UserController {
    * @memberof userController
    */
   static upvote(req, res) {
+    const { recipeId } = req.params;
+    checkId(req, res, recipeId);
     db.Recipe.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
@@ -269,6 +274,18 @@ class UserController {
               message: 'Recipe dose not exist'
             });
         }
+        db.Downvote.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }
+        })
+          .then((vote) => {
+            if (vote) {
+              vote.destroy();
+            }
+          });
+
         db.Upvote.findOne({
           where: {
             userId: req.decoded.id,
@@ -333,6 +350,8 @@ class UserController {
    * @memberof userController
    */
   static downvote(req, res) {
+    const { recipeId } = req.params;
+    checkId(req, res, recipeId);
     db.Recipe.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
@@ -342,6 +361,19 @@ class UserController {
               message: 'Recipe dose not exist'
             });
         }
+
+        db.Upvote.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: req.params.recipeId
+          }
+        })
+          .then((vote) => {
+            if (vote) {
+              vote.destroy();
+            }
+          });
+
         db.Downvote.findOne({
           where: {
             userId: req.decoded.id,

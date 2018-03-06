@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Favourite from '../components/Favourite';
@@ -49,7 +50,9 @@ class RecipeDetail extends React.Component {
                   <div className="col-lg-12">
                     <div className="row justify-content-md-center">
                       <div className="recipeTitle">
-                        <h2>{this.props.recipe.title}</h2>
+                        <h2 className="text-capitalize">
+                          {this.props.recipe.title}
+                        </h2>
                         <hr />
                       </div>
                     </div>
@@ -79,8 +82,20 @@ class RecipeDetail extends React.Component {
                             favorites={this.props.recipe.Favorites}
                             userId={this.props.user.id}
                           />
+
+                          {
+                            this.props.user.id === this.props.recipe.userId &&
+                            <Link
+                              className="btn btn-outline-info m-1"
+                              to={`/recipe/edit/${this.props.recipe.id}`}
+                            >
+                              <i className="fa fa-pencil" aria-hidden="true" />
+                            </Link>
+                          }
+
                         </div>
                       }
+
 
                       <div className="author pt-2">
                         <p>Author:
@@ -104,7 +119,10 @@ class RecipeDetail extends React.Component {
                             this.props.recipe.ingredients.split(',')
                               .map(ingredient =>
                                 (
-                                  <li key={Math.floor(Math.random() * 1000)}>
+                                  <li
+                                    key={Math.floor(Math.random() * 1000)}
+                                    className="text-capitalize"
+                                  >
                                     {ingredient}
                                   </li>
                                 ))

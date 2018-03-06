@@ -55,7 +55,7 @@ const FavoriteRecipes = props => (
                 </div>
               </div>
 
-              <div className="col-lg-7">
+              <div className="col-lg-7 tab-recipe">
 
                 <h4 className="">
                   <Link to={`recipes/${favouriteRecipe.Recipe.id}`}>

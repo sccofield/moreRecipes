@@ -1,5 +1,7 @@
-// ssimport models from '../models';
 import db from '../models';
+import { searchRecipes, sortSearch, checkId } from './helpers';
+
+
 /**
  * @class RecipeController
  */
@@ -38,7 +40,7 @@ class RecipeController {
       description: req.body.description,
       ingredients: req.body.ingredients,
       userId: req.decoded.id,
-      imageUrl: req.body.imageUrl,
+      imageUrl: req.body.imageUrl || 'http://bit.ly/2tmU8cc',
       userName: req.decoded.userName
     })
       .then(recipes => res.status(201).send({
@@ -57,6 +59,13 @@ class RecipeController {
    */
   static modifyRecipe(req, res) {
     const { id } = req.params;
+    checkId(req, res, id);
+    if (req.body.vote || req.body.views) {
+      return res.status(401).json({
+        status: 'Error',
+        message: 'You are not allowed to edit that field.'
+      });
+    }
     db.Recipe.findOne({ where: { id, userId: req.decoded.id } })
       .then((recipe) => {
         recipe.update({
@@ -89,6 +98,7 @@ class RecipeController {
    */
   static deleteRecipe(req, res) {
     const { id } = req.params;
+    checkId(req, res, id);
 
     db.Recipe.findOne({ where: { id, userId: req.decoded.id } })
       .then((recipe) => {
@@ -117,9 +127,23 @@ class RecipeController {
    * @memberof RecipeController
    */
   static getAllRecipes(req, res) {
+    if (req.query.search) {
+      return searchRecipes(req, res, req.query.search);
+    }
     if (req.query.sort) {
+      return sortSearch(req, res);
+    }
+    db.Recipe.findAndCountAll().then((all) => {
+      const limit = 2;
+      let offset = 0;
+      const page = parseInt((req.query.page || 1), 10);
+      const numberOfItems = all.count;
+      const pages = Math.ceil(numberOfItems / limit);
+      offset = limit * (page - 1);
+
       db.Recipe.findAll({
-        order: [['votes', 'DESC']],
+        limit,
+        offset,
         include: [{
           model: db.Review
         },
@@ -140,7 +164,11 @@ class RecipeController {
         .then((recipes) => {
           res.status(200).json({
             status: 'success',
+            numberOfItems,
+            limit,
+            pages,
             recipes,
+            currentPage: page
           });
         })
         .catch((error) => {
@@ -149,52 +177,7 @@ class RecipeController {
             message: error
           });
         });
-    } else {
-      db.Recipe.findAndCountAll().then((all) => {
-        const limit = 6;
-        let offset = 0;
-        const page = parseInt((req.query.page || 1), 10);
-        const numberOfItems = all.count;
-        const pages = Math.ceil(numberOfItems / limit);
-        offset = limit * (page - 1);
-
-        db.Recipe.findAll({
-          limit,
-          offset,
-          include: [{
-            model: db.Review
-          },
-          {
-            model: db.Favorite,
-            attributes: ['userId', 'recipeId']
-          },
-          {
-            model: db.Upvote,
-            attributes: ['userId', 'recipeId']
-          },
-          {
-            model: db.Downvote,
-            attributes: ['userId', 'recipeId']
-          }
-          ]
-        })
-          .then((recipes) => {
-            res.status(200).json({
-              status: 'success',
-              numberOfItems,
-              limit,
-              pages,
-              recipes,
-            });
-          })
-          .catch((error) => {
-            res.status(400).json({
-              status: 'fail',
-              message: error
-            });
-          });
-      });
-    }
+    });
   }
 
   /**
@@ -265,6 +248,8 @@ class RecipeController {
    * @memberof RecipeController
    */
   static getRecipe(req, res) {
+    const { id } = req.params;
+    checkId(req, res, id);
     db.Recipe.findOne({
       where: { id: req.params.id },
       include: [{
@@ -350,9 +335,9 @@ class RecipeController {
               status: 'success',
               recipes: allRecipes,
               limit,
-              pages,
               numberOfItems,
-              page
+              pages,
+              currentPage: page
 
             }))
           .catch(() => res.status(500).json({
@@ -406,9 +391,6 @@ class RecipeController {
         status: 'fail', message: 'Recipe dose not exist'
       }));
   }
-
-
-// })
 }
 
 export default RecipeController;

@@ -29,40 +29,43 @@ const Navbar = props => (
         <li className="nav-item">
           <Link className="nav-link" to="/recipes">Explore Recipe</Link>
         </li>
+        { props.isAuthenticated &&
+          <li className="nav-item">
+            <Link className="nav-link" to="/postRecipe">Post Recipe</Link>
+          </li>
+        }
+
+        { props.isAuthenticated &&
+          <li className="nav-item">
+            <Link className="nav-link" to="/dashboard">Profile</Link>
+          </li>
+        }
 
         { props.isAuthenticated &&
 
-          <span className="menu">
-            <li className="nav-item">
-              <Link className="nav-link" to="/postRecipe">Post Recipe</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">Profile</Link>
-            </li>
+          <li className="nav-item">
             { /* eslint-disable jsx-a11y/anchor-is-valid */ }
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                to="/"
-                onClick={props.logout}
-              >Logout
-              </Link>
-            </li>
-          </span>
+            <Link
+              className="nav-link"
+              to="/"
+              onClick={props.logout}
+            >Logout
+            </Link>
+          </li>
         }
 
         {
           !props.isAuthenticated &&
+          <li className="nav-item">
+            <Link className="nav-link" to="/login">Login</Link>
+          </li>
+        }
 
-          <span className="menu">
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">Login</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">Register</Link>
-            </li>
-          </span>
-
+        {
+          !props.isAuthenticated &&
+          <li className="nav-item">
+            <Link className="nav-link" to="/register">Register</Link>
+          </li>
         }
 
       </ul>

@@ -133,7 +133,10 @@ export default (state = {
         Upvotes: [
           ...state.singleRecipe.Upvotes,
           action.vote
-        ]
+        ],
+        Downvotes:
+        state.singleRecipe.Downvotes.filter(vote =>
+          vote.userId === action.userId)
       }
     };
   case REMOVE_UPVOTE:
@@ -153,7 +156,9 @@ export default (state = {
         Downvotes: [
           ...state.singleRecipe.Downvotes,
           action.vote
-        ]
+        ],
+        Upvotes:
+        state.singleRecipe.Upvotes.filter(vote => vote.userId === action.userId)
       }
     };
   case REMOVE_DOWNVOTE:

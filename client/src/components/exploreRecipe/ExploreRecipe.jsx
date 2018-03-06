@@ -25,10 +25,13 @@ class ExploreRecipe extends React.Component {
     this.state = {
       pageCount: 0,
       recipes: [],
+      search: ''
     };
 
     this.getRecipes = this.getRecipes.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.handleSearchRecipes = this.handleSearchRecipes.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
 
   /**
@@ -42,23 +45,50 @@ class ExploreRecipe extends React.Component {
   }
 
   /**
+ *
+ * @returns {obj} obj
+ * @param {any} event
+ * @memberof ExploreRecipe
+ */
+  onSearchChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+
+  /**
    *@param {number} page
+   *@param {string} search
    * @return {null} null
    * @memberof ExploreRecipe
    */
-  getRecipes(page) {
+  getRecipes(page, search) {
     let queryString = '/api/v1/recipes';
-    if (page) {
-      queryString += `?page=${page}`;
+    if (page && search) {
+      queryString += `?search=${search}&page=${page}`;
+    } else {
+      if (search) {
+        queryString += `?search=${search}`;
+      }
+      if (page) {
+        queryString += `?page=${page}`;
+      }
     }
     axios.get(queryString)
       .then((res) => {
-        console.log(res);
         this.setState({
           recipes: res.data.recipes,
           pageCount: res.data.pages,
         });
       });
+  }
+  /**
+ *
+ * @returns {obj} object
+ * @memberof ExploreRecipe
+ */
+  handleSearchRecipes() {
+    const { search } = this.state;
+    this.getRecipes(null, search);
   }
 
   /**
@@ -68,7 +98,8 @@ class ExploreRecipe extends React.Component {
  * @memberof ExploreRecipe
  */
   handlePageClick(page) {
-    this.getRecipes(page.selected + 1);
+    const { search } = this.state;
+    this.getRecipes(page.selected + 1, search);
   }
   /**
    *
@@ -83,7 +114,11 @@ class ExploreRecipe extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12 content">
-              <SearchRecipe />
+              <SearchRecipe
+                handleSearchRecipes={this.handleSearchRecipes}
+                searchQuery={this.state.search}
+                onSearchChange={this.onSearchChange}
+              />
               <nav className="row justify-content-center">
                 <ReactPaginate
                   previousLabel="previous"
@@ -106,7 +141,7 @@ class ExploreRecipe extends React.Component {
               {
                 this.state.recipes &&
                 <div className="exploreRecipe">
-                  <PopularRecipe recipes={this.state.recipes} />
+                  <PopularRecipe recipes={this.state.recipes} title="Recipes" />
                 </div>
               }
             </div>

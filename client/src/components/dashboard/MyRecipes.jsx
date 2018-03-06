@@ -8,7 +8,10 @@ import { Link } from 'react-router-dom';
 const MyRecipes = props => (
   <div>
     {props.userRecipes.length === 0 ? (
-      <p>You have not created any recipe yet.</p>
+      <div>
+        <p>You have not created any recipe yet.</p>
+        <p><Link to="/postRecipe">Click here</Link> to add a new recipe</p>
+      </div>
     ) : (
       <section className="section text-center text-lg-left container">
         <nav className="row justify-content-center">
@@ -47,7 +50,7 @@ const MyRecipes = props => (
                 </div>
               </div>
 
-              <div className="col-lg-7">
+              <div className="col-lg-7 tab-recipe">
                 <h4 className="">
                   <Link to={`recipes/${userRecipe.id}`}>
                     <strong>{userRecipe.title}</strong>
