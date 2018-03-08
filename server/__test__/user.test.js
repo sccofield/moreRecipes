@@ -9,7 +9,11 @@ import db from '../models';
 
 const saltRounds = Number(process.env.SALTROUNDS);
 const mockData = {};
-const generateToken = userId => jwt.sign({ id: userId }, process.env.SECRET, { expiresIn: 7200 });
+const generateToken = userId => jwt.sign(
+  { id: userId },
+  process.env.SECRET,
+  { expiresIn: 7200 }
+);
 
 chai.use(chaiHttp);
 
@@ -25,27 +29,30 @@ const user2 = {
   email: 'michael123',
   password: 'password',
   cPassword: 'password'
-}
+};
 
 
 describe('Testing User Controller', () => {
   describe('Testing signup controller', () => {
-    const signupUrl = '/api/v1/users/signup'
-    it('should register a new user when all the parameters are given', (done) => {
-      chai.request(app)
-        .post(signupUrl)
-        .send(user1)
-        .end((error, response) => {
-          expect(response.status).to.equal(201);
-          expect(response.body).to.be.an('object');
-          expect(response.body.message).to.equal('user has been created');
-          expect(response.body.user.username).to.equal(user1.userName);
-          expect(response.body.user.email).to.equal(user1.email);
-          expect(response.body).to.have.property('token');
-          expect(response.body.token).to.be.a('string');
-          done();
-        });
-    });
+    const signupUrl = '/api/v1/users/signup';
+    it(
+      'should register a new user when all the parameters are given',
+      (done) => {
+        chai.request(app)
+          .post(signupUrl)
+          .send(user1)
+          .end((error, response) => {
+            expect(response.status).to.equal(201);
+            expect(response.body).to.be.an('object');
+            expect(response.body.message).to.equal('user has been created');
+            expect(response.body.user.username).to.equal(user1.userName);
+            expect(response.body.user.email).to.equal(user1.email);
+            expect(response.body).to.have.property('token');
+            expect(response.body.token).to.be.a('string');
+            done();
+          });
+      }
+    );
     it('should not register a user when an invalid email is used', (done) => {
       chai.request(app)
         .post(signupUrl)
@@ -53,7 +60,8 @@ describe('Testing User Controller', () => {
         .end((error, response) => {
           expect(response.status).to.equal(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.message).to.equal('The email is not valid. Please input a valid email.');
+          expect(response.body.message)
+            .to.equal('The email is not valid. Please input a valid email.');
           expect(response.body.status).to.equal('Error');
           done();
         });
@@ -123,26 +131,30 @@ describe('Testing User Controller', () => {
           done();
         });
     });
-    it('should not register when password is less than 6 characters', (done) => {
-      chai.request(app)
-        .post(signupUrl)
-        .send({
-          userName: 'pato',
-          email: 'maara',
-          password: 'pass',
-          cPassword: 'pass'
-        })
-        .end((error, response) => {
-          expect(response.status).to.equal(400);
-          expect(response.body).to.be.an('object');
-          expect(response.body.message).to.equal('Password must be more than 6 characters');
-          expect(response.body.status).to.equal('Error');
-          done();
-        });
-    });
+    it(
+      'should not register when password is less than 6 characters',
+      (done) => {
+        chai.request(app)
+          .post(signupUrl)
+          .send({
+            userName: 'pato',
+            email: 'maara',
+            password: 'pass',
+            cPassword: 'pass'
+          })
+          .end((error, response) => {
+            expect(response.status).to.equal(400);
+            expect(response.body).to.be.an('object');
+            expect(response.body.message)
+              .to.equal('Password must be more than 6 characters');
+            expect(response.body.status).to.equal('Error');
+            done();
+          });
+      }
+    );
   });
   describe('Testing sigin controller', () => {
-    const signinUrl = '/api/v1/users/signin'
+    const signinUrl = '/api/v1/users/signin';
     it('should signin a user all parameters are given', (done) => {
       chai.request(app)
         .post(signinUrl)
@@ -199,7 +211,8 @@ describe('Testing User Controller', () => {
         .end((error, response) => {
           expect(response.status).to.equal(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.message).to.equal('Invalid login details. Email or password wrong');
+          expect(response.body.message)
+            .to.equal('Invalid login details. Email or password wrong');
           expect(response.body.status).to.equal('Error');
           done();
         });
@@ -214,7 +227,8 @@ describe('Testing User Controller', () => {
         .end((error, response) => {
           expect(response.status).to.equal(400);
           expect(response.body).to.be.an('object');
-          expect(response.body.message).to.equal('Invalid login details. Email or password wrong');
+          expect(response.body.message)
+            .to.equal('Invalid login details. Email or password wrong');
           expect(response.body.status).to.equal('Error');
           done();
         });
@@ -247,19 +261,23 @@ describe('Testing User Controller', () => {
           done();
         });
     });
-    it('should remove the recipe from favorite when the endpoint is hit again', (done) => {
-      chai.request(app)
-        .post(`/api/v1/users/${mockData.recipe1.id}/favorites`)
-        .send({})
-        .set('token', generateToken(mockData.user1.id))
-        .end((error, response) => {
-          expect(response.status).to.equal(200);
-          expect(response.body).to.be.an('object');
-          expect(response.body.message).to.equal('You have removed recipe from favorite');
-          expect(response.body.status).to.equal('success');
-          done();
-        });
-    });
+    it(
+      'should remove the recipe from favorite when the endpoint is hit again',
+      (done) => {
+        chai.request(app)
+          .post(`/api/v1/users/${mockData.recipe1.id}/favorites`)
+          .send({})
+          .set('token', generateToken(mockData.user1.id))
+          .end((error, response) => {
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an('object');
+            expect(response.body.message)
+              .to.equal('You have removed recipe from favorite');
+            expect(response.body.status).to.equal('success');
+            done();
+          });
+      }
+    );
 
     it('should return status of 404 when recipe dose not exist', (done) => {
       chai.request(app)
@@ -315,21 +333,24 @@ describe('Testing User Controller', () => {
           done();
         });
     });
-    it('should remove upvote when the recipe has been upvoted already', (done) => {
-      chai.request(app)
-        .post(`/api/v1/users/${mockData.recipe1.id}/upvote`)
-        .set('token', generateToken(mockData.user4.id))
-        .send({})
-        .end((error, response) => {
-          expect(response.status).to.equal(200);
-          expect(response.body).to.be.an('object');
-          expect(response.body.message).to.equal('You have removed upvote');
-          done();
-        });
-    });
+    it(
+      'should remove upvote when the recipe has been upvoted already',
+      (done) => {
+        chai.request(app)
+          .post(`/api/v1/users/${mockData.recipe1.id}/upvote`)
+          .set('token', generateToken(mockData.user4.id))
+          .send({})
+          .end((error, response) => {
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.an('object');
+            expect(response.body.message).to.equal('You have removed upvote');
+            done();
+          });
+      }
+    );
     it('should return 400 when recipe dose not exist', (done) => {
       chai.request(app)
-        .post(`/api/v1/users/3000/upvote`)
+        .post('/api/v1/users/3000/upvote')
         .set('token', generateToken(mockData.user4.id))
         .send({})
         .end((error, response) => {
@@ -374,7 +395,7 @@ describe('Testing User Controller', () => {
     });
     it('should not downvote when recipe dose not exist', (done) => {
       chai.request(app)
-        .post(`/api/v1/users/1000/downvote`)
+        .post('/api/v1/users/1000/downvote')
         .set('token', generateToken(mockData.user5.id))
         .send({})
         .end((error, response) => {

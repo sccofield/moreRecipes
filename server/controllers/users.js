@@ -13,8 +13,9 @@ const saltRounds = Number(process.env.SALTROUNDS);
 class UserController {
   /**
    * creates new user
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof UserController
    */
@@ -85,9 +86,10 @@ class UserController {
         }));
   }
   /**
-   * authenticate user
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * signin user
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof userController
    */
@@ -144,8 +146,9 @@ class UserController {
   }
   /**
    * add favorite
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof userController
    */
@@ -208,8 +211,9 @@ class UserController {
   }
   /**
    * get favorite
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof userController
    */
@@ -258,8 +262,9 @@ class UserController {
 
   /**
    * add upvote
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof userController
    */
@@ -346,7 +351,8 @@ class UserController {
   /**
    * add downvote
    * @param {object} req express req object
-   * @param {object} res exp res object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof userController
    */

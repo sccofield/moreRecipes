@@ -8,8 +8,9 @@ import { searchRecipes, sortSearch, checkId } from './helpers';
 class RecipeController {
   /**
    * creates new recipe
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof RecipeController
    */
@@ -40,7 +41,7 @@ class RecipeController {
       description: req.body.description,
       ingredients: req.body.ingredients,
       userId: req.decoded.id,
-      imageUrl: req.body.imageUrl || 'http://bit.ly/2tmU8cc',
+      imageUrl: req.body.imageUrl || 'https://bit.ly/2tmU8cc',
       userName: req.decoded.userName
     })
       .then(recipes => res.status(201).send({
@@ -51,9 +52,10 @@ class RecipeController {
   }
 
   /**
-   * edit new recipe
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * edit recipe
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof RecipeController
    */
@@ -91,8 +93,9 @@ class RecipeController {
 
   /**
    * delete recipe
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof RecipeController
    */
@@ -102,27 +105,27 @@ class RecipeController {
 
     db.Recipe.findOne({ where: { id, userId: req.decoded.id } })
       .then((recipe) => {
-      // if (!recipe) res.status(404).send({ message: 'recipe Not Found' });
         recipe.destroy()
           .then(() => res.status(200).json({
             status: 'success',
             message: 'Recipe deleted'
           }))
           .catch(() => res.status(400).json({
-            status: 'fail',
-            message: 'Recipe dose not exist'
+            status: 'Error',
+            message: 'Recipe dosen\'t exist'
           }));
       })
       .catch(() => res.status(400).json({
-        status: 'fail',
+        status: 'Error',
         message: 'Recipe dosen\'t exist'
       }));
   }
 
   /**
    * get all recipe
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof RecipeController
    */
@@ -183,11 +186,12 @@ class RecipeController {
   /**
  *
  *
- * @static
+ * Get home recipes
  * @param {any} req
  * @param {any} res
+ *
  * @memberof RecipeController
- * @returns {null} null
+ * @returns {json} json
  */
   static homeRecipes(req, res) {
     db.Recipe.findAll({
@@ -244,6 +248,7 @@ class RecipeController {
    * get single recipe
    * @param {object} req expres req object
    * @param {object} res exp res object
+   *
    * @returns {json} json
    * @memberof RecipeController
    */
@@ -290,10 +295,11 @@ class RecipeController {
 
   /**
  * get all user recipes
- * @param {object} req
- * @param {object} res
- * @returns {object} with all user recipes
- * @memberof Recipes
+ * @param {object} req expres req object
+ * @param {object} res expres res object
+ *
+ * @returns {json} json
+ * @memberof RecipeController
  */
   static getAllUserRecipes(req, res) {
     db.User.findOne({
@@ -351,15 +357,16 @@ class RecipeController {
 
   /**
    * add review
-   * @param {object} req expres req object
-   * @param {object} res exp res object
+   * @param {object} req express req object
+   * @param {object} res express res object
+   *
    * @returns {json} json
    * @memberof RecipeController
    */
   static addReview(req, res) {
     if (!(req.body.review)) {
       return res.status(400).json({
-        status: 'fail',
+        status: 'Error',
         message: 'Please enter a review.'
       });
     }
@@ -370,7 +377,7 @@ class RecipeController {
       .then((recipe) => {
         if (!recipe) {
           return res.status(400).json({
-            status: 'fail', message: 'Recipe dose not exist'
+            status: 'Error', message: 'Recipe dose not exist'
           });
         }
         db.Review.create({
