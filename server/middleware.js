@@ -15,13 +15,11 @@ class Middleware {
    */
   static verify(req, res, next) {
     const { token } = req.headers;
-    console.log('|||||||||||||||||', token);
     if (token) {
       jwt.verify(token, process.env.SECRET, (err, decoded) => {
         if (err) {
-          console.log(err);
           return res.status(401).json({
-            status: 'fail',
+            status: 'Error',
             message: 'Failed to authenticate token.'
           });
         }
@@ -30,28 +28,11 @@ class Middleware {
       });
     } else {
       return res.status(401).json({
-        status: 'fail',
+        status: 'Error',
         message: 'No token provided.'
       });
     }
   }
-  // /**
-  //  * check if user is admin
-  //  * @param {object} req expres req object
-  //  * @param {object} res exp res object
-  //  * @param {object} next exp next object
-  //  * @returns {json} json
-  //  * @memberof Middleware
-  //  */
-  // static isAdmin(req, res, next) {
-  //   if (req.params.id === 1) {
-  //     return next();
-  //   }
-  //   return res.status(500).json({
-  //     status: 'Error',
-  //     message: 'You are not and admin and don\'t have the priviledge'
-  //   });
-  // }
 }
 
 export default Middleware;

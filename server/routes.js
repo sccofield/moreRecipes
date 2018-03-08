@@ -2,13 +2,8 @@ import Recipe from './controllers/recipes';
 import User from './controllers/users';
 import Middleware from './middleware';
 
-// const user = new userController();
-
-// const recipe = new Recipe();
-
-// const middleware = new Middleware();
-
 const routes = (app) => {
+  // Home recipes
   app.get('/api/v1/homeRecipes', Recipe.homeRecipes);
   // post recipe route
   app.post('/api/v1/recipes', Middleware.verify, Recipe.addRecipe);

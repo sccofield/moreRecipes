@@ -19,15 +19,35 @@ const {
   REMOVE_DOWNVOTE
 } = actionTypes;
 
-
-export default (state = {
+export const initialState = {
   latestRecipes: [],
   popularRecipes: [],
   recipes: [],
   userRecipes: [],
-  favouriteRecipes: []
+  favouriteRecipes: [],
+  newRecipe: {},
+  singleRecipe: {
+    id: 0,
+    title: '',
+    userId: 0,
+    userName: '',
+    description: '',
+    imageUrl: '',
+    ingredients: '',
+    votes: 0,
+    views: 0,
+    createdAt: '',
+    updatedAt: '',
+    Reviews: [],
+    Favorites: [],
+    Upvotes: [],
+    Downvotes: []
 
-}, action = {}) => {
+  }
+};
+
+
+export default (state = initialState, action = {}) => {
   switch (action.type) {
   case POST_RECIPE:
     return {
@@ -111,7 +131,7 @@ export default (state = {
       singleRecipe: {
         ...state.singleRecipe,
         Favorites: [
-          ...state.singleRecipe.Favorites,
+          ...state.singleRecipe.Favorites || [],
           action.favorite
         ]
       }

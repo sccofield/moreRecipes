@@ -179,7 +179,8 @@ RecipeDetail.propTypes = {
     userName: PropTypes.string,
     Favorites: PropTypes.array,
     Upvotes: PropTypes.array,
-    Downvotes: PropTypes.array
+    Downvotes: PropTypes.array,
+    userId: PropTypes.number
   }),
   isAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.shape({
