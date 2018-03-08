@@ -10,7 +10,7 @@ export const searchRecipes = (req, res, search) => db.Recipe.findAndCountAll({
   }
 })
   .then((all) => {
-    const limit = 2;
+    const limit = 6;
     let offset = 0;
     const page = parseInt((req.query.page || 1), 10);
     const numberOfItems = all.count;

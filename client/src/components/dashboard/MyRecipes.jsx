@@ -132,6 +132,7 @@ const MyRecipes = props => (
             <hr />
           </div>
         ))}
+        <p><Link to="/postRecipe">Click here</Link> to add a new recipe</p>
 
       </section>
     )}

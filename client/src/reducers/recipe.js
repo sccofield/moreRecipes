@@ -27,9 +27,9 @@ export const initialState = {
   favouriteRecipes: [],
   newRecipe: {},
   singleRecipe: {
-    id: '',
+    id: 0,
     title: '',
-    userId: '',
+    userId: 0,
     userName: '',
     description: '',
     imageUrl: '',

@@ -173,7 +173,7 @@ PostRecipe.propTypes = {
   }).isRequired,
   postRecipeActionCreator: PropTypes.func.isRequired,
   newRecipe: PropTypes.shape({
-    id: PropTypes.string
+    id: PropTypes.number
   }),
   errorMessage: PropTypes.arrayOf(PropTypes.string)
 };

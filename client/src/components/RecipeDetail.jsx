@@ -172,7 +172,7 @@ RecipeDetail.propTypes = {
     Review: PropTypes.array,
     createdAt: PropTypes.string,
     description: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     imageUrl: PropTypes.string,
     ingredients: PropTypes.string,
     title: PropTypes.string,
@@ -180,7 +180,7 @@ RecipeDetail.propTypes = {
     Favorites: PropTypes.array,
     Upvotes: PropTypes.array,
     Downvotes: PropTypes.array,
-    userId: PropTypes.string
+    userId: PropTypes.number
   }),
   isAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.shape({
