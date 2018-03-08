@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Recipe from '../Recipe';
 
 const PopularRecipe = props => (
-  <div>
+  <div id="popularRecipe">
     <section className="container title">
       <h3>{props.title || 'Popular Recipes'}</h3>
       <hr />

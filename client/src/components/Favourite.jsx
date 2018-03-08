@@ -70,7 +70,7 @@ class Favourite extends React.Component {
 
 Favourite.propTypes = {
   favouriteRecipeActionCreator: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
   userId: PropTypes.number.isRequired
 };

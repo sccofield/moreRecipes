@@ -23,7 +23,7 @@ routes(app);
 
 app.use(express.static(path.resolve(__dirname, '../client/public')));
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
   const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, webpackConfig.devServer));
 }

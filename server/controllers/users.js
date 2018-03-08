@@ -69,7 +69,7 @@ class UserController {
         }, process.env.SECRET);
         return res.status(201).json({
           status: 'success',
-          message: `user with id ${user.id} has been created`,
+          message: 'user has been created',
           token,
           user: {
             username: user.userName,
@@ -96,13 +96,13 @@ class UserController {
     if (!email) {
       return res.status(400).send({
         status: 'Error',
-        message: 'Please input your email'
+        message: 'Email is required'
       });
     }
     if (!password) {
       return res.status(400).send({
         status: 'Error',
-        message: 'Please input your password'
+        message: 'password is required'
       });
     }
     db.User.findOne({
@@ -158,7 +158,7 @@ class UserController {
           return res.status(404)
             .json({
               status: 'Error',
-              message: `A recipe with Id ${req.params.recipeId} dose not exist`
+              message: 'Recipe dose not exist'
             });
         }
 
@@ -173,6 +173,7 @@ class UserController {
               return favorite.destroy()
                 .then(() => {
                   res.status(200).json({
+                    status: 'success',
                     message: 'You have removed recipe from favorite'
                   });
                 });
@@ -185,7 +186,7 @@ class UserController {
                 .json({
                   status: 'success',
                   message: 'Recipe added to favorite',
-                  favorite: newFavorite// has userId and recipeId
+                  favorite: newFavorite
                 }))
               .catch(() => res.status(500)
                 .json({
@@ -355,7 +356,7 @@ class UserController {
     db.Recipe.findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(400)
+          return res.status(404)
             .json({
               status: 'Error',
               message: 'Recipe dose not exist'

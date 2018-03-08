@@ -278,7 +278,7 @@ class RecipeController {
         } else {
           return res.status(400).json({
             status: 'Error',
-            message: `Recipe with id ${req.params.id} dose not exist`
+            message: 'Recipe dose not exist'
           });
         }
       })

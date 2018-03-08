@@ -13,152 +13,209 @@ const generateToken = userId => jwt.sign({ id: userId }, process.env.SECRET, { e
 
 chai.use(chaiHttp);
 
+const user1 = {
+  userName: 'michael123',
+  email: 'michael123@test.com',
+  password: 'password',
+  cPassword: 'password'
+};
+
+const user2 = {
+  userName: 'michael123',
+  email: 'michael123',
+  password: 'password',
+  cPassword: 'password'
+}
+
 
 describe('Testing User Controller', () => {
-  before(async () => {
-    await db.sequelize.sync();
-    await db.Upvote.destroy({ where: {} });
-    await db.Downvote.destroy({ where: {} });
-    await db.Review.destroy({ where: {} });
-    await db.Favorite.destroy({ where: {} });
-    await db.Recipe.destroy({ where: {} });
-    await db.User.destroy({ where: {} });
-  });
   describe('Testing signup controller', () => {
+    const signupUrl = '/api/v1/users/signup'
     it('should register a new user when all the parameters are given', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signup')
-        .send({
-          userName: 'michael',
-          email: 'michael@yahoo.com',
-          password: 'password',
-          cPassword: 'password'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(201);
+        .post(signupUrl)
+        .send(user1)
+        .end((error, response) => {
+          expect(response.status).to.equal(201);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('user has been created');
+          expect(response.body.user.username).to.equal(user1.userName);
+          expect(response.body.user.email).to.equal(user1.email);
+          expect(response.body).to.have.property('token');
+          expect(response.body.token).to.be.a('string');
           done();
         });
     });
-    it('should return a 400 when an invalid email is used', (done) => {
+    it('should not register a user when an invalid email is used', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signup')
+        .post(signupUrl)
+        .send(user2)
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('The email is not valid. Please input a valid email.');
+          expect(response.body.status).to.equal('Error');
+          done();
+        });
+    });
+    it('should not register a user when email is missing', (done) => {
+      chai.request(app)
+        .post(signupUrl)
         .send({
-          username: 'pato',
+          userName: 'pato',
+          password: 'password',
+          cPassword: 'password'
+        })
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Email is required');
+          expect(response.body.status).to.equal('Error');
+          done();
+        });
+    });
+    it('should not register a user when password is missing', (done) => {
+      chai.request(app)
+        .post(signupUrl)
+        .send({
+          userName: 'pato',
+          email: 'maara',
+          cPassword: 'password'
+        })
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Password is required');
+          expect(response.body.status).to.equal('Error');
+          done();
+        });
+    });
+    it('should not register a user when username is missing', (done) => {
+      chai.request(app)
+        .post(signupUrl)
+        .send({
           email: 'maara',
           password: 'password',
           cPassword: 'password'
         })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Username is required');
+          expect(response.body.status).to.equal('Error');
           done();
         });
     });
-    it('should return status 400 when email is missing', (done) => {
+    it('should not register a user when passwords don\'t match', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signup')
+        .post(signupUrl)
         .send({
-          username: 'pato',
-          password: 'password',
-          cPassword: 'password'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-        });
-    });
-    it('should return status 400 when password is missing', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signup')
-        .send({
-          username: 'pato',
-          email: 'maara',
-          cPassword: 'password'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-        });
-    });
-    it('should return status 400 when passwords don\'t match', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signup')
-        .send({
-          username: 'pato',
+          userName: 'pato',
           email: 'maara',
           password: 'passwofrd',
           cPassword: 'password'
         })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Passwords do not match');
+          expect(response.body.status).to.equal('Error');
           done();
         });
     });
-    it('should return status 400 when password is less than 6 characters', (done) => {
+    it('should not register when password is less than 6 characters', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signup')
+        .post(signupUrl)
         .send({
-          username: 'pato',
+          userName: 'pato',
           email: 'maara',
           password: 'pass',
           cPassword: 'pass'
         })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Password must be more than 6 characters');
+          expect(response.body.status).to.equal('Error');
           done();
         });
     });
   });
   describe('Testing sigin controller', () => {
-    before(() => {
-      db.User.create({
-        userName: 'mike@gmail.com',
-        email: 'mike@gmail.com',
-        password: bcrypt.hashSync('michael', saltRounds)
-      });
-    });
-    it('should return 200 when all parameters are given', (done) => {
+    const signinUrl = '/api/v1/users/signin'
+    it('should signin a user all parameters are given', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signin')
+        .post(signinUrl)
         .send({
-          email: 'mike@gmail.com',
-          password: 'michael'
+          email: user1.email,
+          password: user1.password
         })
-        .end((err, res) => {
-          expect(res).to.have.status(200);
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Successfully signin');
+          expect(response.body.user.username).to.equal(user1.userName);
+          expect(response.body.user.email).to.equal(user1.email);
+          expect(response.body).to.have.property('token');
+          expect(response.body.token).to.be.a('string');
           done();
         });
     });
-    it('should return 400 when password is not given', (done) => {
+    it('should not signin a user when password is not given', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signin')
+        .post(signinUrl)
         .send({
           email: 'mike@gmail.com'
         })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('password is required');
+          expect(response.body.status).to.equal('Error');
           done();
         });
     });
-    it('should return 400 when email is not given', (done) => {
+    it('should not signin a user when email is not given', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signin')
+        .post(signinUrl)
         .send({
           password: 'mike'
         })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Email is required');
+          expect(response.body.status).to.equal('Error');
           done();
         });
     });
-    it('should return 400 when the password is wrong', (done) => {
+    it('should not signin a user the password is wrong', (done) => {
       chai.request(app)
-        .post('/api/v1/users/signin')
+        .post(signinUrl)
         .send({
-          email: 'mike@gmail.com',
-          password: 'mike'
+          email: user1.email,
+          password: 'mikegng'
         })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Invalid login details. Email or password wrong');
+          expect(response.body.status).to.equal('Error');
+          done();
+        });
+    });
+    it('should not signin a user the email is wrong', (done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send({
+          email: 'mike@yahoo.com',
+          password: 'mikegng'
+        })
+        .end((error, response) => {
+          expect(response.status).to.equal(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Invalid login details. Email or password wrong');
+          expect(response.body.status).to.equal('Error');
           done();
         });
     });
@@ -177,33 +234,43 @@ describe('Testing User Controller', () => {
         userId: mockData.user1.id
       });
     });
-    it('should return status of 201 when successful', (done) => {
+    it('should favorite a recipe when the right id is used', (done) => {
       chai.request(app)
         .post(`/api/v1/users/${mockData.recipe1.id}/favorites`)
         .send({})
         .set('token', generateToken(mockData.user1.id))
-        .end((err, res) => {
-          expect(res).to.have.status(201);
+        .end((error, response) => {
+          expect(response.status).to.equal(201);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Recipe added to favorite');
+          expect(response.body.status).to.equal('success');
           done();
         });
     });
+    it('should remove the recipe from favorite when the endpoint is hit again', (done) => {
+      chai.request(app)
+        .post(`/api/v1/users/${mockData.recipe1.id}/favorites`)
+        .send({})
+        .set('token', generateToken(mockData.user1.id))
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('You have removed recipe from favorite');
+          expect(response.body.status).to.equal('success');
+          done();
+        });
+    });
+
     it('should return status of 404 when recipe dose not exist', (done) => {
       chai.request(app)
-        .post('/api/v1/users/200/favorites')
+        .post('/api/v1/users/2000/favorites')
         .send({})
         .set('token', generateToken(mockData.user1.id))
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          done();
-        });
-    });
-    it('should return status of 400 for already added recipe', (done) => {
-      chai.request(app)
-        .post(`/api/v1/users/${mockData.recipe1.id}/favorites`)
-        .send({})
-        .set('token', generateToken(mockData.user1.id))
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(404);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Recipe dose not exist');
+          expect(response.body.status).to.equal('Error');
           done();
         });
     });
@@ -216,21 +283,14 @@ describe('Testing User Controller', () => {
         password: bcrypt.hashSync('michael', saltRounds)
       });
     });
-    it('should return 200 for a valid user', (done) => {
+    it('should  return all favorites for a valid user', (done) => {
       chai.request(app)
         .get('/api/v1/users/favorites')
         .set('token', generateToken(mockData.user1.id))
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
-    it('should return 404 when user has no favorite', (done) => {
-      chai.request(app)
-        .get('/api/v1/users/favorites')
-        .set('token', generateToken(mockData.user2.id))
-        .end((err, res) => {
-          expect(res).to.have.status(404);
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('favorites');
           done();
         });
     });
@@ -243,23 +303,39 @@ describe('Testing User Controller', () => {
         password: bcrypt.hashSync('michael', saltRounds)
       });
     });
-    it('should return 201 for a valid user', (done) => {
+    it('should upvote a recipe for a valid user', (done) => {
       chai.request(app)
         .post(`/api/v1/users/${mockData.recipe1.id}/upvote`)
         .set('token', generateToken(mockData.user4.id))
         .send({})
-        .end((err, res) => {
-          expect(res).to.have.status(201);
+        .end((error, response) => {
+          expect(response.status).to.equal(201);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Recipe upvoted');
+          done();
+        });
+    });
+    it('should remove upvote when the recipe has been upvoted already', (done) => {
+      chai.request(app)
+        .post(`/api/v1/users/${mockData.recipe1.id}/upvote`)
+        .set('token', generateToken(mockData.user4.id))
+        .send({})
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('You have removed upvote');
           done();
         });
     });
     it('should return 400 when recipe dose not exist', (done) => {
       chai.request(app)
-        .post(`/api/v1/users/${mockData.recipe1.id}/upvote`)
+        .post(`/api/v1/users/3000/upvote`)
         .set('token', generateToken(mockData.user4.id))
         .send({})
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(404);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Recipe dose not exist');
           done();
         });
     });
@@ -272,23 +348,39 @@ describe('Testing User Controller', () => {
         password: bcrypt.hashSync('michael', saltRounds)
       });
     });
-    it('should return 201 for a valid user', (done) => {
+    it('should downvote a recipe when its a valid user', (done) => {
       chai.request(app)
         .post(`/api/v1/users/${mockData.recipe1.id}/downvote`)
         .set('token', generateToken(mockData.user5.id))
         .send({})
-        .end((err, res) => {
-          expect(res).to.have.status(201);
+        .end((error, response) => {
+          expect(response.status).to.equal(201);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Recipe downvoted');
           done();
         });
     });
-    it('should return 400 when recipe dose not exist', (done) => {
+    it('should remove downvote if recipe has been downvoted before', (done) => {
       chai.request(app)
         .post(`/api/v1/users/${mockData.recipe1.id}/downvote`)
         .set('token', generateToken(mockData.user5.id))
         .send({})
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response.status).to.equal(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('You have removed down vote');
+          done();
+        });
+    });
+    it('should not downvote when recipe dose not exist', (done) => {
+      chai.request(app)
+        .post(`/api/v1/users/1000/downvote`)
+        .set('token', generateToken(mockData.user5.id))
+        .send({})
+        .end((error, response) => {
+          expect(response.status).to.equal(404);
+          expect(response.body).to.be.an('object');
+          expect(response.body.message).to.equal('Recipe dose not exist');
           done();
         });
     });

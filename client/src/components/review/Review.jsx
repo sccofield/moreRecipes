@@ -147,7 +147,7 @@ class Review extends React.Component {
 Review.propTypes = {
   addReviewActionCreator: PropTypes.func.isRequired,
   reviews: PropTypes.arrayOf(PropTypes.object),
-  recipeId: PropTypes.number.isRequired,
+  recipeId: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.bool.isRequired
 };
 

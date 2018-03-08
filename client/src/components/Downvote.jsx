@@ -67,7 +67,7 @@ class Downvote extends React.Component {
 }
 
 Downvote.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   downvote: PropTypes.arrayOf(PropTypes.object).isRequired,
   userId: PropTypes.number.isRequired,
   downvoteRecipeActionCreator: PropTypes.func.isRequired

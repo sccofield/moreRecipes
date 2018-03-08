@@ -26,24 +26,24 @@ const Navbar = props => (
 
     <div className="navbar-collapse collapse dual-nav">
       <ul className="nav navbar-nav ml-auto">
-        <li className="nav-item">
+        <li className="nav-item" id="exploreRecipe">
           <Link className="nav-link" to="/recipes">Explore Recipe</Link>
         </li>
         { props.isAuthenticated &&
-          <li className="nav-item">
+          <li className="nav-item" id="postRecipe">
             <Link className="nav-link" to="/postRecipe">Post Recipe</Link>
           </li>
         }
 
         { props.isAuthenticated &&
-          <li className="nav-item">
+          <li className="nav-item" id="profile">
             <Link className="nav-link" to="/dashboard">Profile</Link>
           </li>
         }
 
         { props.isAuthenticated &&
 
-          <li className="nav-item">
+          <li className="nav-item" id="logout">
             { /* eslint-disable jsx-a11y/anchor-is-valid */ }
             <Link
               className="nav-link"
@@ -56,14 +56,14 @@ const Navbar = props => (
 
         {
           !props.isAuthenticated &&
-          <li className="nav-item">
+          <li className="nav-item" id="login">
             <Link className="nav-link" to="/login">Login</Link>
           </li>
         }
 
         {
           !props.isAuthenticated &&
-          <li className="nav-item">
+          <li className="nav-item" id="register">
             <Link className="nav-link" to="/register">Register</Link>
           </li>
         }

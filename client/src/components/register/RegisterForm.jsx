@@ -14,15 +14,15 @@ const RegisterForm = props => (
             </p>
           </div>
           {
+            props.errorMessage &&
+            <p className="errorMessage">{props.errorMessage}</p>
+          }
+          {
             props.state.errors &&
             <ul className="errorMessage">{
               props.state.errors.map(error => <li>{error}</li>)
             }
             </ul>}
-          {
-            props.errorMessage &&
-            <p className="errorMessage">{props.errorMessage}</p>
-          }
           <form onSubmit={props.onSubmit}>
             <div className="form-group">
               <input
@@ -75,6 +75,7 @@ const RegisterForm = props => (
             </div>
             <button
               type="submit"
+              id="registerSubmit"
               className="btn btn-primary recipeButton"
             >Create Account
             </button>

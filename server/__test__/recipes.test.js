@@ -22,92 +22,85 @@ const generateToken = userId => jwt.sign({
 
 
 describe('Testing Recipe Controller', () => {
-  before(async () => {
-    await db.sequelize.sync();
-    await db.Upvote.destroy({ where: {} });
-    await db.Downvote.destroy({ where: {} });
-    await db.Favorite.destroy({ where: {} });
-    await db.Recipe.destroy({ where: {} });
-    await db.User.destroy({ where: {} });
+  before( async () => {
     mockData.user1 = await db.User.create({
       userName: 'mike@gmail.com',
       email: 'mike@gmail.com',
       password: bcrypt.hashSync('michael', saltRounds)
-    });
-    mockData.user2 = await db.User.create({
-      userName: 'mike2@gmail.com',
-      email: 'mike2@gmail.com',
-      password: bcrypt.hashSync('michael', saltRounds)
-    });
-    mockData.recipe1 = await db.Recipe.create({
-      title: 'Apple stew',
-      description: 'Apple stew with red tomatoes',
-      ingredients: 'apple, tomatoes, oil',
-      userId: mockData.user1.id
-    });
-  });
-  describe('API endpoints for home route', () => {
-    it('should return 200 with the home route', (done) => {
-      chai.request(app)
-        .get('/')
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
+    })
+      mockData.user2 = await db.User.create({
+        userName: 'mike2@gmail.com',
+        email: 'mike2@gmail.com',
+        password: bcrypt.hashSync('michael', saltRounds)
+      });
+    
+      mockData.recipe1 =  await db.Recipe.create({
+        title: 'Apple stew',
+        description: 'Apple stew with red tomatoes',
+        ingredients: 'apple, tomatoes, oil',
+        userId: mockData.user1.id
     });
   });
   describe('API endpoint to GET all recipes /api/v1/recipes', () => {
-    it('should return 200 with /api/v1/recipes at all times', (done) => {
+    it('should return list of recipes', (done) => {
       chai.request(app)
         .get('/api/v1/recipes')
-        .end((err, res) => {
-          expect(res).to.have.status(200);
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.numberOfItems)
+            .to.be.a('number');
+          expect(response.body.limit)
+            .to.be.a('number');
+          expect(response.body.currentPage)
+            .to.be.a('number');
+          expect(response.body.pages)
+            .to.be.a('number');
+          expect(response.body.recipes)
+            .to.be.an('array').with.lengthOf(1);
           done();
         });
     });
-    it('should return a list of recipe when called', (done) => {
+    it('should return a actual recipes', (done) => {
       chai.request(app)
         .get('/api/v1/recipes')
-        .end((err, res) => {
-          const data = res.body.recipes;
+        .end((error, response) => {
+          const data = response.body.recipes;
           expect(data[0].title).to.equal(mockData.recipe1.title);
           expect(data[0].description).to.equal(mockData.recipe1.description);
           done();
         });
     });
-    it('should return 200 if it has a sort query', (done) => {
-      chai.request(app)
-        .get('/api/v1/recipes?sort=upvotes&order=des')
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
   });
-  describe('API endpoint to GET single recipe /api/v1/recipes/:id', () => {
-    it('should return 200 with /api/v1/recipes at all times', (done) => {
+  describe('API endpoint to GET single recipe', () => {
+    it('should return a single recipe', (done) => {
       chai.request(app)
         .get(`/api/v1/recipes/${mockData.recipe1.id}`)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body).to.be.an('object');
+          expect(response.body.status).to.equal('success');
           done();
         });
     });
-    it('should return a recipe when called', (done) => {
+    it('should return an actual recipe', (done) => {
       chai.request(app)
         .get(`/api/v1/recipes/${mockData.recipe1.id}`)
-        .end((err, res) => {
-          const data = res.body.recipe;
+        .end((error, response) => {
+          const data = response.body.recipe;
           expect(data.title).to.equal(mockData.recipe1.title);
           expect(data.description).to.equal(mockData.recipe1.description);
           done();
         });
     });
-    it('should return 400 if the recipe dose not exist', (done) => {
+    it('should not be successful if the recipe dose not exist', (done) => {
       chai.request(app)
         .get('/api/v1/recipes/100')
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+        .end((error, response) => {
+          expect(response).to.have.status(400);
+          expect(response.body).to.be.an('object');
+          expect(response.body.status).to.equal('Error');
+          expect(response.body.message).to.equal('Recipe dose not exist');
           done();
         });
     });
