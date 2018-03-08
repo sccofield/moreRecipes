@@ -22,14 +22,16 @@ languages:
   JavaScript: true
 exclude_paths:
   - "node_modules/"
+  - "client/*"
   - "client/public/*"
-  - "client/__mocks__/*"
-  - "client/__tests__"
   - "template/*"
   - "server/routes"
   - "server/__test__"
   - "server/seeders/*"
   - "server/migrations/*"
+  - "server/models/*"
   - "public/"
   - "e2eTest/*"
   - "e2ereports/*"
+  - "coverage/*"
+  - "server/config/*"
