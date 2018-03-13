@@ -10,7 +10,7 @@
     "client:dev": "babel-node server/bin/www",
     "babel-node": "babel-node --",
     "build-client": "webpack --config ./webpack.prod.js --progress",
-    "build": "babel ./server -d ./build && npm run build-client",
+    "build": "babel ./server -d ./build --copy-files && npm run build-client",
     "heroku-postbuild": "npm run build",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "unmigrate": "node_modules/.bin/sequelize db:migrate:undo:all",
