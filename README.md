@@ -50,7 +50,7 @@ run npm install && npm run client:dev
 
  ## API Documentation
 
-The full documentation for all API end point can be found [here](mike-more-recipe-2.herokuapp.com/api-docs)
+The full documentation for all API end point can be found [here](https://mike-more-recipe-2.herokuapp.com/api-docs)
 
 ## Test
 ____
