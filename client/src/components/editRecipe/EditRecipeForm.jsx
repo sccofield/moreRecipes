@@ -1,21 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 
 
-const PostRecipeForm = props => (
+const EditRecipeForm = props => (
   <main className="container">
 
     <div className="row justify-content-md-center">
       <div className="col-md-8">
 
         <h1>Edit Recipe</h1>
-        {props.state.errors && <ul className="errorMessage">{props.state.errors.map(error => <li key={Math.floor(Math.random() * 1000)}>{error}</li>)}</ul>}
+        {props.state.errors &&
+        <ul className="errorMessage">{
+          props.state.errors.map(error => (
+            <li key={
+              Math.floor(Math.random() * 1000)
+            }
+            >{error}
+            </li>
+          ))
+        }
+        </ul>}
 
         {
           props.state &&
           <form onSubmit={props.onSubmit}>
             <div className="form-group">
-              <label>Recipe title</label>
+              <label htmlFor="recipeTitle">Recipe title</label>
               <input
                 type="text"
                 className="form-control"
@@ -40,7 +51,9 @@ const PostRecipeForm = props => (
                 onChange={props.onChange}
                 required
               />
-              <small id="emailHelp" className="form-text text-muted">seperate each ingredients with a comma (,)</small>
+              <small id="emailHelp" className="form-text text-muted">
+                seperate each ingredients with a comma (,)
+              </small>
 
             </div>
 
@@ -70,7 +83,11 @@ const PostRecipeForm = props => (
                 { props.state.imageUrl &&
 
                 <div className="form-group">
-                  <img src={props.state.imageUrl} alt="" className="img img-responsive img-thumbnail imagePreview" />
+                  <img
+                    src={props.state.imageUrl}
+                    alt=""
+                    className="img img-responsive img-thumbnail imagePreview"
+                  />
                 </div>
                 }
               </Dropzone>
@@ -79,7 +96,13 @@ const PostRecipeForm = props => (
             </div>
 
 
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button
+              type="submit"
+              id="recipeSubmit"
+              className="btn btn-primary"
+            >
+            Submit
+            </button>
           </form>
         }
 
@@ -89,4 +112,26 @@ const PostRecipeForm = props => (
 
 );
 
-export default PostRecipeForm;
+EditRecipeForm.propTypes = {
+  errors: PropTypes.arrayOf(PropTypes.string),
+  handleDrop: PropTypes.func,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+  state: PropTypes.shape({
+    description: PropTypes.string,
+    errors: PropTypes.array,
+    image: PropTypes.string,
+    ingredients: PropTypes.string,
+    title: PropTypes.string,
+    imageUrl: PropTypes.string
+  }).isRequired,
+};
+
+EditRecipeForm.defaultProps = {
+  errors: null,
+  handleDrop: null,
+  onChange: null,
+  onSubmit: null
+};
+
+export default EditRecipeForm;

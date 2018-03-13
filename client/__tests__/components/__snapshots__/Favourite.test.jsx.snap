@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Favouritenvote component should render the component 1`] = `
+<a
+  className="btn btn-outline-info m-1 favourite"
+  id="favouriteButton"
+>
+  <i
+    aria-hidden="true"
+    className="fa fa-heart"
+    onClick={[Function]}
+  />
+</a>
+`;

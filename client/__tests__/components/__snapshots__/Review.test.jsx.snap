@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Review controller should render 1`] = `
+<div
+  className=""
+>
+  <h3
+    className="text-center"
+  >
+    Reviews
+  </h3>
+  <hr />
+  <div
+    className="review"
+  >
+    <form
+      className="form-group md-form"
+      onChange={[Function]}
+      onSubmit={[Function]}
+    >
+      <textarea
+        className="form-control"
+        id="exampleTextarea"
+        name="review"
+        placeholder="Enter review here"
+        rows="4"
+        value=""
+      />
+      <button
+        className="btn btn-primary recipeButton mt-2"
+        type="submit"
+      >
+        Add Review
+      </button>
+    </form>
+  </div>
+</div>
+`;

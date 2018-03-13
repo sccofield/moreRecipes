@@ -20,17 +20,8 @@ Users can also get to add recipes to a favorite list and be able to view the lis
 + Users can view the number of times a recipe has been viewed.
 
 ## Demo
-A fully functional demo of this project is available at [More-Recipes](#)
+A fully functional demo of this project is available at [More-Recipes](https://mike-more-recipe-2.herokuapp.com/)
 
-## What is included
-
-```
-moreRecipes/
-├── client/ This contains the UI templates for the front-end in HTML/CSS
-├── server/ This contains the back-end implementation in NodeJS-Express
-├── template/ This contains the front-end implementation in ReactJS and Redux
-
-```
 ## Installation
 + Open terminal
 + cd into directory that you want the project to reside.
@@ -39,20 +30,86 @@ cd projects
 ```
 + clone the repository into that directory.
 ```
-git clone https://github.com/sccofield/moreRecipes.git 
+git clone https://github.com/sccofield/moreRecipes
 ```
-run npm install and npm run start:dev
+run npm install and npm run client:dev
 ```
-npm install && npm run start:dev
+run npm install && npm run client:dev
 ```
 
-## Built With
-The following tools, libraries and frameworks has been used on this project
-+ Bootstrap 4
-+ PostgreSQL
+ ### Technologies
+
+ The following tools, libraries and frameworks has been used on this project
+
+ 1. [Nodejs](https://nodejs.org/en/)
+ 1. [Postgresql](https://www.postgresql.org/)
+ 1. [Express](https://expressjs.com/)
+ 1. [Sequelize](http://docs.sequelizejs.com/)
+ 1. [React](https://reactjs.org/)
+ 1. [Redux](https://redux.js.org/)
+
+ ## API Documentation
+
+The full documentation for all API end point can be found [here](mike-more-recipe-2.herokuapp.com/api-docs)
+
+## Test
+____
+
+The application uses the following for Testing:
+
+* Backend Test 
+`npm run test` 
+
+* FrontEnd Test
+`npm run test-client`
+
+
+## Contributing
+
+To see how to go about contributing to this project checkout [contributing](contributing.md).
 
 ## Bugs and issues
-If you have any buy or feature request? [Please open a new issue]()
+If you have any buy or feature request? [Please open a new issue](https://github.com/sccofield/moreRecipes/issues)
+
+## FAQ
+
+### Is this an Open-Source Application?
+
+```
+Yes it is, and contributing to the development of this application is by raising PRs.
+```
+
+### Who can contribute?
+
+```
+Anyone! This application is open to all those who want to contribute to open-source 
+development and are willing to follow set standards for contributing.
+```
+
+### Is there a set standard for PRs to this repository?
+
+```
+Yes, there are set conventions for PRs to this repository and can be found in the 
+project wiki.
+```
+
+### What language was used to develop this application?
+
+```
+This project is a full stack Javascript application.
+```
+
+### Can I clone this application for personal use?
+
+```
+Yes! This application is licensed under MIT, and is open for whatever you may choose 
+to use it for.
+```
+
+## License
+
+[MIT](LICENSE)
+
 
 ## Author
 Michael Umanah

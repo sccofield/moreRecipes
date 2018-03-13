@@ -11,12 +11,14 @@ import getRecipeActionCreator from '../../actions/recipes';
 
 /**
  *
- *
  * @class ExploreRecipe
+ *
+ * @extends {React.Component}
  */
 class ExploreRecipe extends React.Component {
   /**
    * Creates an instance of ExploreRecipe.
+   *
    * @param {any} props
    * @memberof ExploreRecipe
    */
@@ -35,8 +37,10 @@ class ExploreRecipe extends React.Component {
   }
 
   /**
+   *component will mount
    *
    *@return {null} null
+   *
    * @memberof ExploreRecipe
    */
   componentWillMount() {
@@ -46,8 +50,11 @@ class ExploreRecipe extends React.Component {
 
   /**
  *
+ * onsearch change
+ *
  * @returns {obj} obj
  * @param {any} event
+ *
  * @memberof ExploreRecipe
  */
   onSearchChange(event) {
@@ -56,9 +63,12 @@ class ExploreRecipe extends React.Component {
 
 
   /**
+   * get Recipes
    *@param {number} page
    *@param {string} search
+   *
    * @return {null} null
+   *
    * @memberof ExploreRecipe
    */
   getRecipes(page, search) {
@@ -82,8 +92,10 @@ class ExploreRecipe extends React.Component {
       });
   }
   /**
+ *handle search recipes
  *
  * @returns {obj} object
+ *
  * @memberof ExploreRecipe
  */
   handleSearchRecipes() {
@@ -93,8 +105,11 @@ class ExploreRecipe extends React.Component {
 
   /**
  *
- *@returns {null} null
+ * handle page click
+ *
+ * @returns {null} null
  * @param {any} page
+ *
  * @memberof ExploreRecipe
  */
   handlePageClick(page) {
@@ -103,6 +118,7 @@ class ExploreRecipe extends React.Component {
   }
   /**
    *
+   *renders component
    *
    * @returns {obj} obj
    * @memberof ExploreRecipe

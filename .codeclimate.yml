@@ -35,4 +35,3 @@ exclude_paths:
   - "e2ereports/*"
   - "coverage/*"
   - "server/config/*"
-  - "server/controllers/recipes.js"

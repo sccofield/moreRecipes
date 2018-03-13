@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recipe component should render FavoriteRecipes form when props is given 1`] = `
+<div>
+  <section
+    className="section text-center text-lg-left container"
+  >
+    <nav
+      className="row justify-content-center"
+    >
+      <PaginationBoxView
+        activeClassName="active"
+        breakClassName="break-me"
+        breakLabel={
+          <a>
+            ...
+          </a>
+        }
+        containerClassName="pagination"
+        disableInitialCallback={false}
+        disabledClassName="disabled"
+        marginPagesDisplayed={2}
+        nextClassName="next"
+        nextLabel="next"
+        nextLinkClassName="page-link"
+        onPageChange={[MockFunction]}
+        pageClassName="page-item"
+        pageCount={2}
+        pageLinkClassName="page-link"
+        pageRangeDisplayed={5}
+        previousClassName="previous"
+        previousLabel="previous"
+        previousLinkClassName="page-link"
+        subContainerClassName="pages pagination"
+      />
+    </nav>
+    <div
+      key="3"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-lg-4 mb-4"
+        >
+          <div
+            className="view overlay hm-white-slight z-depth-1"
+          >
+            <img
+              alt=""
+              className="profileImage"
+              src="image"
+            />
+            <a>
+              <div
+                className="mask"
+              />
+            </a>
+          </div>
+        </div>
+        <div
+          className="col-lg-7 tab-recipe"
+        >
+          <h4
+            className=""
+          >
+            <Link
+              replace={false}
+              to="recipes/undefined"
+            >
+              <strong>
+                title
+              </strong>
+            </Link>
+          </h4>
+          <p>
+            description ...
+          </p>
+          <p>
+            by
+            <a>
+              <strong>
+                 
+                username
+              </strong>
+            </a>
+            , 
+            Invalid date
+          </p>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </section>
+</div>
+`;

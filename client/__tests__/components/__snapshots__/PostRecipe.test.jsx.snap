@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post recipe controller should render 1`] = `
+<div
+  className="main"
+>
+  <Connect(PageHeader) />
+  <div
+    className="container"
+  >
+    <div
+      className="row content"
+    >
+      <div
+        className="col-lg-10"
+      >
+        <PostRecipeForm
+          className="mb-4"
+          errorMessage={null}
+          errors={Array []}
+          handleDrop={[Function]}
+          imagePreview={null}
+          onChange={[Function]}
+          onSubmit={[Function]}
+          state={
+            Object {
+              "description": "",
+              "errors": Array [],
+              "image": null,
+              "ingredients": "",
+              "title": "",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <Footer />
+</div>
+`;

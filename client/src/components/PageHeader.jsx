@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import logoutUserActionCreator from '../actions/logout';
 import Navbar from './Navbar';
 
-const PageHeader = () => (
+export const Header = () => (
   <header style={{ backgroundColor: 'black', backgroundImage: 'none' }}>
     <div className="container">
       <Navbar />
@@ -13,11 +13,11 @@ const PageHeader = () => (
 
 );
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
 
   logoutUser: () => {
     dispatch(logoutUserActionCreator());
   }
 });
 
-export default connect(mapDispatchToProps)(PageHeader);
+export default connect(mapDispatchToProps)(Header);

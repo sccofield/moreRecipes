@@ -12,15 +12,19 @@ import getEditRecipeActionCreator,
 { editRecipeActionCreator } from '../../actions/editRecipe';
 
 /**
- *
+ *Edit recipe
  *
  * @class EditRecipe
+ *
  * @extends {React.Component}
  */
 class EditRecipe extends React.Component {
   /**
+   * creats and instance of Edit recipe
+   *
    * Creates an instance of PostRecipe.
-   * @memberof PostRecipe
+   *
+   * @memberof EditRecipe
    */
   constructor() {
     super();
@@ -38,9 +42,11 @@ class EditRecipe extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   /**
+   *component will mount
    *
    * @returns { obj} obj
-   * @memberof RecipeDetail
+   *
+   * @memberof EditRecipe
    */
   componentWillMount() {
     window.scrollTo(0, 0);
@@ -49,9 +55,13 @@ class EditRecipe extends React.Component {
 
   /**
  *
+ * component will recieve props
+ *
  * @returns {obj} obj
+ *
  * @param {any} nextProps
- * @memberof PostRecipe
+ *
+ * @memberof EditRecipe
  */
   componentWillReceiveProps(nextProps) {
     if (nextProps.editedRecipe) {
@@ -71,9 +81,12 @@ class EditRecipe extends React.Component {
 
   /**
    * @description handles form change events
+   *
    * @returns {null} null
+   *
    * @param {any} event
-   * @memberof Login
+   *
+   * @memberof EditRecipe
    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -81,9 +94,11 @@ class EditRecipe extends React.Component {
 
   /**
    * @description handles form submit events
+   *
    * @returns {null} null
    * @param {any} event
-   * @memberof Login
+   *
+   * @memberof EditRecipe
    */
   onSubmit(event) {
     event.preventDefault();
@@ -117,9 +132,11 @@ class EditRecipe extends React.Component {
 
   /**
  *
+ * handle drop files
  * @returns {obj} object
  * @param {any} files
- * @memberof PostRecipe
+ *
+ * @memberof EditRecipe
  */
   handleDrop(files) {
     this.setState({
@@ -131,9 +148,10 @@ class EditRecipe extends React.Component {
 
   /**
  *
- *
+ *validate
  * @returns {boolean} boolean
- * @memberof Login
+ *
+ * @memberof Edit Recipe
  */
   validate() {
     const { errors } = FormValidator(this.state);
@@ -147,8 +165,9 @@ class EditRecipe extends React.Component {
 
   /**
  *
- *
+ *render component
  * @returns {obj} obj
+ *
  * @memberof EditRecipe
  */
   render() {

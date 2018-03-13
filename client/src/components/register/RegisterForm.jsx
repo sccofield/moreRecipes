@@ -20,7 +20,7 @@ const RegisterForm = props => (
           {
             props.state.errors &&
             <ul className="errorMessage">{
-              props.state.errors.map(error => <li>{error}</li>)
+              props.state.errors.map(error => <li key={Math.floor(Math.random() * 1000)} >{error}</li>)
             }
             </ul>}
           <form onSubmit={props.onSubmit}>
@@ -96,11 +96,13 @@ RegisterForm.propTypes = {
     errors: PropTypes.array,
     email: PropTypes.string
   }).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func
 };
 RegisterForm.defaultProps = {
   errorMessage: null,
-  errors: null
+  errors: null,
+  onChange: null,
+  onSubmit: null
 };
 export default RegisterForm;

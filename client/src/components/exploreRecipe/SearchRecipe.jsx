@@ -16,6 +16,7 @@ const SearchRecipe = props => (
           />
           <span className="input-group-btn">
             <button
+              id="searchRecipe"
               className="btn btn-secondary"
               onClick={props.handleSearchRecipes}
               type="button"

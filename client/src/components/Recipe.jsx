@@ -77,7 +77,11 @@ Recipe.propTypes = {
     Reviews: PropTypes.array,
     Downvotes: PropTypes.array,
     Upvotes: PropTypes.array
-  }).isRequired
+  })
+};
+
+Recipe.defaultProps = {
+  recipe: null
 };
 
 export default Recipe;

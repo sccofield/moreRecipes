@@ -13,7 +13,7 @@ const {
   REGISTER, AUTH_ERROR, LOGIN, LOGOUT
 } = actionTypes;
 
-window.localStorage = localStorage;
+// window.localStorage = localStorage;
 
 const mockStore = configureMockStore([thunk]);
 
@@ -91,6 +91,32 @@ describe('Authentication action creators', () => {
         }
       ];
       const store = mockStore({ });
+      store.dispatch(loginUserActionCreator()).then(() => {
+        expect(store.getActions()).toEqual(expectedAction);
+        done();
+      });
+    });
+    it('should dispatch AUTH_ERROR when there is an error', (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.reject({
+          status: 400,
+          response: {
+            data: { message: 'error' }
+          }
+        });
+      });
+      const expectedAction = [
+        {
+          type: 'REQUEST_AUTHENTICATION'
+        },
+        {
+          type: AUTH_ERROR,
+          isAuthenticated: false,
+          message: 'error'
+        }
+      ];
+      const store = mockStore({});
       store.dispatch(loginUserActionCreator()).then(() => {
         expect(store.getActions()).toEqual(expectedAction);
         done();

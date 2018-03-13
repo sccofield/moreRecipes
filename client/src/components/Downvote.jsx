@@ -10,7 +10,7 @@ import downvoteRecipeActionCreator from '../actions/downvote';
  * @class Favourite
  * @extends {React.Component}
  */
-class Downvote extends React.Component {
+export class Downvote extends React.Component {
   /**
    * Creates an instance of Favourite.
    * @param {any} props
@@ -54,6 +54,7 @@ class Downvote extends React.Component {
   render() {
     return (
       <button
+        id="downvoteButton"
         className={`btn btn-outline-info m-1 ${this.hasVoted() ? 'vote' : ''}`}
         onClick={this.downvote}
       >
@@ -75,7 +76,7 @@ Downvote.propTypes = {
 };
 
 
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = dispatch =>
   bindActionCreators({ downvoteRecipeActionCreator }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Downvote);

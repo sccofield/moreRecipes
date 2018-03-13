@@ -17,7 +17,7 @@ import postRecipeActionCreator,
  * @class PostRecipe
  * @extends {React.Component}
  */
-class PostRecipe extends React.Component {
+export class PostRecipe extends React.Component {
   /**
    * Creates an instance of PostRecipe.
    * @memberof PostRecipe
@@ -159,11 +159,11 @@ class PostRecipe extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   newRecipe: state.recipe.newRecipe
 });
 
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = dispatch =>
   bindActionCreators({ postRecipeActionCreator, clearNewRecipe }, dispatch);
 
 PostRecipe.propTypes = {

@@ -92,7 +92,13 @@ const PostRecipeForm = props => (
           </div>
 
 
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button
+            type="submit"
+            id="recipeSubmit"
+            className="btn btn-primary"
+          >
+          Submit
+          </button>
         </form>
 
       </div>
@@ -102,11 +108,11 @@ const PostRecipeForm = props => (
 );
 
 PostRecipeForm.propTypes = {
-  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handleDrop: PropTypes.func.isRequired,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  handleDrop: PropTypes.func,
   imagePreview: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
   state: PropTypes.shape({
     description: PropTypes.string,
     errors: PropTypes.array,
@@ -117,7 +123,11 @@ PostRecipeForm.propTypes = {
 };
 
 PostRecipeForm.defaultProps = {
-  imagePreview: null
+  imagePreview: null,
+  errors: null,
+  handleDrop: null,
+  onChange: null,
+  onSubmit: null
 };
 
 export default PostRecipeForm;
