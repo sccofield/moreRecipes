@@ -10,7 +10,7 @@ import upvoteRecipeActionCreator from '../actions/upvote';
  * @class Favourite
  * @extends {React.Component}
  */
-class Upvote extends React.Component {
+export class Upvote extends React.Component {
   /**
    * Creates an instance of Favourite.
    * @param {any} props
@@ -54,6 +54,7 @@ class Upvote extends React.Component {
   render() {
     return (
       <button
+        id="upvoteButton"
         className={`btn btn-outline-info m-1 ${this.hasVoted() ? 'vote' : ''}`}
         onClick={this.upvote}
       >
@@ -76,7 +77,7 @@ Upvote.propTypes = {
 };
 
 
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = dispatch =>
   bindActionCreators({ upvoteRecipeActionCreator }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Upvote);

@@ -4,9 +4,12 @@ import logger from 'morgan';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
 import config from 'dotenv';
 import routes from './routes';
 import webpackConfig from '../webpack.dev';
+
+import swaggerDocument from './converted.json';
 
 config.config();
 
@@ -18,6 +21,8 @@ app.use(logger('dev'));
 // Parse incoming requests data.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 routes(app);
 

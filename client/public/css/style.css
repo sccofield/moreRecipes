@@ -26,7 +26,6 @@ body{
 header {
   background: url(../img/front.jpg);
   background-size: contain;
-  opacity: 1;
 }
 
 .boxShadow {
@@ -382,6 +381,10 @@ footer p{
 
 
 @media (max-width: 991px) {
+  header {
+    background: none;
+    background-color: black;
+  }
   .jumbotron {
     padding: 4rem 1rem;
     /* padding-top: 5rem 2rem; */

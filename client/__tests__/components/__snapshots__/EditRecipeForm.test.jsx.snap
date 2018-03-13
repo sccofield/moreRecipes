@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recipe component should render editRecipe form when props is given 1`] = `
+<main
+  className="container"
+>
+  <div
+    className="row justify-content-md-center"
+  >
+    <div
+      className="col-md-8"
+    >
+      <h1>
+        Edit Recipe
+      </h1>
+      <form>
+        <div
+          className="form-group"
+        >
+          <label>
+            Recipe title
+          </label>
+          <input
+            className="form-control"
+            id="recipeTitle"
+            name="title"
+            placeholder="Enter recipe title"
+            required={true}
+            type="text"
+            value="title"
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="post"
+          >
+            Recipe ingredients
+          </label>
+          <textarea
+            className="form-control"
+            id="ingredients"
+            name="ingredients"
+            placeholder="Enter recipe ingredients seperated by commas"
+            required={true}
+            rows="5"
+            value="ingredients"
+          />
+          <small
+            className="form-text text-muted"
+            id="emailHelp"
+          >
+            seperate each ingredients with a comma (,)
+          </small>
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="post"
+          >
+            Recipe description
+          </label>
+          <textarea
+            className="form-control"
+            id="description"
+            name="description"
+            placeholder="Enter recipe description"
+            required={true}
+            rows="5"
+            value="description"
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="imgurl"
+          >
+            Recipe image
+          </label>
+          <t
+            disableClick={false}
+            disablePreview={false}
+            disabled={false}
+            maxSize={Infinity}
+            minSize={0}
+            multiple={false}
+            preventDropOnDocument={true}
+          >
+            <p
+              className="text-center pt-4"
+            >
+              Click to upload image
+            </p>
+          </t>
+        </div>
+        <button
+          className="btn btn-primary"
+          id="recipeSubmit"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</main>
+`;

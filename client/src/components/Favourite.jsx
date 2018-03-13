@@ -10,7 +10,7 @@ import favouriteRecipeActionCreator from '../actions/favourite';
  * @class Favourite
  * @extends {React.Component}
  */
-class Favourite extends React.Component {
+export class Favourite extends React.Component {
   /**
    * Creates an instance of Favourite.
    * @param {any} props
@@ -54,6 +54,7 @@ class Favourite extends React.Component {
   render() {
     return (
       <a
+        id="favouriteButton"
         className={
           `btn btn-outline-info m-1 ${this.hasFavorited() ? 'favourite' : ''}`
         }
@@ -76,7 +77,7 @@ Favourite.propTypes = {
 };
 
 
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = dispatch =>
   bindActionCreators({ favouriteRecipeActionCreator }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Favourite);

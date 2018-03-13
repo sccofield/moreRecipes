@@ -12,7 +12,7 @@ import addReviewActionCreator from '../../actions/addReview';
  * @class Review
  * @extends {React.Component}
  */
-class Review extends React.Component {
+export class Review extends React.Component {
   /**
    * @param {any} props
    * Creates an instance of Review.
@@ -154,12 +154,12 @@ Review.propTypes = {
 Review.defaultProps = {
   reviews: null
 };
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   reviews: state.recipe.singleRecipe.Reviews,
   isAuthenticated: state.user.isAuthenticated
 });
 
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = dispatch =>
   bindActionCreators({ addReviewActionCreator }, dispatch);
 
 

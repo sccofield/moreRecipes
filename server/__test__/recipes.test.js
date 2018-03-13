@@ -61,13 +61,14 @@ describe('Testing Recipe Controller', () => {
           done();
         });
     });
-    it('should return a actual recipes', (done) => {
+    it('should return an actual recipes', (done) => {
       chai.request(app)
         .get('/api/v1/recipes')
         .end((error, response) => {
           const data = response.body.recipes;
           expect(data[0].title).to.equal(mockData.recipe1.title);
           expect(data[0].description).to.equal(mockData.recipe1.description);
+          expect(data.length).to.equal(1);
           done();
         });
     });

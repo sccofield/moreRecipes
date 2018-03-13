@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upvote component should render the component 1`] = `
+<header
+  style={
+    Object {
+      "backgroundColor": "black",
+      "backgroundImage": "none",
+    }
+  }
+>
+  <div
+    className="container"
+  >
+    <Connect(Navbar) />
+  </div>
+</header>
+`;

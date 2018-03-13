@@ -13,14 +13,18 @@ import { getFavouriteRecipeCreator } from '../../actions/favourite';
 
 /**
  *
+ *Dashboard component
  *
  * @class Dashboard
+ *
  * @extends {React.Component}
  */
 class Dashboard extends React.Component {
   /**
    * Creates an instance of Dashboard.
+   *
    * @param {any} props
+   *
    * @memberof Dashboard
    */
   constructor(props) {
@@ -32,7 +36,10 @@ class Dashboard extends React.Component {
   }
   /**
  *
+ * component will mount
+ *
  * @returns {null} null
+ *
  * @memberof Dashboard
  */
   componentWillMount() {
@@ -42,9 +49,13 @@ class Dashboard extends React.Component {
 
   /**
  *
+ * compnent will recieve props
+ *
  * @returns {obj} obj
+ *
  * @param {any} nextProps
- * @memberof PostRecipe
+ *
+ * @memberof Dashboard
  */
   componentWillReceiveProps(nextProps) {
     if (nextProps.userRecipes.length < this.props.userRecipes.length) {
@@ -54,9 +65,12 @@ class Dashboard extends React.Component {
 
 
   /**
+   * onDelete method
    *
    *@returns {null} null
+
    * @param {any} event
+   *
    * @memberof Dashboard
    */
   onDelete(event) {
@@ -67,8 +81,12 @@ class Dashboard extends React.Component {
 
   /**
  *
+ * handles page click
+ *
  *@returns {null} null
+ *
  * @param {any} page
+ *
  * @memberof Dashboard
  */
   handlePageClick(page) {
@@ -77,8 +95,12 @@ class Dashboard extends React.Component {
 
   /**
  *
+ * handle favourite page click
+ *
  *@returns {null} null
+ *
  * @param {any} page
+ *
  * @memberof Dashboard
  */
   handleFavClick(page) {
@@ -86,8 +108,10 @@ class Dashboard extends React.Component {
   }
   /**
    *
+   * renders component
    *
-   * @returns {null} object
+   * @returns {void}
+   *
    * @memberof Dashboard
    */
   render() {

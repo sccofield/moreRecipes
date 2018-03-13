@@ -9,7 +9,7 @@ const MyRecipes = props => (
   <div>
     {props.userRecipes.length === 0 ? (
       <div>
-        <p>You have not created any recipe yet.</p>
+        <p className="noRecipe">You have not created any recipe yet.</p>
         <p><Link to="/postRecipe">Click here</Link> to add a new recipe</p>
       </div>
     ) : (
@@ -62,12 +62,13 @@ const MyRecipes = props => (
                   <a>
                     <strong> {userRecipe.userName}</strong>
                   </a>, { moment(userRecipe.createdAt).format('ll')}
-                  <span className="btn btn-outline-info mx-1">
+                  <span className="btn btn-outline-info mx-1" id="editRecipe">
                     <Link className="" to={`/recipe/edit/${userRecipe.id}`}>
                       <i className="fa fa-pencil" aria-hidden="true" />
                     </Link>
                   </span>
                   <a
+                    id="deleteRecipe"
                     className="btn btn-outline-info mx-1"
                     data-toggle="modal"
                     data-target="#deleteButton"
@@ -116,7 +117,7 @@ const MyRecipes = props => (
                         </button>
                         <button
                           type="button"
-                          className="btn btn-primary"
+                          className="btn btn-primary yesDelete"
                           onClick={props.onDelete}
                           id={userRecipe.id}
                         >

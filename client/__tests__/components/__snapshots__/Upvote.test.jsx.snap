@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upvote component should render the component 1`] = `
+<button
+  className="btn btn-outline-info m-1 vote"
+  id="upvoteButton"
+  onClick={[Function]}
+>
+  <i
+    aria-hidden="true"
+    className="fa fa-thumbs-o-up"
+  />
+   upvote
+</button>
+`;

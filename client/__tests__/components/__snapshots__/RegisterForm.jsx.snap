@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recipe component should render register form when props is given 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="row justify-content-md-center"
+  >
+    <div
+      className="col-md-8 col-lg-6 col-12"
+    >
+      <div
+        className="registeration text-center"
+      >
+        <h2>
+          Register
+        </h2>
+        <div
+          className="form-header"
+        >
+          <p>
+            Already have an account?
+            <span>
+              Sign in
+            </span>
+          </p>
+        </div>
+        <form
+          onSubmit={null}
+        >
+          <div
+            className="form-group"
+          >
+            <input
+              className="form-control"
+              name="userName"
+              onChange={null}
+              placeholder="Name"
+              required={true}
+              type="text"
+              value="test"
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <input
+              aria-describedby="emailHelp"
+              className="form-control"
+              id="exampleInputEmail1"
+              name="email"
+              onChange={null}
+              placeholder="Email"
+              required={true}
+              type="email"
+              value="test@test.com"
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <input
+              className="form-control"
+              id="exampleInputPassword1"
+              name="password"
+              onChange={null}
+              placeholder="Password"
+              required={true}
+              type="password"
+              value="password"
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <input
+              className="form-control"
+              name="cPassword"
+              onChange={null}
+              placeholder="Re-enter Password"
+              required={true}
+              type="password"
+              value="password"
+            />
+          </div>
+          <button
+            className="btn btn-primary recipeButton"
+            id="registerSubmit"
+            type="submit"
+          >
+            Create Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

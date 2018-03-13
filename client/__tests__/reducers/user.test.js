@@ -1,9 +1,15 @@
 import expect from 'expect';
 
 // import userReducer and initial state
-import userReducer, { initialState } from '../../src/reducers/user';
+import userReducer from '../../src/reducers/user';
 // import actionTypes
 import actionTypes from '../../src/actions/actionTypes';
+
+const initialState = {
+  isAuthenticated: false,
+  user: {},
+  errorMessage: null,
+}
 
 const {
   REGISTER, LOGOUT, LOGIN, AUTH_ERROR

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites errors="1"
-            failures="1"
-            tests="4">
+<testsuites errors="0"
+            failures="0"
+            tests="17">
 
   <testsuite name="tests.spec"
-    errors="1" failures="1" hostname="" id="" package="tests.spec" skipped="1"
-    tests="4" time="30.77" timestamp="Thu, 08 Mar 2018 05:34:25 GMT">
+    errors="0" failures="0" hostname="" id="" package="tests.spec" skipped="0"
+    tests="17" time="132.0" timestamp="Mon, 12 Mar 2018 19:27:13 GMT">
   
-    <testcase name="Display homepage and ensure all element are available" classname="tests.spec" time="8.562" assertions="5">
+    <testcase name="Display homepage and ensure all element are available" classname="tests.spec" time="8.983" assertions="5">
 
     
 
@@ -20,7 +20,35 @@
     
     </testcase>
   
-    <testcase name="user receives error when the sign up form is not properly filled" classname="tests.spec" time="13.55" assertions="5">
+    <testcase name="user receives error when the sign up form is not properly filled" classname="tests.spec" time="13.62" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User gets signed in when the correct details are put" classname="tests.spec" time="8.632" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User creates new recipe" classname="tests.spec" time="7.655" assertions="6">
+
+    
 
     
 
@@ -33,55 +61,130 @@
     
     </testcase>
   
-    <testcase name="User gets signed in when the correct details are put" classname="tests.spec" time="8.667" assertions="4">
+    <testcase name="User creates second recipe" classname="tests.spec" time="4.630" assertions="6">
 
     
 
     
 
-      <failure message="Testing if element &lt;#profile&gt; contains text: &#34;Profile&#34;. Element could not be located.">    at Object.UserGetsSignedInWhenTheCorrectDetailsArePut [as User gets signed in when the correct details are put] (/Users/sccofield/Desktop/moreRecipes/e2eTest/tests.spec.js:91:15)
-    at _combinedTickCallback (internal/process/next_tick.js:131:7)
-    at process._tickCallback (internal/process/next_tick.js:180:9)</failure>
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User creates third recipe" classname="tests.spec" time="4.596" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can add a review" classname="tests.spec" time="8.246" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can add upvote" classname="tests.spec" time="7.125" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can remove upvote" classname="tests.spec" time="7.110" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can add downvote" classname="tests.spec" time="7.116" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can remove downvote" classname="tests.spec" time="7.104" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can add favorite" classname="tests.spec" time="7.117" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can remove favorite" classname="tests.spec" time="7.101" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User can search for a recipe" classname="tests.spec" time="9.269" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="User can view his profile" classname="tests.spec" time="9.130" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="User can edit Recipe" classname="tests.spec" time="8.297" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User should be able to log out" classname="tests.spec" time="6.246" assertions="2">
+
+    
 
     
     </testcase>
   
 
   
-    <system-err>
-      ERROR: Unable to locate element: &#34;#profile&#34; using: css selector
-    at F.command (/usr/local/lib/node_modules/nightwatch/lib/api/assertions/containsText.js:46:21)
-    at F.module.exports.BaseAssertion._scheduleAssertion (/usr/local/lib/node_modules/nightwatch/lib/core/assertion.js:87:17)
-    at F.module.exports.BaseAssertion._executeCommand (/usr/local/lib/node_modules/nightwatch/lib/core/assertion.js:82:17)
-    at AssertionInstance.commandFn [as _commandFn] (/usr/local/lib/node_modules/nightwatch/lib/core/assertion.js:180:21)
-    at AsyncTree.runCommand (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:154:30)
-    at AsyncTree.runChildNode (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:114:8)
-    at AsyncTree.walkDown (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:80:10)
-    at AsyncTree.walkUp (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:97:8)
-    at AsyncTree.walkDown (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:90:12)
-    at AsyncTree.walkUp (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:97:8)
-    at AsyncTree.walkDown (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:90:12)
-    at AsyncTree.traverse (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:73:8)
-    at HttpRequest.onCommandComplete (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:131:12)
-    at Object.onceWrapper (events.js:313:30)
-    at emitNone (events.js:106:13)
-    at HttpRequest.emit (events.js:208:7)
-    at HttpRequest.&lt;anonymous&gt; (/usr/local/lib/node_modules/nightwatch/lib/index.js:376:15)
-    at emitTwo (events.js:126:13)
-    at HttpRequest.emit (events.js:214:7)
-    at HttpRequest.&lt;anonymous&gt; (/usr/local/lib/node_modules/nightwatch/lib/index.js:382:15)
-    at emitThree (events.js:136:13)
-    at HttpRequest.emit (events.js:217:7)
-    </system-err>
-  
 
-  
-    
-    <testcase
-      name="User should be able to log out" classname="tests.spec">
-      <skipped />
-    </testcase>
-    
   
   </testsuite>
 </testsuites>

@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recipe component should render recipe card when props is given 1`] = `
+<div>
+  <div
+    className="card"
+  >
+    <div
+      className="view overlay hm-white-slight image-width"
+    >
+      <img
+        alt=""
+        className="img-fluid image-width"
+        src="image url"
+      />
+      <a>
+        <div
+          className="mask"
+        />
+      </a>
+    </div>
+    <div
+      className="card-body"
+    >
+      <Link
+        replace={false}
+        to="recipes/3"
+      >
+        <h4
+          className="card-title"
+        >
+          recipe title
+        </h4>
+        <hr />
+      </Link>
+      <p
+        className="card-text"
+      >
+        recipe description ...
+      </p>
+      <p
+        className="author"
+      >
+        By
+        <span>
+           
+          username
+        </span>
+      </p>
+    </div>
+    <div
+      className="card-data"
+    >
+      <ul>
+        <li>
+          <i
+            className="fa fa-clock-o"
+          />
+          Invalid date
+        </li>
+        <li>
+          <i
+            className="fa fa-comments-o"
+          />
+           
+          1
+        </li>
+        <li>
+          <i
+            className="fa fa-thumbs-up"
+          />
+           
+          1
+        </li>
+        <li>
+          <i
+            className="fa fa-thumbs-down"
+          />
+          1
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

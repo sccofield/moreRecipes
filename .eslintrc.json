@@ -10,12 +10,14 @@
       "window": true,
       "document": true,
       "FormData": true,
-      "$": true
+      "$": true,
+      "shallow": true
   },
   "env": {
       "node": true,
       "es6": true,
-      "mocha": true
+      "mocha": true,
+      "jest": true
   },
   "settings": {
       "import/resolver":{

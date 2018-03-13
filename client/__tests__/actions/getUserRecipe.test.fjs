@@ -1,0 +1,40 @@
+import moxios from 'moxios';
+import thunk from 'redux-thunk';
+import expect from 'expect';
+import configureMockStore from 'redux-mock-store';
+import localStorage from '../../__mocks__/localStorage';
+
+import actionTypes from '../../src/actions/actionTypes';
+
+import getUserRecipesActionCreator from '../../src/actions/getUserRecipes';
+
+const { GET_USER_RECIPES } = actionTypes;
+
+window.localStorage = localStorage;
+
+const mockStore = configureMockStore([thunk]);
+
+describe('get user recipe action creator', () => {
+  it('should dispatch GET_USER_RECIPES', (done) => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: { recipes: 'recipes', pages: 4 }
+      });
+    });
+    const expectedAction = [
+      {
+        type: GET_USER_RECIPES,
+        userRecipes: 'recipes',
+        pages: 4
+      }
+
+    ];
+    const store = mockStore({ });
+    store.dispatch(getUserRecipesActionCreator(2)).then(() => {
+      expect(store.getActions()).toEqual(expectedAction);
+      done();
+    });
+  });
+});

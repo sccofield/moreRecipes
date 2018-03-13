@@ -4,7 +4,7 @@ const {
   REGISTER, LOGOUT, LOGIN, AUTH_ERROR
 } = actionTypes;
 
-export const initialState = {
+const initialState = {
   isAuthenticated: !!localStorage.getItem('token'),
   user: JSON.parse(localStorage.getItem('user')) || {},
   errorMessage: null,

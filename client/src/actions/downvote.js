@@ -32,6 +32,7 @@ const downvoteRecipeActionCreator = recipeId => (dispatch, getState) => axios
       toastr.success('Downvote Recipe successful');
     }
   }).catch((error) => {
+    console.log(error);
     const serverError = error.response.data.message;
     toastr.warning(serverError);
   });

@@ -17,7 +17,7 @@ import Downvote from './Downvote';
  *
  * @class recipeDetail
  */
-class RecipeDetail extends React.Component {
+export class RecipeDetail extends React.Component {
   /**
    *
    * @returns { obj} obj
@@ -194,13 +194,13 @@ RecipeDetail.defaultProps = {
 };
 
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   recipe: state.recipe.singleRecipe,
   user: state.user.user,
   isAuthenticated: state.user.isAuthenticated
 });
 
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = dispatch =>
   bindActionCreators({ getSingleRecipeActionCreator }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetail);

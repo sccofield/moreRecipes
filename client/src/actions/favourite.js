@@ -52,6 +52,7 @@ const favouriteRecipeActionCreator = recipeId => (dispatch, getState) => axios
       toastr.success('Recipe added to favourite');
     }
   }).catch((error) => {
+    console.log(error);
     const serverError = error.response.data.message;
     toastr.warning(serverError);
   });

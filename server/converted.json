@@ -1,0 +1,2405 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "MoreRecipes",
+    "description": "API documentation for More Recipes web application. All actions performed on the application can be done by sending request via the api url."
+  },
+  "host": "mike-more-recipe-2.herokuapp.com",
+  "basePath": "/api/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "description": "",
+        "summary": "User sign up",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "UsersSignupPost",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "cPassword",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserSignUp"
+            },
+            "examples": {
+              "application/json": {
+                "status": "success",
+                "message": "user has been created",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4NTQ5fQ.8otAcXCjdU9lmNcJZwNutGNDoytKOdKzMgXeQ2qVsr0",
+                "user": {
+                  "username": "mikeumanah",
+                  "email": "mikeumanah@gmail.com",
+                  "id": 4
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/signup",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              "body": "userName=mikeumanah&email=mikeumanah@gmail.com&password=password&cPassword=password"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "283",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:09:09 GMT",
+                "etag": "W/\"11b-MNUYHK67sY9u2zcmyLHR2i+Ucrc\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"status\":\"success\",\"message\":\"user has been created\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4NTQ5fQ.8otAcXCjdU9lmNcJZwNutGNDoytKOdKzMgXeQ2qVsr0\",\"user\":{\"username\":\"mikeumanah\",\"email\":\"mikeumanah@gmail.com\",\"id\":4}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "User sign up",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/signin": {
+      "post": {
+        "description": "",
+        "summary": "User sign in",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "UsersSigninPost",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserSignIn"
+            },
+            "examples": {
+              "application/json": {
+                "status": "success",
+                "message": "Successfully signin",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw",
+                "user": {
+                  "username": "mikeumanah",
+                  "email": "mikeumanah@gmail.com",
+                  "id": 4
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/signin",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              "body": "email=mikeumanah@gmail.com&password=password"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "281",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:11:36 GMT",
+                "etag": "W/\"119-FU29OhTvzR+rJvaT0Xul/QbPCMs\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"status\":\"success\",\"message\":\"Successfully signin\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw\",\"user\":{\"username\":\"mikeumanah\",\"email\":\"mikeumanah@gmail.com\",\"id\":4}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "User sign in",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes": {
+      "get": {
+        "description": "",
+        "summary": "Get all recipes",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "RecipesGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetAllRecipes"
+            },
+            "examples": {}
+          }
+        },
+        "security": [],
+        "x-unitTests": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "",
+        "summary": "Create Recipe",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "RecipesPost",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "ingredients",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateRecipe"
+            },
+            "examples": {
+              "application/json": {
+                "recipe": {
+                  "votes": 0,
+                  "views": 0,
+                  "id": 10,
+                  "title": "New Recipe another",
+                  "description": "lorem ispum",
+                  "ingredients": "meat, apple",
+                  "userId": 4,
+                  "imageUrl": "http://bit.ly/2tmU8cc",
+                  "userName": "mikeumanah",
+                  "updatedAt": "2018-03-13T08:20:18.354Z",
+                  "createdAt": "2018-03-13T08:20:18.354Z"
+                },
+                "message": "recipe created"
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              },
+              "body": "title=New Recipe&ingredients=meat, apple&description=lorem ispum"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "300",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:20:18 GMT",
+                "etag": "W/\"12c-347fGOoFlvHSEU4X915TF4Vl37o\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"recipe\":{\"votes\":0,\"views\":0,\"id\":10,\"title\":\"New Recipe another\",\"description\":\"lorem ispum\",\"ingredients\":\"meat, apple\",\"userId\":4,\"imageUrl\":\"http://bit.ly/2tmU8cc\",\"userName\":\"mikeumanah\",\"updatedAt\":\"2018-03-13T08:20:18.354Z\",\"createdAt\":\"2018-03-13T08:20:18.354Z\"},\"message\":\"recipe created\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Create Recipe",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/3": {
+      "get": {
+        "description": "",
+        "summary": "Get single recipes",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Recipes3Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetSingleRecipes"
+            },
+            "examples": {
+              "application/json": {
+                "status": "success",
+                "recipe": {
+                  "id": 3,
+                  "title": "Beans Poridge",
+                  "userId": 1,
+                  "userName": "mike",
+                  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+                  "imageUrl": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+                  "ingredients": "beans, fish, water, milk",
+                  "votes": 0,
+                  "views": 0,
+                  "createdAt": "2018-03-08T11:42:53.501Z",
+                  "updatedAt": "2018-03-08T11:42:53.501Z",
+                  "Reviews": [],
+                  "Favorites": [],
+                  "Upvotes": [],
+                  "Downvotes": []
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes/3"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "758",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:12:56 GMT",
+                "etag": "W/\"2f6-VqAzCquiJ/5r555h3KIqY5k0gEY\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"status\":\"success\",\"recipe\":{\"id\":3,\"title\":\"Beans Poridge\",\"userId\":1,\"userName\":\"mike\",\"description\":\"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially\",\"imageUrl\":\"https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg\",\"ingredients\":\"beans, fish, water, milk\",\"votes\":0,\"views\":0,\"createdAt\":\"2018-03-08T11:42:53.501Z\",\"updatedAt\":\"2018-03-08T11:42:53.501Z\",\"Reviews\":[],\"Favorites\":[],\"Upvotes\":[],\"Downvotes\":[]}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get single recipes",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/9": {
+      "put": {
+        "description": "",
+        "summary": "Update Recipe",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Recipes9Put",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UpdateRecipe"
+            },
+            "examples": {
+              "application/json": {
+                "status": "success",
+                "recipe": {
+                  "id": 9,
+                  "title": "new recipe title",
+                  "userId": 4,
+                  "userName": "mikeumanah",
+                  "description": "lorem ispum",
+                  "imageUrl": "http://bit.ly/2tmU8cc",
+                  "ingredients": "meat, apple",
+                  "votes": 0,
+                  "views": 0,
+                  "createdAt": "2018-03-13T08:14:25.494Z",
+                  "updatedAt": "2018-03-13T08:16:55.96Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/recipes/9",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              },
+              "body": "title=new recipe title"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "289",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:16:55 GMT",
+                "etag": "W/\"121-5fJFMoEGCV6VIlAcAWYb2C/XI2o\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"status\":\"success\",\"recipe\":{\"id\":9,\"title\":\"new recipe title\",\"userId\":4,\"userName\":\"mikeumanah\",\"description\":\"lorem ispum\",\"imageUrl\":\"http://bit.ly/2tmU8cc\",\"ingredients\":\"meat, apple\",\"votes\":0,\"views\":0,\"createdAt\":\"2018-03-13T08:14:25.494Z\",\"updatedAt\":\"2018-03-13T08:16:55.960Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Update Recipe",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "",
+        "summary": "Delete Recipes",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Recipes9Delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DeleteRecipes"
+            },
+            "examples": {
+              "application/json": {
+                "status": "success",
+                "message": "Recipe deleted"
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/recipes/9",
+              "headers": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "47",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:19:12 GMT",
+                "etag": "W/\"2f-tvqUfAAZFUiOTMi1ToaVpgO4CME\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"status\":\"success\",\"message\":\"Recipe deleted\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Delete Recipes",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/user/allrecipes": {
+      "get": {
+        "description": "",
+        "summary": "Get all user recipes",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "RecipesUserAllrecipesGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetAllUserRecipes"
+            },
+            "examples": {
+              "application/json": {
+                "status": "success",
+                "recipes": [
+                  {
+                    "id": 10,
+                    "title": "New Recipe another",
+                    "userId": 4,
+                    "userName": "mikeumanah",
+                    "description": "lorem ispum",
+                    "imageUrl": "http://bit.ly/2tmU8cc",
+                    "ingredients": "meat, apple",
+                    "votes": 0,
+                    "views": 0,
+                    "createdAt": "2018-03-13T08:20:18.354Z",
+                    "updatedAt": "2018-03-13T08:20:18.354Z"
+                  }
+                ],
+                "limit": 6,
+                "numberOfItems": 1,
+                "pages": 1,
+                "currentPage": 1
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes/user/allrecipes",
+              "headers": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "349",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:20:41 GMT",
+                "etag": "W/\"15d-R58ecEm7IX6DQKCVhe3ZlaWv7K4\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"status\":\"success\",\"recipes\":[{\"id\":10,\"title\":\"New Recipe another\",\"userId\":4,\"userName\":\"mikeumanah\",\"description\":\"lorem ispum\",\"imageUrl\":\"http://bit.ly/2tmU8cc\",\"ingredients\":\"meat, apple\",\"votes\":0,\"views\":0,\"createdAt\":\"2018-03-13T08:20:18.354Z\",\"updatedAt\":\"2018-03-13T08:20:18.354Z\"}],\"limit\":6,\"numberOfItems\":1,\"pages\":1,\"currentPage\":1}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all user recipes",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/3/reviews": {
+      "post": {
+        "description": "",
+        "summary": "Add review",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Recipes3ReviewsPost",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "review",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddReview"
+            },
+            "examples": {
+              "application/json": {
+                "message": "review created",
+                "review": {
+                  "id": 2,
+                  "recipeId": 3,
+                  "userId": 4,
+                  "review": "nice recipe",
+                  "userName": "mikeumanah",
+                  "updatedAt": "2018-03-13T08:22:13.004Z",
+                  "createdAt": "2018-03-13T08:22:13.004Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes/3/reviews",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              },
+              "body": "review=nice recipe"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "195",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:22:13 GMT",
+                "etag": "W/\"c3-MJOdIWUWuMXPdFkHbUuK1Cb+iUE\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"message\":\"review created\",\"review\":{\"id\":2,\"recipeId\":3,\"userId\":4,\"review\":\"nice recipe\",\"userName\":\"mikeumanah\",\"updatedAt\":\"2018-03-13T08:22:13.004Z\",\"createdAt\":\"2018-03-13T08:22:13.004Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Add review",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/3/favorites": {
+      "post": {
+        "description": "",
+        "summary": "Add favourite recipe",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Users3FavoritesPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddFavouriteRecipe"
+            },
+            "examples": {
+              "application/json": {
+                "status": "success",
+                "message": "Recipe added to favorite",
+                "favorite": {
+                  "id": 2,
+                  "userId": 4,
+                  "recipeId": 3,
+                  "updatedAt": "2018-03-13T08:25:20.647Z",
+                  "createdAt": "2018-03-13T08:25:20.647Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/3/favorites",
+              "headers": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "179",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:25:20 GMT",
+                "etag": "W/\"b3-ERh1dxJhzBzlc9gVoAGvLpyxoGs\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"status\":\"success\",\"message\":\"Recipe added to favorite\",\"favorite\":{\"id\":2,\"userId\":4,\"recipeId\":3,\"updatedAt\":\"2018-03-13T08:25:20.647Z\",\"createdAt\":\"2018-03-13T08:25:20.647Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Add favourite recipe",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/favorites": {
+      "get": {
+        "description": "",
+        "summary": "Get all User favourite recipes",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "UsersFavoritesGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetAllUserFavouriteRecipes"
+            },
+            "examples": {
+              "application/json": {
+                "message": "favorites",
+                "data": [
+                  {
+                    "id": 2,
+                    "userId": 4,
+                    "recipeId": 3,
+                    "createdAt": "2018-03-13T08:25:20.647Z",
+                    "updatedAt": "2018-03-13T08:25:20.647Z",
+                    "Recipe": {
+                      "id": 3,
+                      "title": "Beans Poridge",
+                      "userId": 1,
+                      "userName": "mike",
+                      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+                      "imageUrl": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+                      "ingredients": "beans, fish, water, milk",
+                      "votes": 0,
+                      "views": 0,
+                      "createdAt": "2018-03-08T11:42:53.501Z",
+                      "updatedAt": "2018-03-08T11:42:53.501Z"
+                    }
+                  }
+                ],
+                "limit": 2,
+                "pages": 1,
+                "numberOfItems": 1,
+                "page": 1
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/users/favorites",
+              "headers": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "872",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:26:31 GMT",
+                "etag": "W/\"368-JelobqcfNiIhZxxbqPRW/mizHss\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"message\":\"favorites\",\"data\":[{\"id\":2,\"userId\":4,\"recipeId\":3,\"createdAt\":\"2018-03-13T08:25:20.647Z\",\"updatedAt\":\"2018-03-13T08:25:20.647Z\",\"Recipe\":{\"id\":3,\"title\":\"Beans Poridge\",\"userId\":1,\"userName\":\"mike\",\"description\":\"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially\",\"imageUrl\":\"https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg\",\"ingredients\":\"beans, fish, water, milk\",\"votes\":0,\"views\":0,\"createdAt\":\"2018-03-08T11:42:53.501Z\",\"updatedAt\":\"2018-03-08T11:42:53.501Z\"}}],\"limit\":2,\"pages\":1,\"numberOfItems\":1,\"page\":1}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all User favourite recipes",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/3/upvote": {
+      "post": {
+        "description": "",
+        "summary": "Add upvote",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Users3UpvotePost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddUpvote"
+            },
+            "examples": {
+              "application/json": {
+                "staus": "success",
+                "message": "Recipe upvoted",
+                "vote": {
+                  "id": 6,
+                  "userId": 4,
+                  "recipeId": 3,
+                  "vote": true,
+                  "updatedAt": "2018-03-13T08:27:41.117Z",
+                  "createdAt": "2018-03-13T08:27:41.117Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/3/upvote",
+              "headers": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "176",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:27:41 GMT",
+                "etag": "W/\"b0-+wwdpH4migNQ7oDxWm8nXccH2mc\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"staus\":\"success\",\"message\":\"Recipe upvoted\",\"vote\":{\"id\":6,\"userId\":4,\"recipeId\":3,\"vote\":true,\"updatedAt\":\"2018-03-13T08:27:41.117Z\",\"createdAt\":\"2018-03-13T08:27:41.117Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Add upvote",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/3/downvote": {
+      "post": {
+        "description": "",
+        "summary": "Add downvote",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Users3DownvotePost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AddDownvote"
+            },
+            "examples": {
+              "application/json": {
+                "staus": "success",
+                "message": "Recipe downvoted",
+                "vote": {
+                  "id": 3,
+                  "userId": 4,
+                  "recipeId": 3,
+                  "vote": true,
+                  "updatedAt": "2018-03-13T08:28:54.532Z",
+                  "createdAt": "2018-03-13T08:28:54.532Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/3/downvote",
+              "headers": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "connection": "keep-alive",
+                "content-length": "178",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Tue, 13 Mar 2018 08:28:54 GMT",
+                "etag": "W/\"b2-dW1Jp4ki+ZaKmnR9PHNnfG/TrnA\"",
+                "server": "Cowboy",
+                "via": "1.1 vegur",
+                "x-powered-by": "Express"
+              },
+              "body": "{\"staus\":\"success\",\"message\":\"Recipe downvoted\",\"vote\":{\"id\":3,\"userId\":4,\"recipeId\":3,\"vote\":true,\"updatedAt\":\"2018-03-13T08:28:54.532Z\",\"createdAt\":\"2018-03-13T08:28:54.532Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Add downvote",
+            "x-testDescription": ""
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserSignUp": {
+      "title": "User sign up",
+      "example": {
+        "status": "success",
+        "message": "user has been created",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4NTQ5fQ.8otAcXCjdU9lmNcJZwNutGNDoytKOdKzMgXeQ2qVsr0",
+        "user": {
+          "username": "mikeumanah",
+          "email": "mikeumanah@gmail.com",
+          "id": 4
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "message": {
+          "description": "",
+          "example": "user has been created",
+          "type": "string"
+        },
+        "token": {
+          "description": "",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4NTQ5fQ.8otAcXCjdU9lmNcJZwNutGNDoytKOdKzMgXeQ2qVsr0",
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "token",
+        "user"
+      ]
+    },
+    "User": {
+      "title": "User",
+      "example": {
+        "username": "mikeumanah",
+        "email": "mikeumanah@gmail.com",
+        "id": 4
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "description": "",
+          "example": "mikeumanah",
+          "type": "string"
+        },
+        "email": {
+          "description": "",
+          "example": "mikeumanah@gmail.com",
+          "type": "string"
+        },
+        "id": {
+          "description": "",
+          "example": 4,
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "id"
+      ]
+    },
+    "UserSignIn": {
+      "title": "User sign in",
+      "example": {
+        "status": "success",
+        "message": "Successfully signin",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw",
+        "user": {
+          "username": "mikeumanah",
+          "email": "mikeumanah@gmail.com",
+          "id": 4
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "message": {
+          "description": "",
+          "example": "Successfully signin",
+          "type": "string"
+        },
+        "token": {
+          "description": "",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlck5hbWUiOiJtaWtldW1hbmFoIiwiaWF0IjoxNTIwOTI4Njk2fQ.6gMFtneXn-S6MW97hXkGzdtBjcdpJCl00OTVpi9LXMw",
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "token",
+        "user"
+      ]
+    },
+    "GetAllRecipes": {
+      "title": "Get all recipes",
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "numberOfItems": {
+          "description": "",
+          "example": 8,
+          "type": "integer",
+          "format": "int32"
+        },
+        "limit": {
+          "description": "",
+          "example": 6,
+          "type": "integer",
+          "format": "int32"
+        },
+        "pages": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "recipes": {
+          "description": "",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Recipe"
+          }
+        },
+        "currentPage": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "status",
+        "numberOfItems",
+        "limit",
+        "pages",
+        "recipes",
+        "currentPage"
+      ]
+    },
+    "Recipe": {
+      "title": "Recipe",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "description": "",
+          "example": "Rice and Stew",
+          "type": "string"
+        },
+        "userId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "userName": {
+          "description": "",
+          "example": "mike",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "",
+          "example": "http://bit.ly/2tmU8cc",
+          "type": "string"
+        },
+        "ingredients": {
+          "description": "",
+          "example": "rice, apple, meat, ogi",
+          "type": "string"
+        },
+        "votes": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "views": {
+          "description": "",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/8/2018 11:38:24 AM",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/8/2018 12:01:48 PM",
+          "type": "string"
+        },
+        "Reviews": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Favorites": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Upvotes": {
+          "description": "",
+          "example": [
+            {
+              "userId": 1,
+              "recipeId": 2
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Upvote"
+          }
+        },
+        "Downvotes": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "userId",
+        "userName",
+        "description",
+        "imageUrl",
+        "ingredients",
+        "votes",
+        "views",
+        "createdAt",
+        "updatedAt",
+        "Reviews",
+        "Favorites",
+        "Upvotes",
+        "Downvotes"
+      ]
+    },
+    "Upvote": {
+      "title": "Upvote",
+      "example": {
+        "userId": 1,
+        "recipeId": 2
+      },
+      "type": "object",
+      "properties": {
+        "userId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "recipeId": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "userId",
+        "recipeId"
+      ]
+    },
+    "GetSingleRecipes": {
+      "title": "Get single recipes",
+      "example": {
+        "status": "success",
+        "recipe": {
+          "id": 3,
+          "title": "Beans Poridge",
+          "userId": 1,
+          "userName": "mike",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+          "imageUrl": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+          "ingredients": "beans, fish, water, milk",
+          "votes": 0,
+          "views": 0,
+          "createdAt": "2018-03-08T11:42:53.501Z",
+          "updatedAt": "2018-03-08T11:42:53.501Z",
+          "Reviews": [],
+          "Favorites": [],
+          "Upvotes": [],
+          "Downvotes": []
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "recipe": {
+          "$ref": "#/definitions/Recipe8"
+        }
+      },
+      "required": [
+        "status",
+        "recipe"
+      ]
+    },
+    "Recipe8": {
+      "title": "Recipe8",
+      "example": {
+        "id": 3,
+        "title": "Beans Poridge",
+        "userId": 1,
+        "userName": "mike",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+        "imageUrl": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+        "ingredients": "beans, fish, water, milk",
+        "votes": 0,
+        "views": 0,
+        "createdAt": "2018-03-08T11:42:53.501Z",
+        "updatedAt": "2018-03-08T11:42:53.501Z",
+        "Reviews": [],
+        "Favorites": [],
+        "Upvotes": [],
+        "Downvotes": []
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "description": "",
+          "example": "Beans Poridge",
+          "type": "string"
+        },
+        "userId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "userName": {
+          "description": "",
+          "example": "mike",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+          "type": "string"
+        },
+        "imageUrl": {
+          "description": "",
+          "example": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+          "type": "string"
+        },
+        "ingredients": {
+          "description": "",
+          "example": "beans, fish, water, milk",
+          "type": "string"
+        },
+        "votes": {
+          "description": "",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "views": {
+          "description": "",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/8/2018 11:42:53 AM",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/8/2018 11:42:53 AM",
+          "type": "string"
+        },
+        "Reviews": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Favorites": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Upvotes": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Downvotes": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "userId",
+        "userName",
+        "description",
+        "imageUrl",
+        "ingredients",
+        "votes",
+        "views",
+        "createdAt",
+        "updatedAt",
+        "Reviews",
+        "Favorites",
+        "Upvotes",
+        "Downvotes"
+      ]
+    },
+    "CreateRecipe": {
+      "title": "Create Recipe",
+      "example": {
+        "recipe": {
+          "votes": 0,
+          "views": 0,
+          "id": 10,
+          "title": "New Recipe another",
+          "description": "lorem ispum",
+          "ingredients": "meat, apple",
+          "userId": 4,
+          "imageUrl": "http://bit.ly/2tmU8cc",
+          "userName": "mikeumanah",
+          "updatedAt": "2018-03-13T08:20:18.354Z",
+          "createdAt": "2018-03-13T08:20:18.354Z"
+        },
+        "message": "recipe created"
+      },
+      "type": "object",
+      "properties": {
+        "recipe": {
+          "$ref": "#/definitions/Recipe10"
+        },
+        "message": {
+          "description": "",
+          "example": "recipe created",
+          "type": "string"
+        }
+      },
+      "required": [
+        "recipe",
+        "message"
+      ]
+    },
+    "Recipe10": {
+      "title": "Recipe10",
+      "example": {
+        "votes": 0,
+        "views": 0,
+        "id": 10,
+        "title": "New Recipe another",
+        "description": "lorem ispum",
+        "ingredients": "meat, apple",
+        "userId": 4,
+        "imageUrl": "http://bit.ly/2tmU8cc",
+        "userName": "mikeumanah",
+        "updatedAt": "2018-03-13T08:20:18.354Z",
+        "createdAt": "2018-03-13T08:20:18.354Z"
+      },
+      "type": "object",
+      "properties": {
+        "votes": {
+          "description": "",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "views": {
+          "description": "",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "description": "",
+          "example": 10,
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "description": "",
+          "example": "New Recipe another",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "lorem ispum",
+          "type": "string"
+        },
+        "ingredients": {
+          "description": "",
+          "example": "meat, apple",
+          "type": "string"
+        },
+        "userId": {
+          "description": "",
+          "example": 4,
+          "type": "integer",
+          "format": "int32"
+        },
+        "imageUrl": {
+          "description": "",
+          "example": "http://bit.ly/2tmU8cc",
+          "type": "string"
+        },
+        "userName": {
+          "description": "",
+          "example": "mikeumanah",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/13/2018 8:20:18 AM",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/13/2018 8:20:18 AM",
+          "type": "string"
+        }
+      },
+      "required": [
+        "votes",
+        "views",
+        "id",
+        "title",
+        "description",
+        "ingredients",
+        "userId",
+        "imageUrl",
+        "userName",
+        "updatedAt",
+        "createdAt"
+      ]
+    },
+    "UpdateRecipe": {
+      "title": "Update Recipe",
+      "example": {
+        "status": "success",
+        "recipe": {
+          "id": 9,
+          "title": "new recipe title",
+          "userId": 4,
+          "userName": "mikeumanah",
+          "description": "lorem ispum",
+          "imageUrl": "http://bit.ly/2tmU8cc",
+          "ingredients": "meat, apple",
+          "votes": 0,
+          "views": 0,
+          "createdAt": "2018-03-13T08:14:25.494Z",
+          "updatedAt": "2018-03-13T08:16:55.96Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "recipe": {
+          "$ref": "#/definitions/Recipe10"
+        }
+      },
+      "required": [
+        "status",
+        "recipe"
+      ]
+    },
+    "DeleteRecipes": {
+      "title": "Delete Recipes",
+      "example": {
+        "status": "success",
+        "message": "Recipe deleted"
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "message": {
+          "description": "",
+          "example": "Recipe deleted",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "message"
+      ]
+    },
+    "GetAllUserRecipes": {
+      "title": "Get all user recipes",
+      "example": {
+        "status": "success",
+        "recipes": [
+          {
+            "id": 10,
+            "title": "New Recipe another",
+            "userId": 4,
+            "userName": "mikeumanah",
+            "description": "lorem ispum",
+            "imageUrl": "http://bit.ly/2tmU8cc",
+            "ingredients": "meat, apple",
+            "votes": 0,
+            "views": 0,
+            "createdAt": "2018-03-13T08:20:18.354Z",
+            "updatedAt": "2018-03-13T08:20:18.354Z"
+          }
+        ],
+        "limit": 6,
+        "numberOfItems": 1,
+        "pages": 1,
+        "currentPage": 1
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "recipes": {
+          "description": "",
+          "example": [
+            {
+              "id": 10,
+              "title": "New Recipe another",
+              "userId": 4,
+              "userName": "mikeumanah",
+              "description": "lorem ispum",
+              "imageUrl": "http://bit.ly/2tmU8cc",
+              "ingredients": "meat, apple",
+              "votes": 0,
+              "views": 0,
+              "createdAt": "2018-03-13T08:20:18.354Z",
+              "updatedAt": "2018-03-13T08:20:18.354Z"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Recipe10"
+          }
+        },
+        "limit": {
+          "description": "",
+          "example": 6,
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberOfItems": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "pages": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "currentPage": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "status",
+        "recipes",
+        "limit",
+        "numberOfItems",
+        "pages",
+        "currentPage"
+      ]
+    },
+    "AddReview": {
+      "title": "Add review",
+      "example": {
+        "message": "review created",
+        "review": {
+          "id": 2,
+          "recipeId": 3,
+          "userId": 4,
+          "review": "nice recipe",
+          "userName": "mikeumanah",
+          "updatedAt": "2018-03-13T08:22:13.004Z",
+          "createdAt": "2018-03-13T08:22:13.004Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "review created",
+          "type": "string"
+        },
+        "review": {
+          "$ref": "#/definitions/Review"
+        }
+      },
+      "required": [
+        "message",
+        "review"
+      ]
+    },
+    "Review": {
+      "title": "Review",
+      "example": {
+        "id": 2,
+        "recipeId": 3,
+        "userId": 4,
+        "review": "nice recipe",
+        "userName": "mikeumanah",
+        "updatedAt": "2018-03-13T08:22:13.004Z",
+        "createdAt": "2018-03-13T08:22:13.004Z"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "recipeId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "description": "",
+          "example": 4,
+          "type": "integer",
+          "format": "int32"
+        },
+        "review": {
+          "description": "",
+          "example": "nice recipe",
+          "type": "string"
+        },
+        "userName": {
+          "description": "",
+          "example": "mikeumanah",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/13/2018 8:22:13 AM",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/13/2018 8:22:13 AM",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "recipeId",
+        "userId",
+        "review",
+        "userName",
+        "updatedAt",
+        "createdAt"
+      ]
+    },
+    "AddFavouriteRecipe": {
+      "title": "Add favourite recipe",
+      "example": {
+        "status": "success",
+        "message": "Recipe added to favorite",
+        "favorite": {
+          "id": 2,
+          "userId": 4,
+          "recipeId": 3,
+          "updatedAt": "2018-03-13T08:25:20.647Z",
+          "createdAt": "2018-03-13T08:25:20.647Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "message": {
+          "description": "",
+          "example": "Recipe added to favorite",
+          "type": "string"
+        },
+        "favorite": {
+          "$ref": "#/definitions/Favorite"
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "favorite"
+      ]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "example": {
+        "id": 2,
+        "userId": 4,
+        "recipeId": 3,
+        "updatedAt": "2018-03-13T08:25:20.647Z",
+        "createdAt": "2018-03-13T08:25:20.647Z"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "description": "",
+          "example": 4,
+          "type": "integer",
+          "format": "int32"
+        },
+        "recipeId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/13/2018 8:25:20 AM",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/13/2018 8:25:20 AM",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "recipeId",
+        "updatedAt",
+        "createdAt"
+      ]
+    },
+    "GetAllUserFavouriteRecipes": {
+      "title": "Get all User favourite recipes",
+      "example": {
+        "message": "favorites",
+        "data": [
+          {
+            "id": 2,
+            "userId": 4,
+            "recipeId": 3,
+            "createdAt": "2018-03-13T08:25:20.647Z",
+            "updatedAt": "2018-03-13T08:25:20.647Z",
+            "Recipe": {
+              "id": 3,
+              "title": "Beans Poridge",
+              "userId": 1,
+              "userName": "mike",
+              "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+              "imageUrl": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+              "ingredients": "beans, fish, water, milk",
+              "votes": 0,
+              "views": 0,
+              "createdAt": "2018-03-08T11:42:53.501Z",
+              "updatedAt": "2018-03-08T11:42:53.501Z"
+            }
+          }
+        ],
+        "limit": 2,
+        "pages": 1,
+        "numberOfItems": 1,
+        "page": 1
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "favorites",
+          "type": "string"
+        },
+        "data": {
+          "description": "",
+          "example": [
+            {
+              "id": 2,
+              "userId": 4,
+              "recipeId": 3,
+              "createdAt": "2018-03-13T08:25:20.647Z",
+              "updatedAt": "2018-03-13T08:25:20.647Z",
+              "Recipe": {
+                "id": 3,
+                "title": "Beans Poridge",
+                "userId": 1,
+                "userName": "mike",
+                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+                "imageUrl": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+                "ingredients": "beans, fish, water, milk",
+                "votes": 0,
+                "views": 0,
+                "createdAt": "2018-03-08T11:42:53.501Z",
+                "updatedAt": "2018-03-08T11:42:53.501Z"
+              }
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Datum"
+          }
+        },
+        "limit": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "pages": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberOfItems": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "message",
+        "data",
+        "limit",
+        "pages",
+        "numberOfItems",
+        "page"
+      ]
+    },
+    "Datum": {
+      "title": "Datum",
+      "example": {
+        "id": 2,
+        "userId": 4,
+        "recipeId": 3,
+        "createdAt": "2018-03-13T08:25:20.647Z",
+        "updatedAt": "2018-03-13T08:25:20.647Z",
+        "Recipe": {
+          "id": 3,
+          "title": "Beans Poridge",
+          "userId": 1,
+          "userName": "mike",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially",
+          "imageUrl": "https://res.cloudinary.com/sccofield/image/upload/v1520509370/ig7nrj8qs3qxwmopwf45.jpg",
+          "ingredients": "beans, fish, water, milk",
+          "votes": 0,
+          "views": 0,
+          "createdAt": "2018-03-08T11:42:53.501Z",
+          "updatedAt": "2018-03-08T11:42:53.501Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "description": "",
+          "example": 4,
+          "type": "integer",
+          "format": "int32"
+        },
+        "recipeId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/13/2018 8:25:20 AM",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/13/2018 8:25:20 AM",
+          "type": "string"
+        },
+        "Recipe": {
+          "$ref": "#/definitions/Recipe10"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "recipeId",
+        "createdAt",
+        "updatedAt",
+        "Recipe"
+      ]
+    },
+    "AddUpvote": {
+      "title": "Add upvote",
+      "example": {
+        "staus": "success",
+        "message": "Recipe upvoted",
+        "vote": {
+          "id": 6,
+          "userId": 4,
+          "recipeId": 3,
+          "vote": true,
+          "updatedAt": "2018-03-13T08:27:41.117Z",
+          "createdAt": "2018-03-13T08:27:41.117Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "staus": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "message": {
+          "description": "",
+          "example": "Recipe upvoted",
+          "type": "string"
+        },
+        "vote": {
+          "$ref": "#/definitions/Vote"
+        }
+      },
+      "required": [
+        "staus",
+        "message",
+        "vote"
+      ]
+    },
+    "Vote": {
+      "title": "Vote",
+      "example": {
+        "id": 6,
+        "userId": 4,
+        "recipeId": 3,
+        "vote": true,
+        "updatedAt": "2018-03-13T08:27:41.117Z",
+        "createdAt": "2018-03-13T08:27:41.117Z"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 6,
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "description": "",
+          "example": 4,
+          "type": "integer",
+          "format": "int32"
+        },
+        "recipeId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "vote": {
+          "description": "",
+          "example": true,
+          "type": "boolean"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "3/13/2018 8:27:41 AM",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "3/13/2018 8:27:41 AM",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "recipeId",
+        "vote",
+        "updatedAt",
+        "createdAt"
+      ]
+    },
+    "AddDownvote": {
+      "title": "Add downvote",
+      "example": {
+        "staus": "success",
+        "message": "Recipe downvoted",
+        "vote": {
+          "id": 3,
+          "userId": 4,
+          "recipeId": 3,
+          "vote": true,
+          "updatedAt": "2018-03-13T08:28:54.532Z",
+          "createdAt": "2018-03-13T08:28:54.532Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "staus": {
+          "description": "",
+          "example": "success",
+          "type": "string"
+        },
+        "message": {
+          "description": "",
+          "example": "Recipe downvoted",
+          "type": "string"
+        },
+        "vote": {
+          "$ref": "#/definitions/Vote"
+        }
+      },
+      "required": [
+        "staus",
+        "message",
+        "vote"
+      ]
+    }
+  }
+}
